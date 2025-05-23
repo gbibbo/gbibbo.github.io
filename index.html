@@ -55,16 +55,14 @@
             font-size: 22px;
             font-weight: 600
         }
-         .publication-image-container {
+         .publication-image-container { /* Usado para imágenes de publicaciones y proyectos */
             width: 100%;
-            /* max-width: 300px; /* Ajusta según el tamaño deseado para las imágenes de publicación */
-            /* height: 180px; /* Altura fija para mantener consistencia, o usa padding-bottom para aspect ratio */
-            /* overflow: hidden; /* Para recortar imágenes que no encajen perfectamente */
+            /* height: 180px; /* Opcional: altura fija para consistencia, puede requerir object-fit */
+            /* overflow: hidden; */
         }
         .publication-image-container img {
             width: 100%;
-            height: auto; /* Mantiene la proporción de la imagen */
-            /* object-fit: cover; /* Cubre el contenedor, puede recortar */
+            height: auto; 
             border-style: none;
         }
     </style>
@@ -257,9 +255,10 @@
                         </div>
                     </td>
                     <td valign="top" width="65%">
-                        <heading>Third Hand - Avoid Touching Objects (3HATO)</heading>
-                        <br>Self-made enterprise, Creator (2020)<br>
-                        <em>Invention, development and commercialisation of innovative physical device with mechanical activation that avoids contact with contaminated surfaces.</em><br>
+                        <heading>3H - ATO (Third Hand - Avoid Touching Objects)</heading>
+                        <br>Creator (Feb 2020 - Aug 2022), Associated with Universidad de la República.<br>
+                        <em>Mechanical device to avoid contact with contaminated surfaces (bus handrails, doors, buttons). Features an optimized shape, lightweight, and sanitizable.</em><br>
+                        <a href="https://www.youtube.com/watch?v=VIDEO_ID_AQUI">Promotional Video</a> <!-- Reemplaza VIDEO_ID_AQUI con el ID del video de YouTube -->
                     </td>
                 </tr>
                 <tr onmouseout="document.getElementById('proj2_img').style.opacity='1';" onmouseover="document.getElementById('proj2_img').style.opacity='0.9';">
@@ -269,9 +268,23 @@
                         </div>
                     </td>
                     <td valign="top" width="65%">
-                        <heading>IoT automatic soap dispenser</heading>
-                        <br>Team-made enterprise, Designer and Developer (2020)<br>
-                        <em>Design of structure, electronics and programming of an embedded system based automatic soap dispenser for the industry, with IR and RFID activation, Wi-Fi and storage in the cloud.</em><br>
+                        <heading>Automatic IoT soap dispenser</heading>
+                        <br>Designer and Developer (Apr 2020 - Feb 2021)<br>
+                        <em>IoT device for hand washing in the meat industry. Stainless steel, WiFi, cloud platform, IR/RFID sensors, and 3-litre capacity.</em><br>
+                    </td>
+                </tr>
+                <tr onmouseout="document.getElementById('proj3_img').style.opacity='1';" onmouseover="document.getElementById('proj3_img').style.opacity='0.9';">
+                    <td width="35%">
+                        <div class="publication-image-container">
+                            <img src='homepage_files/uyvoy.png' id="proj3_img" alt="UyVoy App Project">
+                        </div>
+                    </td>
+                    <td valign="top" width="65%">
+                        <heading>UyVoy Mobile App</heading>
+                        <br>Project Manager (Mar 2020 - Aug 2020)<br>
+                        <em>Blockchain-based mobile app for booking appointments to avoid crowds during the pandemic. Supported by Aeternity, emerged from HackCovid19 (ORT Uruguay).</em><br>
+                        <!-- Si tienes un enlace al proyecto UyVoy, puedes añadirlo aquí -->
+                        <!-- <a href="URL_PROYECTO_UYVOY">Project Page</a> -->
                     </td>
                 </tr>
             </table>
@@ -341,5 +354,3 @@
 </table>
 </body>
 </html>
-</html>
-
