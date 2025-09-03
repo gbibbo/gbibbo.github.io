@@ -55,14 +55,12 @@
             font-size: 22px;
             font-weight: 600
         }
-         .publication-image-container { /* Usado para imágenes de publicaciones y proyectos */
+        .publication-image-container { /* Usado para imágenes de publicaciones y proyectos */
             width: 100%;
-            /* height: 180px; /* Opcional: altura fija para consistencia, puede requerir object-fit */
-            /* overflow: hidden; */
         }
         .publication-image-container img {
             width: 100%;
-            height: auto; 
+            height: auto;
             border-style: none;
         }
     </style>
@@ -107,10 +105,8 @@
                             <b>Links:</b>
                             <a href="https://orcid.org/0009-0003-2493-7412">[ORCID]</a> |
                             <a href="https://scholar.google.com/citations?user=KEwHUaMAAAAJ&hl=es&oi=ao">[Scholar]</a> |
-                            <a href="https://github.com/gbibbo">[Github]</a> | 
+                            <a href="https://github.com/gbibbo">[Github]</a> |
                             <a href="https://www.linkedin.com/in/gabriel-bibbo/">[LinkedIn]</a>
-                            <!-- Si tienes Google Scholar o Twitter, añádelos aquí -->
-                            <!-- | <a href="TU_LINK_GOOGLE_SCHOLAR">[Google Scholar]</a> | <a href="TU_LINK_TWITTER">[Twitter]</a> -->
                         </p>
                     </td>
                     <td width="33%" valign="top" align="center">
@@ -126,43 +122,44 @@
                     </td>
                 </tr>
             </table>
-            
+
             <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
 
-                <tr onmouseout="document.getElementById('pubA_img').style.opacity='1';" onmouseover="document.getElementById('pubA_img').style.opacity='0.9';">
+                <!-- NEW: Zenodo entry with DOI text + link to Zenodo record -->
+                <tr onmouseout="document.getElementById('pub0_img').style.opacity='1';" onmouseover="document.getElementById('pub0_img').style.opacity='0.9';">
                     <td width="35%">
                         <div class="publication-image-container">
-                            <img src='homepage_files/waspaa_2025_vad_demo.png' id="pubA_img" alt="Speech Removal Framework">
+                            <img src="media/waspaa_2025_vad_demo.png" id="pub0_img" alt="Speech Removal Framework">
                         </div>
                     </td>
                     <td valign="top" width="65%">
                         <heading>Speech Removal Framework for Privacy-preserving Audio Recordings</heading>
                         <br>Gabriel Bibbó; Arshdeep Singh; Mark D. Plumbley<br>
-                        <em>2025 IEEE Workshop on Applications of Signal Processing to Audio and Acoustics, Tahoe City, CA, October 2025.</em><br>
-                        <a href="https://zenodo.org/records/17050321">link</a>
+                        <em>2025 IEEE Workshop on Applications of Signal Processing to Audio and Acoustics (WASPAA), Tahoe City, CA, October 2025.</em><br>
+                        DOI: <a href="http://dx.doi.org/10.5281/zenodo.17050321">10.5281/zenodo.17050321</a> | <a href="https://zenodo.org/records/17050321">zenodo</a>
                     </td>
                 </tr>
-                
-                <!-- NEW PUB #1 (most recent) -->
+
+                <!-- Inter-Noise 2025 -->
                 <tr onmouseout="document.getElementById('pubA_img').style.opacity='1';" onmouseover="document.getElementById('pubA_img').style.opacity='0.9';">
                     <td width="35%">
                         <div class="publication-image-container">
-                            <img src='homepage_files/internoise_2025_room_acoustics_mics.png' id="pubA_img" alt="Room Acoustics and Microphones">
+                            <img src="media/internoise_2025_room_acoustics_mics.png" id="pubA_img" alt="Room Acoustics and Microphones">
                         </div>
                     </td>
                     <td valign="top" width="65%">
                         <heading>Room Acoustics and Microphone Characteristics Show Systematic Impact on Sound Event Recognition</heading>
                         <br>Gabriel Bibbó; Craig Cieciura; Mark D. Plumbley<br>
                         <em>Proceedings of the 54th International Congress and Exposition on Noise Control Engineering (Inter-Noise 2025), São Paulo, Brazil, August 2025.</em><br>
-                        <a href="https://www.even3.com.br/anais/international-congress-exposition-noise-control-engineering/1070751-room-acoustics-and-microphone-characteristics-show-systematic-impact-on-sound-event-recognition/">link</a>
+                        <a href="https://www.even3.com.br/anais/international-congress-exposition-on-noise-control-engineering/1070751-room-acoustics-and-microphone-characteristics-show-systematic-impact-on-sound-event-recognition/">link</a>
                     </td>
                 </tr>
 
-                <!-- NEW PUB #2 -->
+                <!-- IP broadcasting with audio tags -->
                 <tr onmouseout="document.getElementById('pubB_img').style.opacity='1';" onmouseover="document.getElementById('pubB_img').style.opacity='0.9';">
                     <td width="35%">
                         <div class="publication-image-container">
-                            <img src='homepage_files/ip_broadcasting_audio_tags_workflow.png' id="pubB_img" alt="Integrating IP Broadcasting with Audio Tags">
+                            <img src="media/ip_broadcasting_audio_tags_workflow.png" id="pubB_img" alt="Integrating IP Broadcasting with Audio Tags">
                         </div>
                     </td>
                     <td valign="top" width="65%">
@@ -173,11 +170,11 @@
                     </td>
                 </tr>
 
-                <!-- NEW PUB #3 -->
+                <!-- Soundscape Experience Mapping -->
                 <tr onmouseout="document.getElementById('pubC_img').style.opacity='1';" onmouseover="document.getElementById('pubC_img').style.opacity='0.9';">
                     <td width="35%">
                         <div class="publication-image-container">
-                            <img src='homepage_files/euronoise_2025_soundscape_experience_mapping.png' id="pubC_img" alt="Soundscape Experience Mapping">
+                            <img src="media/euronoise_2025_soundscape_experience_mapping.png" id="pubC_img" alt="Soundscape Experience Mapping">
                         </div>
                     </td>
                     <td valign="top" width="65%">
@@ -188,7 +185,7 @@
                     </td>
                 </tr>
 
-                <!-- EXISTING PUBS (unchanged) -->
+                <!-- EXISTING PUBS -->
                 <tr onmouseout="document.getElementById('pub1_img').style.opacity='1';" onmouseover="document.getElementById('pub1_img').style.opacity='0.9';">
                     <td width="35%">
                         <div class="publication-image-container">
@@ -202,7 +199,7 @@
                         <a href="https://2025.ieeeicassp.org/show-tell-sessions-schedule/#1740032529376-8a1b5645-ce3c">link</a>
                     </td>
                 </tr>
-                
+
                 <tr onmouseout="document.getElementById('pub2_img').style.opacity='1';" onmouseover="document.getElementById('pub2_img').style.opacity='0.9';">
                     <td width="35%">
                         <div class="publication-image-container">
@@ -244,7 +241,7 @@
                         <a href="https://smcnetwork.org/smc2024/papers/SMC2024_paper_id117.pdf">paper</a>
                     </td>
                 </tr>
-                
+
                 <tr onmouseout="document.getElementById('pub5_img').style.opacity='1';" onmouseover="document.getElementById('pub5_img').style.opacity='0.9';">
                     <td width="35%">
                         <div class="publication-image-container">
@@ -350,55 +347,6 @@
             </table>
 
             <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-                <tr>
-                    <td>
-                        <sectionheading>Experience & Activities</sectionheading><br><br>
-                        <strong>Research Engineer in Sound Sensing</strong>, University of Surrey, Guildford, UK (Nov 2022 - Present)<br>
-                        Developing AI-driven sound sensing systems (incl. software, libraries, datasets) for the 'AI for Sound' project. Applying advanced deep learning and audio signal processing. Designing, deploying, and evaluating pilot systems/POCs. Publishing research and supervising student projects.<br><br>
-
-                        <strong>Technical Support Engineer - Google Workspace</strong>, Webhelp, Barcelona, Spain (Mar 2022 - Nov 2022)<br>
-                        Tier 3 technical support in cloud services for Google Workspace enterprise customers.<br><br>
-
-                        <strong>IT Auditor</strong>, KPMG, Barcelona, Spain (Nov 2021 - Mar 2022)<br>
-                        Support to telecommunications companies or IT departments in audit services.<br><br>
-
-                        <strong>R&D Engineer</strong>, Ikatu, Montevideo, Uruguay (Aug 2016 - Dic 2019)<br>
-                        Developed new technologies for customised integrated home automation (Bang & Olufsen). SW/HW design, low-level drivers, project management, testing, and validation. Trained new programmers.<br><br>
-
-                        <strong>Intern</strong>, Ikatu, Montevideo, Uruguay (Apr 2016 - Jul 2016)<br>
-                        Developed and coordinated a complete home automation system project.<br><br>
-
-                        <strong>Affiliate Member</strong>, IEEE Signal Processing Society (Member #101096528) (Jan 2025 - Dec 2025)<br><br>
-                        
-                        <strong>Grant: AI for Sound</strong>, Engineering and Physical Sciences Research Council (EPSRC) (Apr 2020 - Dec 2025)<br>
-                        Part of the team working on the EP/T019751/1 grant to bring "AI for Sound" technology out of the lab.
-                    </td>
-                </tr>
-            </table>
-            
-            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-                <tr>
-                    <td>
-                        <sectionheading>Education & Key Skills</sectionheading><br><br>
-                        <strong>Master’s Degree in Sound and Music Computing</strong>, Universitat Pompeu Fabra, Barcelona (2021).<br>
-                        <strong>Bachelor’s Degree in Electrical Engineering</strong> (spec. Signal Processing), Universidad de la República, Uruguay (2017).<br>
-                        <strong>Music school</strong> “Virgilio Scarabelli Alberti”, Montevideo (Musical language, guitar, ensembles) (2005).<br><br>
-                        
-                        <strong>Certifications:</strong> PRINCE2® Foundation in Project Management, Deep Learning Specialization (Coursera), Machine Learning (Stanford/Coursera), Audio Signal Processing for Music Applications (Coursera), Electronic Music Production (AURA).<br><br>
-
-                        <strong>Technical Skills:</strong><br>
-                        <em>AI/ML:</em> Deep Learning (PyTorch), Supervised & Unsupervised Learning, Representation Learning, Explainable AI, Edge AI/TinyML.<br>
-                        <em>Audio:</em> Digital Signal Processing, Synthesis, Time-frequency processing, Acoustic Scene Understanding, MIR.<br>
-                        <em>Programming:</em> Python, C++, MATLAB, Arduino, HTML, UX Design.<br>
-                        <em>Hardware:</em> Embedded Systems, RTOS, Analog & Digital Electronics.<br>
-                        <em>Research:</em> User-Centred Design, Experiment Design, Proposal Writing, Technical Communication, Git.<br><br>
-
-                        <strong>Languages:</strong> Spanish (Native), English (C1), Portuguese (A2).
-                    </td>
-                </tr>
-            </table>
-
-            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
                 <tbody>
                 <tr>
                     <td><br>
@@ -414,4 +362,3 @@
 </table>
 </body>
 </html>
-
