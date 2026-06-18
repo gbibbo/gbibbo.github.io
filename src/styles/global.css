@@ -42,3 +42,53 @@ body {
 .text-balance {
   text-wrap: balance;
 }
+
+.project-media {
+  @apply overflow-hidden rounded-[1.5rem] bg-graphite;
+}
+
+.project-media img {
+  @apply h-full min-h-64 w-full transition duration-500 hover:scale-105;
+}
+
+.project-media-cover img {
+  object-fit: cover;
+}
+
+.project-media-contain {
+  @apply bg-white;
+}
+
+.project-media-contain img {
+  object-fit: contain;
+  padding: 1rem;
+}
+
+.secondary-media img {
+  @apply mb-5 h-40 w-full rounded-[1.25rem] bg-white;
+}
+
+.secondary-media-cover img {
+  object-fit: cover;
+}
+
+.secondary-media-contain img {
+  object-fit: contain;
+  padding: 0.75rem;
+}
+
+.org-logo {
+  @apply flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm;
+}
+
+.org-logo img {
+  @apply h-10 w-10 object-contain;
+}
+
+.org-logo-fallback {
+  @apply font-display text-lg font-semibold text-ink/70;
+}
+
+.profile-link {
+  @apply inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-bold text-white transition hover:border-signal hover:bg-signal hover:text-graphite;
+}
