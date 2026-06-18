@@ -44,6 +44,40 @@ body {
   text-wrap: balance;
 }
 
+.language-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.2rem;
+  border-radius: 9999px;
+}
+
+.language-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 9999px;
+  padding: 0.45rem 0.65rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  transition: background 160ms ease, color 160ms ease, opacity 160ms ease;
+}
+
+.language-pill:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.language-pill-active {
+  background: white;
+  color: #101820;
+}
+
 .project-year-badge {
   @apply rounded-full border border-clay/25 bg-clay/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-clay;
 }
@@ -256,6 +290,15 @@ body {
   .experience-logo-ikatu {
     width: 12rem !important;
     max-width: 12rem !important;
+  }
+
+  .language-switcher {
+    gap: 0.1rem;
+  }
+
+  .language-pill {
+    padding: 0.38rem 0.5rem;
+    font-size: 0.68rem;
   }
 
   .stack-chip-grid {
