@@ -46,10 +46,14 @@ body {
 
 .project-media {
   @apply overflow-hidden rounded-[1.5rem] bg-graphite;
+  border: 0;
+  padding: 0;
+  text-align: left;
+  cursor: zoom-in;
 }
 
 .project-media img {
-  @apply h-full min-h-64 w-full transition duration-500 hover:scale-105;
+  @apply h-full min-h-64 w-full transition duration-500;
 }
 
 .project-media-cover img {
@@ -65,8 +69,17 @@ body {
   padding: 1rem;
 }
 
+.secondary-media {
+  border: 0;
+  padding: 0;
+  display: block;
+  width: 100%;
+  cursor: zoom-in;
+}
+
 .secondary-media img {
-  @apply mb-5 h-40 w-full rounded-[1.25rem] bg-white;
+  @apply h-40 w-full rounded-[1.25rem] bg-white;
+  margin-bottom: 1.25rem;
 }
 
 .secondary-media-cover img {
@@ -78,25 +91,90 @@ body {
   padding: 0.75rem;
 }
 
-.org-logo {
-  @apply flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm;
+.experience-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.35rem;
 }
 
-.org-logo img {
-  @apply h-10 w-10 object-contain;
+.experience-logo-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-decoration: none;
 }
 
-.org-logo-fallback {
-  @apply font-display text-lg font-semibold text-ink/70;
+.experience-logo-contain,
+.experience-logo-cover {
+  width: 5rem;
+  height: 5rem;
+  object-fit: contain;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.experience-logo-link:hover .experience-logo-contain,
+.experience-logo-link:hover .experience-logo-cover {
+  transform: scale(1.08);
+  opacity: 0.86;
 }
 
 .profile-link {
   @apply inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-bold text-white transition hover:border-signal hover:bg-signal hover:text-graphite;
 }
 
+.image-lightbox {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  max-width: min(96vw, 1400px);
+  width: min(96vw, 1400px);
+}
+
+.image-lightbox::backdrop {
+  background: rgba(10, 15, 22, 0.86);
+  backdrop-filter: blur(4px);
+}
+
+.image-lightbox-shell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1rem 1rem;
+}
+
+.image-lightbox-img {
+  max-width: 100%;
+  max-height: 86vh;
+  border-radius: 1.5rem;
+  background: white;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+}
+
+.image-lightbox-close {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(18,26,37,0.88);
+  color: white;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
 
 @media (max-width: 768px) {
   .project-media img {
     min-height: 14rem;
+  }
+
+  .experience-logo-contain,
+  .experience-logo-cover {
+    width: 4.25rem;
+    height: 4.25rem;
   }
 }
