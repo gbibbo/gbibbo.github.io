@@ -6,6 +6,49 @@ type ChatMessage = {
 };
 
 const STORAGE_KEY = 'gabriel-profile-assistant-v1';
+const HERO_BIO = 'I build audio machine learning systems that run outside the notebook, across sound event detection, voice activity detection, privacy-preserving audio, and music information retrieval. Four years writing embedded C/C++ for Bang & Olufsen taught me the distance between a prototype and a device that ships. I am also a DJ and producer, and most of my interest in how machines listen started from how I listen myself.';
+const META_DESCRIPTION = 'Audio AI research engineer working on machine listening, privacy-preserving audio, and embedded ML.';
+
+const PUBLICATION_FIXES: Record<string, { authors?: string; venue?: string }> = {
+  'A New Compatibility Measure for Harmonic EDM Mixing': {
+    authors: 'Gabriel Bibbó; Ángel Faraldo',
+  },
+  'Towards a New Compatibility Measure for Harmonic EDM Mixing': {
+    authors: 'Gabriel Bibbó',
+    venue: 'Master thesis, Universitat Pompeu Fabra, Barcelona, Spain, 2021. Supervised by Ángel Faraldo.',
+  },
+  'Autonomous Mobile Robots Comunicated by Software Defined Radio': {
+    authors: 'Gabriel Bibbó; Gelós; Randall; Belzarena; Larroca',
+  },
+};
+
+function patchStaticPortfolioContent() {
+  document.querySelectorAll('p').forEach((paragraph) => {
+    if (paragraph.textContent?.includes('HERO BIO PLACEHOLDER')) {
+      paragraph.textContent = HERO_BIO;
+    }
+  });
+
+  document.querySelector('meta[name="description"]')?.setAttribute('content', META_DESCRIPTION);
+  document.querySelector('meta[property="og:description"]')?.setAttribute('content', META_DESCRIPTION);
+  document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', META_DESCRIPTION);
+
+  document.querySelectorAll('h4').forEach((heading) => {
+    const title = heading.textContent?.trim() ?? '';
+    const fix = PUBLICATION_FIXES[title];
+    if (!fix) return;
+
+    const authors = heading.nextElementSibling;
+    if (fix.authors && authors instanceof HTMLElement) {
+      authors.textContent = fix.authors;
+    }
+
+    const venue = authors?.nextElementSibling;
+    if (fix.venue && venue instanceof HTMLElement) {
+      venue.innerHTML = `<em>${fix.venue}</em>`;
+    }
+  });
+}
 
 export default function ProfileAssistant() {
   const [open, setOpen] = useState(false);
@@ -17,6 +60,10 @@ export default function ProfileAssistant() {
       content: "Hi. I can answer questions about Gabriel's projects, publications, experience, education, technical stack, and contact details.",
     },
   ]);
+
+  useEffect(() => {
+    patchStaticPortfolioContent();
+  }, []);
 
   useEffect(() => {
     try {
