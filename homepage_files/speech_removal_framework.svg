@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-label="Speech removal framework diagram">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#f8fafc"/><stop offset="100%" stop-color="#e8eef5"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#0f172a" flood-opacity="0.14"/></filter>
+  </defs>
+  <rect width="1200" height="720" rx="32" fill="url(#bg)"/>
+  <text x="70" y="92" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="800" fill="#101828">Speech Removal Framework</text>
+  <text x="70" y="132" font-family="Inter, Arial, sans-serif" font-size="20" fill="#64748b">Privacy-preserving audio preparation for speech-removed recordings</text>
+  <g filter="url(#shadow)">
+    <rect x="78" y="210" width="245" height="130" rx="24" fill="#ffffff" stroke="#cbd5e1"/>
+    <rect x="478" y="210" width="245" height="130" rx="24" fill="#ffffff" stroke="#cbd5e1"/>
+    <rect x="878" y="210" width="245" height="130" rx="24" fill="#ffffff" stroke="#cbd5e1"/>
+    <rect x="278" y="455" width="245" height="130" rx="24" fill="#ffffff" stroke="#cbd5e1"/>
+    <rect x="678" y="455" width="245" height="130" rx="24" fill="#ffffff" stroke="#cbd5e1"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+    <text x="200" y="262" font-size="24" font-weight="800" fill="#0f172a">Raw audio</text>
+    <text x="200" y="298" font-size="16" fill="#64748b">in-home recordings</text>
+    <text x="600" y="262" font-size="24" font-weight="800" fill="#0f172a">VAD / speech mask</text>
+    <text x="600" y="298" font-size="16" fill="#64748b">detect speech regions</text>
+    <text x="1000" y="262" font-size="24" font-weight="800" fill="#0f172a">Removal pass</text>
+    <text x="1000" y="298" font-size="16" fill="#64748b">suppress speech content</text>
+    <text x="400" y="507" font-size="24" font-weight="800" fill="#0f172a">Quality control</text>
+    <text x="400" y="543" font-size="16" fill="#64748b">review and validate</text>
+    <text x="800" y="507" font-size="24" font-weight="800" fill="#0f172a">Released audio</text>
+    <text x="800" y="543" font-size="16" fill="#64748b">privacy-preserving dataset</text>
+  </g>
+  <g fill="none" stroke="#d07a4c" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M330 275 H465"/><path d="M725 275 H865"/><path d="M1000 348 C1000 420 900 420 900 455"/><path d="M678 520 H540"/>
+  </g>
+  <g fill="#d07a4c">
+    <path d="M465 275 l-18 -12 v24z"/><path d="M865 275 l-18 -12 v24z"/><path d="M900 455 l-12 -18 h24z"/><path d="M540 520 l18 -12 v24z"/>
+  </g>
+  <g opacity="0.92">
+    <path d="M125 311 C145 262 164 318 182 277 C202 233 220 333 239 282 C253 243 276 299 292 262" stroke="#38bdf8" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M528 312 C548 280 565 328 584 287 C606 245 628 325 646 282 C660 248 683 298 699 264" stroke="#f43f5e" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M930 312 C950 292 970 306 990 280 C1010 255 1030 318 1050 284 C1068 253 1088 298 1102 268" stroke="#22c55e" stroke-width="6" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>
