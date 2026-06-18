@@ -15,6 +15,7 @@ This repo now contains a new Astro one-page portfolio implementation while prese
 - Production branch must be `master`.
 - The site should be built from `src/` with Astro and published from `dist`.
 - Manual redeploy trigger: 2026-06-18 Spanish localization deployment check.
+- Manual redeploy trigger: 2026-06-18 after clearing Cloudflare build watch paths.
 
 ## Notes
 
