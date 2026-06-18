@@ -17,9 +17,10 @@ export const profile = {
 export const mainProjects = [
   {
     title: 'Audio-Language Models for Voice Activity Detection',
+    year: '2025-2026',
     eyebrow: 'Audio AI · VAD · Model evaluation',
-    image: '/homepage_files/waspaa_2025_vad_demo.png',
-    imageFit: 'cover',
+    image: '/homepage_files/Qwen_Overall_BA.png',
+    imageFit: 'contain',
     description:
       'I tested how audio-language models detect speech when the audio is short, noisy, reverberant, or filtered. The project compares Qwen2-Audio-7B, Qwen2-Audio-7B with LoRA, Qwen3-Omni-30B, and Silero VAD on the same degraded test bank. The best result came from Qwen2-Audio-7B with LoRA and OPRO-Template: 93.3% balanced accuracy on 21,340 degraded clips.',
     tags: ['VAD', 'Qwen', 'LoRA', 'OPRO', 'Silero', 'PyTorch'],
@@ -27,9 +28,11 @@ export const mainProjects = [
   },
   {
     title: 'ASR Enhancement Platform',
+    year: '2026',
     eyebrow: 'Speech enhancement · Backend platform',
     image: '/homepage_files/asr-raspberry.jpg',
     imageFit: 'cover',
+    imagePosition: 'center 58%',
     description:
       'I built a backend platform to compare two ASR paths on the same audio: raw transcription and enhance-and-transcribe. The system stores jobs, audio files, transcripts, and provider payloads so each result can be inspected later. It uses FastAPI, Celery, PostgreSQL, Redis, MinIO, Docker Compose, metrics, tracing, Grafana, and CI.',
     tags: ['ASR', 'FastAPI', 'Celery', 'Docker', 'PostgreSQL', 'Redis'],
@@ -37,16 +40,21 @@ export const mainProjects = [
   },
   {
     title: 'Sounds of Home Dataset',
+    year: '2024',
     eyebrow: 'Privacy-preserving dataset · Domestic audio',
     image: '/homepage_files/chime_2024_sounds_of_home.png',
     imageFit: 'cover',
     description:
       'I worked on Sounds of Home, a residential audio dataset for sound event detection. The dataset contains 1,344 one-hour recordings from 8 homes in Belgium. AudioMoth recorders were placed in living rooms and kitchens. Speech was removed before release, and PANNs predictions were provided for the audio frames.',
     tags: ['SED', 'Privacy', 'AudioMoth', 'PANNs', 'Datasets'],
-    links: [{ label: 'Paper', href: 'http://dx.doi.org/10.21437/chime.2024-11' }],
+    links: [
+      { label: 'Official site', href: 'https://www.cvssp.org/data/ai4s/sounds_of_home/' },
+      { label: 'Paper', href: 'http://dx.doi.org/10.21437/chime.2024-11' },
+    ],
   },
   {
     title: 'Harmonic EDM Mixing Compatibility',
+    year: '2021-2022',
     eyebrow: 'MIR · Harmonic mixing · MSc thesis',
     image: '/homepage_files/icwe_2022_harmonic_mixing.png',
     imageFit: 'contain',
@@ -60,9 +68,11 @@ export const mainProjects = [
   },
   {
     title: 'Traktor ML',
+    year: '2026',
     eyebrow: 'MIR · DJ library organization',
     image: 'https://raw.githubusercontent.com/gbibbo/traktor/main/interface.png',
     imageFit: 'contain',
+    imagePosition: 'center center',
     description:
       'I built a pipeline that turns a local Techno and Tech House library into Traktor-ready playlists. The system extracts MERT embeddings, separates stems with Demucs, reads BPM and key metadata with Essentia, clusters similar tracks, orders them for smoother transitions, and exports M3U playlists. The current V4 run processed 239 tracks and exported 14 playlists. The private audio collection is not included in the repo.',
     tags: ['MERT', 'Demucs', 'Essentia', 'HDBSCAN', 'UMAP', 'Streamlit'],
@@ -73,6 +83,7 @@ export const mainProjects = [
 export const secondaryProjects = [
   {
     title: 'Speech Removal Framework',
+    year: '2025',
     image: '/homepage_files/waspaa_2025_vad_demo.png',
     imageFit: 'cover',
     description:
@@ -85,6 +96,7 @@ export const secondaryProjects = [
   },
   {
     title: 'ALPACA',
+    year: '2026',
     image: '/homepage_files/alpaca-diagram.jpg',
     imageFit: 'contain',
     description:
@@ -94,8 +106,9 @@ export const secondaryProjects = [
   },
   {
     title: 'Raspberry Pi Sound Event Recognition Demo',
+    year: '2023',
     image: '/homepage_files/waspaa_2023_raspberry_pi_sed.png',
-    imageFit: 'cover',
+    imageFit: 'contain',
     description:
       'Raspberry Pi demo for real-time sound event recognition. The system runs pre-trained neural networks on a low-cost edge device, exposes a web interface, and can send email notifications when selected AudioSet events are detected.',
     tags: ['Raspberry Pi', 'Edge AI', 'AudioSet'],
@@ -106,6 +119,7 @@ export const secondaryProjects = [
   },
   {
     title: '3H-ATO',
+    year: '2020',
     image: '/homepage_files/project_3hato.png',
     imageFit: 'cover',
     description:
@@ -115,6 +129,7 @@ export const secondaryProjects = [
   },
   {
     title: 'Automatic IoT Soap Dispenser',
+    year: '2020',
     image: '/homepage_files/project_iot_soap_dispenser.png',
     imageFit: 'cover',
     description:
@@ -124,6 +139,7 @@ export const secondaryProjects = [
   },
   {
     title: 'UyVoy Mobile App',
+    year: '2020',
     image: '/homepage_files/uyvoy.png',
     imageFit: 'cover',
     description:
@@ -197,7 +213,10 @@ export const publications = [
     title: 'The Sounds of Home: A Speech-Removed Residential Audio Dataset for Sound Event Detection',
     authors: 'Gabriel Bibbó; Thomas Deacon; Arshdeep Singh; Mark D. Plumbley',
     venue: '8th International Workshop on Speech Processing in Everyday Environments (CHiME 2024), Kos Island, Greece, September 2024',
-    links: [{ label: 'DOI', href: 'http://dx.doi.org/10.21437/chime.2024-11' }],
+    links: [
+      { label: 'DOI', href: 'http://dx.doi.org/10.21437/chime.2024-11' },
+      { label: 'Dataset site', href: 'https://www.cvssp.org/data/ai4s/sounds_of_home/' },
+    ],
   },
   {
     year: '2024',
@@ -219,23 +238,23 @@ export const publications = [
   {
     year: '2022',
     title: 'A New Compatibility Measure for Harmonic EDM Mixing',
-    authors: 'Gabriel Bibbó Frau; Ángel Faraldo',
-    venue: 'International Conference on Web Engineering (ICWE 2022), Springer, Bari, Italy, July 2022',
+    authors: 'Gabriel Bibbó',
+    venue: 'International Conference on Web Engineering (ICWE 2022), Bari, Italy, July 2022',
     links: [{ label: 'DOI', href: 'http://dx.doi.org/10.1007/978-3-031-09917-5_37' }],
   },
   {
     year: '2021',
     title: 'Towards a New Compatibility Measure for Harmonic EDM Mixing',
-    authors: 'Gabriel Bibbó; Angel Faraldo',
-    venue: 'Dissertation or Thesis, Universitat Pompeu Fabra, October 2021',
-    links: [{ label: 'DOI', href: 'http://dx.doi.org/10.5281/zenodo.5554688' }],
+    authors: 'Gabriel Bibbó',
+    venue: 'Master thesis, Universitat Pompeu Fabra, Barcelona, Spain, 2021',
+    links: [{ label: 'Repository', href: 'https://github.com/MTG/essentia-research/tree/master/harmonic-mixing' }],
   },
   {
     year: '2017',
     title: 'Autonomous Mobile Robots Comunicated by Software Defined Radio',
-    authors: 'Gabriel Bibbó; Mariana Gelós; Martín Randall; Pablo Belzarena; Federico Larroca',
-    venue: 'Dissertation or Thesis, Universidad de la República, December 2017',
-    links: [{ label: 'Link', href: 'https://iie.fing.edu.uy/publicaciones/2017/BGR17/' }],
+    authors: 'Gabriel Bibbó',
+    venue: 'Bachelor thesis, Universidad de la República, Montevideo, Uruguay, 2017',
+    links: [{ label: 'Publication', href: 'https://www.colibri.udelar.edu.uy/jspui/handle/20.500.12008/36158' }],
   },
 ];
 
@@ -247,6 +266,7 @@ export const experience = [
     logo: '/homepage_files/surrey.jpg',
     logoFit: 'contain',
     logoAlt: 'University of Surrey logo',
+    companyUrl: 'https://www.surrey.ac.uk/',
     bullets: [
       'Preparing IEEE/ACM TASLP article with Mark D. Plumbley and Simone Spagnol (Università Iuav di Venezia) on VAD with Qwen-Audio family under psychoacoustic degradations, using PEFT/LoRA, OPRO prompt optimization, 4-bit NF4 quantization, evaluation against frozen Qwen3-Omni baseline.',
       'Co-authoring IEEE Signal Processing Magazine article with Arshdeep Singh (King’s College London) on privacy-preserving audio and machine listening.',
@@ -259,6 +279,7 @@ export const experience = [
     logo: '/homepage_files/surrey.jpg',
     logoFit: 'contain',
     logoAlt: 'University of Surrey logo',
+    companyUrl: 'https://www.surrey.ac.uk/',
     bullets: [
       'Developed end-to-end audio ML systems for real-world smart environments, covering data preparation, model evaluation, prototype deployment, open-source releases, demos, datasets and technical documentation for assisted living, smart buildings and urban sound monitoring.',
       'Built privacy-preserving SED pipelines for sensitive in-home recordings, including a 197 GB residential audio dataset, speech-removal workflows and reproducible evaluation resources.',
@@ -271,9 +292,10 @@ export const experience = [
     period: 'Mar.2022-Nov.2022',
     title: 'Technical Support Engineer - Google Workspace',
     org: 'Webhelp, Barcelona, Spain',
-    logo: '/homepage_files/logo-webhelp.svg',
+    logo: '/homepage_files/logo-google.svg',
     logoFit: 'contain',
-    logoAlt: 'Webhelp logo',
+    logoAlt: 'Google logo',
+    companyUrl: 'https://workspace.google.com/',
     bullets: ['Tier 3 support for Google Workspace enterprise customers across APIs, OAuth, SAML/SSO, IAM, user provisioning, data migration, DNS/domain configuration, and security/compliance settings.'],
   },
   {
@@ -283,6 +305,7 @@ export const experience = [
     logo: '/homepage_files/logo-kpmg.svg',
     logoFit: 'contain',
     logoAlt: 'KPMG logo',
+    companyUrl: 'https://kpmg.com/es/es.html',
     bullets: ['Support to telecommunications companies and IT departments in audit services.'],
   },
   {
@@ -292,11 +315,27 @@ export const experience = [
     logo: '/homepage_files/logo-ikatu.svg',
     logoFit: 'contain',
     logoAlt: 'Ikatu logo',
+    companyUrl: 'https://www.ikatu.com/',
     bullets: [
       'Designed and shipped embedded C/C++ audio and IoT firmware for Bang & Olufsen home automation products: low-level drivers, hardware integration, audio I/O, and Internet connectivity.',
       'Owned product lifecycle work across requirements, architecture, implementation, testing, validation, and customer-facing documentation.',
       'Trained and onboarded incoming programmers on embedded development practices.',
     ],
+  },
+];
+
+export const education = [
+  {
+    period: '2020-2021',
+    degree: 'MSc Sound and Music Computing',
+    institution: 'Universitat Pompeu Fabra, Barcelona, Spain',
+    details: 'Master thesis on harmonic compatibility for EDM mixing. Final thesis grade: 9/10.',
+  },
+  {
+    period: '2010-2017',
+    degree: 'BSc Electrical Engineering',
+    institution: 'Universidad de la República, Montevideo, Uruguay',
+    details: 'Bachelor thesis on autonomous mobile robots communicated by software-defined radio.',
   },
 ];
 
