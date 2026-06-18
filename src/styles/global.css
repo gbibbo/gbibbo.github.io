@@ -65,15 +65,21 @@ body {
 }
 
 .project-media-square {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1 / 1 !important;
   align-self: start;
-  max-width: 100%;
+  justify-self: center;
+  width: 100% !important;
+  max-width: 32rem !important;
+  height: auto !important;
 }
 
 .project-media-square img {
-  min-height: 0;
-  height: 100%;
-  object-fit: cover;
+  min-height: 0 !important;
+  height: 100% !important;
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  object-fit: cover !important;
+  object-position: 50% 60% !important;
 }
 
 .project-media-contain {
@@ -111,27 +117,33 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1.35rem;
+  gap: 1.5rem;
 }
 
 .experience-logo-link {
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
+  width: 16rem !important;
+  max-width: 100% !important;
   text-decoration: none;
 }
 
 .experience-logo-contain,
 .experience-logo-cover {
-  width: 10rem;
-  height: 10rem;
-  object-fit: contain;
-  object-position: left center;
+  display: block !important;
+  width: 16rem !important;
+  max-width: 16rem !important;
+  height: auto !important;
+  max-height: 7rem !important;
+  object-fit: contain !important;
+  object-position: left center !important;
   transition: transform 180ms ease, opacity 180ms ease;
 }
 
 .experience-logo-ikatu {
-  width: 11rem;
+  width: 16rem !important;
+  max-width: 16rem !important;
 }
 
 .experience-logo-link:hover .experience-logo-contain,
@@ -194,16 +206,17 @@ body {
   }
 
   .project-media-square img {
-    min-height: 0;
+    min-height: 0 !important;
+  }
+
+  .experience-logo-link {
+    width: 12rem !important;
   }
 
   .experience-logo-contain,
-  .experience-logo-cover {
-    width: 7rem;
-    height: 7rem;
-  }
-
+  .experience-logo-cover,
   .experience-logo-ikatu {
-    width: 8rem;
+    width: 12rem !important;
+    max-width: 12rem !important;
   }
 }
