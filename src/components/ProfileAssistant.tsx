@@ -5,87 +5,73 @@ type ChatMessage = {
   content: string;
 };
 
-const STORAGE_KEY = 'gabriel-profile-assistant-v1';
-const HERO_BIO = 'I build audio machine learning systems that run outside the notebook, across sound event detection, voice activity detection, privacy-preserving audio, and music information retrieval. Four years writing embedded C/C++ for Bang & Olufsen taught me the distance between a prototype and a device that ships. I am also a DJ and producer, and most of my interest in how machines listen started from how I listen myself.';
-const META_DESCRIPTION = 'Audio AI research engineer working on machine listening, privacy-preserving audio, and embedded ML.';
-
-const PUBLICATION_FIXES: Record<string, { authors?: string; venue?: string }> = {
-  'A New Compatibility Measure for Harmonic EDM Mixing': {
-    authors: 'Gabriel Bibbó; Ángel Faraldo',
+const COPY = {
+  en: {
+    storageKey: 'gabriel-profile-assistant-v1-en',
+    intro: "Hi. I can answer questions about Gabriel's projects, publications, experience, education, technical stack, and contact details.",
+    unavailable: 'The profile assistant is temporarily unavailable. Please try again later or contact Gabriel directly.',
+    panelLabel: 'Gabriel Bibbó profile assistant',
+    title: 'Profile assistant',
+    subtitle: 'Projects, publications, experience, contact',
+    close: 'Close profile assistant',
+    thinking: 'Thinking…',
+    placeholder: "Ask about Gabriel's projects, publications, experience, education, or availability…",
+    note: 'Answers use an expanded profile knowledge base.',
+    send: 'Send',
+    launcher: 'Ask my profile',
   },
-  'Towards a New Compatibility Measure for Harmonic EDM Mixing': {
-    authors: 'Gabriel Bibbó',
-    venue: 'Master thesis, Universitat Pompeu Fabra, Barcelona, Spain, 2021. Supervised by Ángel Faraldo.',
-  },
-  'Autonomous Mobile Robots Comunicated by Software Defined Radio': {
-    authors: 'Gabriel Bibbó; Gelós; Randall; Belzarena; Larroca',
+  es: {
+    storageKey: 'gabriel-profile-assistant-v1-es',
+    intro: 'Hola. Puedo responder preguntas sobre los proyectos, publicaciones, experiencia, educación, stack técnico y datos de contacto de Gabriel.',
+    unavailable: 'El asistente de perfil no está disponible temporalmente. Probá de nuevo más tarde o contactá directamente a Gabriel.',
+    panelLabel: 'Asistente de perfil de Gabriel Bibbó',
+    title: 'Asistente de perfil',
+    subtitle: 'Proyectos, publicaciones, experiencia, contacto',
+    close: 'Cerrar asistente de perfil',
+    thinking: 'Pensando…',
+    placeholder: 'Preguntá sobre proyectos, publicaciones, experiencia, educación o disponibilidad de Gabriel…',
+    note: 'Las respuestas usan una base de conocimiento ampliada del perfil.',
+    send: 'Enviar',
+    launcher: 'Preguntar por mi perfil',
   },
 };
 
-function patchStaticPortfolioContent() {
-  document.querySelectorAll('p').forEach((paragraph) => {
-    if (paragraph.textContent?.includes('HERO BIO PLACEHOLDER')) {
-      paragraph.textContent = HERO_BIO;
-    }
-  });
-
-  document.querySelector('meta[name="description"]')?.setAttribute('content', META_DESCRIPTION);
-  document.querySelector('meta[property="og:description"]')?.setAttribute('content', META_DESCRIPTION);
-  document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', META_DESCRIPTION);
-
-  document.querySelectorAll('h4').forEach((heading) => {
-    const title = heading.textContent?.trim() ?? '';
-    const fix = PUBLICATION_FIXES[title];
-    if (!fix) return;
-
-    const authors = heading.nextElementSibling;
-    if (fix.authors && authors instanceof HTMLElement) {
-      authors.textContent = fix.authors;
-    }
-
-    const venue = authors?.nextElementSibling;
-    if (fix.venue && venue instanceof HTMLElement) {
-      venue.innerHTML = `<em>${fix.venue}</em>`;
-    }
-  });
-}
-
 export default function ProfileAssistant() {
+  const [lang, setLang] = useState<'en' | 'es'>('en');
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      role: 'assistant',
-      content: "Hi. I can answer questions about Gabriel's projects, publications, experience, education, technical stack, and contact details.",
-    },
-  ]);
+  const copy = COPY[lang];
+  const [messages, setMessages] = useState<ChatMessage[]>([{ role: 'assistant', content: COPY.en.intro }]);
 
   useEffect(() => {
-    patchStaticPortfolioContent();
+    const pageLang = document.documentElement.lang?.startsWith('es') ? 'es' : 'en';
+    setLang(pageLang);
   }, []);
 
   useEffect(() => {
     try {
-      const saved = window.localStorage.getItem(STORAGE_KEY);
+      const saved = window.localStorage.getItem(copy.storageKey);
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
           setMessages(parsed.slice(-12));
+          return;
         }
       }
     } catch {
       // Ignore corrupted local storage.
     }
-  }, []);
+    setMessages([{ role: 'assistant', content: copy.intro }]);
+  }, [copy.storageKey, copy.intro]);
 
   useEffect(() => {
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(messages.slice(-12)));
+      window.localStorage.setItem(copy.storageKey, JSON.stringify(messages.slice(-12)));
     } catch {
       // Ignore storage errors.
     }
-  }, [messages]);
+  }, [messages, copy.storageKey]);
 
   const visibleMessages = useMemo(() => messages.slice(-10), [messages]);
 
@@ -102,7 +88,7 @@ export default function ProfileAssistant() {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ messages: nextMessages.slice(-8) }),
+        body: JSON.stringify({ language: lang, messages: nextMessages.slice(-8) }),
       });
 
       const data = await response.json().catch(() => ({}));
@@ -110,17 +96,11 @@ export default function ProfileAssistant() {
         ? data.answer
         : typeof data.error === 'string'
           ? data.error
-          : 'The profile assistant is temporarily unavailable.';
+          : copy.unavailable;
 
       setMessages([...nextMessages, { role: 'assistant', content: answer }]);
     } catch {
-      setMessages([
-        ...nextMessages,
-        {
-          role: 'assistant',
-          content: 'The profile assistant is temporarily unavailable. Please try again later or contact Gabriel directly.',
-        },
-      ]);
+      setMessages([...nextMessages, { role: 'assistant', content: copy.unavailable }]);
     } finally {
       setLoading(false);
     }
@@ -290,13 +270,13 @@ export default function ProfileAssistant() {
       `}</style>
 
       {open && (
-        <section className="profile-assistant-panel" aria-label="Gabriel Bibbó profile assistant">
+        <section className="profile-assistant-panel" aria-label={copy.panelLabel}>
           <div className="profile-assistant-header">
             <div>
-              <div className="profile-assistant-title">Profile assistant</div>
-              <div className="profile-assistant-subtitle">Projects, publications, experience, contact</div>
+              <div className="profile-assistant-title">{copy.title}</div>
+              <div className="profile-assistant-subtitle">{copy.subtitle}</div>
             </div>
-            <button type="button" className="profile-assistant-close" onClick={() => setOpen(false)} aria-label="Close profile assistant">×</button>
+            <button type="button" className="profile-assistant-close" onClick={() => setOpen(false)} aria-label={copy.close}>×</button>
           </div>
 
           <div className="profile-assistant-messages">
@@ -305,7 +285,7 @@ export default function ProfileAssistant() {
                 {message.content}
               </div>
             ))}
-            {loading && <div className="profile-assistant-message assistant">Thinking…</div>}
+            {loading && <div className="profile-assistant-message assistant">{copy.thinking}</div>}
           </div>
 
           <div className="profile-assistant-input">
@@ -314,12 +294,12 @@ export default function ProfileAssistant() {
               onChange={(event) => setInput(event.target.value)}
               onKeyDown={handleKeyDown}
               maxLength={900}
-              placeholder="Ask about Gabriel's projects, publications, experience, education, or availability…"
+              placeholder={copy.placeholder}
             />
             <div className="profile-assistant-actions">
-              <span className="profile-assistant-note">Answers use an expanded profile knowledge base.</span>
+              <span className="profile-assistant-note">{copy.note}</span>
               <button type="button" className="profile-assistant-send" onClick={sendMessage} disabled={loading || !input.trim()}>
-                Send
+                {copy.send}
               </button>
             </div>
           </div>
@@ -328,7 +308,7 @@ export default function ProfileAssistant() {
 
       <button type="button" className="profile-assistant-launcher" onClick={() => setOpen((value) => !value)} aria-expanded={open}>
         <span className="profile-assistant-dot" />
-        Ask my profile
+        {copy.launcher}
       </button>
     </>
   );
