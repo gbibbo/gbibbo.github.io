@@ -1,7 +1,7 @@
 ---
-import CopyEmailButton from '../components/CopyEmailButton';
+import ProfileAssistant from '../components/ProfileAssistant';
 import '../styles/global.css';
-import { experience, mainProjects, profile, publications, secondaryProjects, stackGroups } from '../data/siteData';
+import { education, experience, mainProjects, profile, publications, secondaryProjects, stackGroups } from '../data/siteData';
 
 const navItems = [
   { label: 'Home', href: '#home' },
@@ -13,63 +13,91 @@ const navItems = [
 
 const publicationYears = [...new Set(publications.map((publication) => publication.year))];
 
+const projectOverrides = {
+  'Audio-Language Models for Voice Activity Detection': {
+    description:
+      'This research evaluates how audio-language models detect speech when the audio is short, noisy, reverberant, or filtered. The project compares Qwen2-Audio-7B, Qwen2-Audio-7B with LoRA, Qwen3-Omni-30B, and Silero VAD on the same degraded test bank. The best result came from Qwen2-Audio-7B with LoRA and OPRO-Template: 93.3% balanced accuracy on 21,340 degraded clips.',
+    image: '/homepage_files/Qwen_Overall_BA.png',
+    imageFit: 'contain',
+  },
+  'Sounds of Home Dataset': {
+    description:
+      'Sounds of Home is a residential audio dataset for sound event detection. It contains 1,344 one-hour recordings from 8 homes in Belgium, captured with AudioMoth recorders placed in living rooms and kitchens. Speech was removed before release, and PANNs predictions were provided for the audio frames.',
+  },
+  'Speech Removal Framework': {
+    eyebrow: 'Privacy · Speech removal · WASPAA',
+    description:
+      'A framework for removing speech from audio recordings before they are shared or published. The system supports privacy-preserving release workflows for audio datasets while retaining non-speech acoustic information for downstream sound event detection research.',
+    image: '/homepage_files/speech_removal_framework.svg',
+    imageFit: 'contain',
+  },
+  'Harmonic EDM Mixing Compatibility': {
+    description:
+      'This music analysis system estimates how well two EDM tracks mix harmonically. It analyzes tracks, computes chroma features, converts them into Tonal Interval Vectors, compares harmonic compatibility, and suggests pitch shifts that can improve a mix. The work began as an MSc thesis and later became an ICWE 2022 publication.',
+  },
+  'ASR Enhancement Platform': {
+    description:
+      'The ASR Enhancement Platform compares two speech recognition paths on the same audio: raw transcription and enhance-and-transcribe. The backend stores jobs, audio files, transcripts, and provider payloads so each result can be inspected later. It uses FastAPI, Celery, PostgreSQL, Redis, MinIO, Docker Compose, metrics, tracing, Grafana, and CI.',
+  },
+  'Traktor ML': {
+    image: '/homepage_files/traktor_interface.svg',
+    description:
+      'Traktor ML turns a local Techno and Tech House library into Traktor-ready playlists. The pipeline extracts MERT embeddings, separates stems with Demucs, reads BPM and key metadata with Essentia, clusters similar tracks, orders them for smoother transitions, and exports M3U playlists. The current V4 run processed 239 tracks and exported 14 playlists. The private audio collection is not included in the repo.',
+  },
+  ALPACA: {
+    description:
+      'Python-based algorithmic trading platform with market data ingestion, risk controls, backtesting, and real-time monitoring.',
+  },
+};
+
+const allProjects = [...mainProjects, ...secondaryProjects];
+const projectByTitle = (title) => {
+  const project = allProjects.find((item) => item.title === title);
+  return project ? { ...project, ...(projectOverrides[title] ?? {}) } : null;
+};
+
+const featuredProjectTitles = [
+  'Audio-Language Models for Voice Activity Detection',
+  'Sounds of Home Dataset',
+  'Speech Removal Framework',
+  'Harmonic EDM Mixing Compatibility',
+  'ASR Enhancement Platform',
+  'Traktor ML',
+];
+
+const featuredProjects = featuredProjectTitles.map(projectByTitle).filter(Boolean);
+const secondaryProjectList = secondaryProjects
+  .filter((project) => !featuredProjectTitles.includes(project.title))
+  .map((project) => ({ ...project, ...(projectOverrides[project.title] ?? {}) }));
+
+const isContainImage = (project) => project.imageFit === 'contain';
+const isSquareImage = (project) => project.title === 'ASR Enhancement Platform';
+const imagePosition = (project) => project.imagePosition ?? (project.title === 'ASR Enhancement Platform' ? 'center 62%' : 'center center');
+
 const companyMeta = (item) => {
-  if (item.org.includes('University of Surrey')) {
-    return { logo: '/homepage_files/surrey.jpg', alt: 'University of Surrey logo', url: 'https://www.surrey.ac.uk/' };
-  }
-  if (item.org.includes('Webhelp')) {
-    return { logo: '/homepage_files/logo-google.svg', alt: 'Google logo', url: 'https://workspace.google.com/' };
-  }
-  if (item.org.includes('KPMG')) {
-    return { logo: '/homepage_files/logo-kpmg.svg', alt: 'KPMG logo', url: 'https://kpmg.com/es/es.html' };
-  }
-  if (item.org.includes('Ikatu')) {
-    return { logo: '/homepage_files/logo-ikatu.svg', alt: 'Ikatu logo', url: 'https://www.ikatu.com/' };
-  }
+  if (item.org.includes('University of Surrey')) return { logo: '/homepage_files/surrey.jpg', alt: 'University of Surrey logo', url: 'https://www.surrey.ac.uk/' };
+  if (item.org.includes('Webhelp')) return { logo: '/homepage_files/logo-google.svg', alt: 'Google logo', url: 'https://workspace.google.com/' };
+  if (item.org.includes('KPMG')) return { logo: '/homepage_files/logo-kpmg.svg', alt: 'KPMG logo', url: 'https://kpmg.com/es/es.html' };
+  if (item.org.includes('Ikatu')) return { logo: '/homepage_files/logo-ikatu.svg', alt: 'Ikatu logo', url: 'https://www.ikatu.com/' };
   return { logo: item.logo, alt: item.logoAlt ?? item.org, url: '#' };
 };
 
-const projectYear = (project) => {
-  if (project.title.includes('Audio-Language')) return '2026';
-  if (project.title.includes('ASR Enhancement')) return '2026';
-  if (project.title.includes('Sounds of Home')) return '2024';
-  if (project.title.includes('Harmonic')) return '2021 / 2022';
-  if (project.title.includes('Traktor')) return '2026';
-  if (project.title.includes('Speech Removal')) return '2025';
-  if (project.title.includes('ALPACA')) return '2026';
-  if (project.title.includes('Raspberry Pi')) return '2023';
-  if (project.title.includes('3H-ATO')) return '2020 / 2022';
-  if (project.title.includes('Soap')) return '2020 / 2021';
-  if (project.title.includes('UyVoy')) return '2020';
-  return '';
-};
-
-const projectLinks = (project) => {
-  if (project.title.includes('Sounds of Home')) {
-    return [
-      ...project.links,
-      { label: 'Dataset website', href: 'https://www.cvssp.org/data/ai4s/sounds_of_home/' },
-    ];
-  }
-  return project.links;
-};
-
-const isContainImage = (project) => project.imageFit === 'contain' || project.title.includes('Harmonic') || project.title.includes('Traktor') || project.title.includes('ALPACA') || project.title.includes('Raspberry Pi Sound Event');
-const isSquareImage = (project) => project.title === 'ASR Enhancement Platform';
-const imagePosition = (project) => project.title === 'ASR Enhancement Platform' ? 'center 62%' : 'center center';
-
-const formalEducation = [
+const additionalInfo = [
   {
-    period: '2020-2021',
-    degree: 'MSc Sound and Music Computing',
-    institution: 'Universitat Pompeu Fabra, Barcelona, Spain',
-    detail: 'Thesis: Towards a New Compatibility Measure for Harmonic EDM Mixing.',
+    title: 'Languages',
+    items: ['Spanish — Native', 'English — C1', 'Portuguese — A2'],
   },
   {
-    period: '2010-2017',
-    degree: 'BSc Electrical Engineering',
-    institution: 'Universidad de la República, Montevideo, Uruguay',
-    detail: 'Final project: Autonomous Mobile Robots Comunicated by Software Defined Radio.',
+    title: 'Certifications',
+    items: ['PRINCE2 Foundation', 'Deep Learning Specialization', 'Machine Learning — Stanford / Coursera'],
+  },
+  {
+    title: 'Music and memberships',
+    items: ['Music school: Virgilio Scarabelli Alberti', 'IEEE Signal Processing Society member'],
+  },
+  {
+    title: 'Research grants',
+    items: ['Participant in EPSRC AI for Sound'],
   },
 ];
 ---
@@ -78,14 +106,14 @@ const formalEducation = [
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={profile.headline} />
+    <meta name="description" content={profile.role} />
     <meta property="og:title" content={`${profile.name} · ${profile.role}`} />
-    <meta property="og:description" content={profile.headline} />
+    <meta property="og:description" content={profile.role} />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/homepage_files/profile.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`${profile.name} · ${profile.role}`} />
-    <meta name="twitter:description" content={profile.headline} />
+    <meta name="twitter:description" content={profile.role} />
     <meta name="twitter:image" content="/homepage_files/profile.jpg" />
     <title>{profile.name} · {profile.role}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -111,9 +139,10 @@ const formalEducation = [
           <div class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_20%,rgba(125,211,252,0.14),transparent_20rem),radial-gradient(circle_at_75%_10%,rgba(255,255,255,0.06),transparent_24rem),linear-gradient(180deg,#0e1520_0%,#121a25_100%)]"></div>
           <div class="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
             <div>
-              <p class="mb-5 inline-flex rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-white/75">{profile.location} · Audio AI · Machine Listening · MIR</p>
-              <h1 class="max-w-4xl font-display text-5xl font-semibold leading-[0.95] tracking-tight text-white text-balance md:text-7xl">{profile.headline}</h1>
-              <p class="mt-7 max-w-2xl text-lg leading-8 text-white/78 md:text-xl">{profile.heroIntro}</p>
+              <p class="mb-5 inline-flex rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-white/80">{profile.location} · Audio AI · Machine Listening · MIR</p>
+              <h1 class="max-w-4xl font-display text-6xl font-semibold leading-[0.9] tracking-tight text-white text-balance md:text-8xl">{profile.name}</h1>
+              <p class="mt-5 font-display text-2xl font-semibold tracking-tight text-signal md:text-4xl">{profile.role}</p>
+              <p class="mt-7 max-w-2xl text-lg leading-8 text-white/78 md:text-xl">HERO BIO PLACEHOLDER — Gabriel will provide final copy.</p>
               <div class="mt-9 flex flex-wrap gap-3">
                 <a class="rounded-full bg-signal px-6 py-3 text-sm font-bold text-graphite transition hover:bg-white" href="#projects">View projects</a>
                 <a class="rounded-full border border-white/20 px-6 py-3 text-sm font-bold text-white transition hover:border-white hover:bg-white/10" href={profile.links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
@@ -140,24 +169,24 @@ const formalEducation = [
             <p class="section-kicker">Projects</p>
             <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
               <h2 class="section-title max-w-3xl">Research systems, datasets, demos, and music technology tools.</h2>
-              <p class="max-w-sm text-sm leading-6 text-ink/60">A mix of peer-reviewed research work, deployable prototypes, and independent technical projects.</p>
+              <p class="max-w-sm text-sm leading-6 text-ink/60">Peer-reviewed work first, followed by independent systems and personal technical projects.</p>
             </div>
 
             <div class="mt-12 grid gap-6">
-              {mainProjects.map((project, index) => (
+              {featuredProjects.map((project, index) => (
                 <article class="card grid gap-6 p-5 md:grid-cols-[0.95fr_1.4fr] md:p-7">
                   <button type="button" class={`project-media image-lightbox-trigger ${isContainImage(project) ? 'project-media-contain' : 'project-media-cover'} ${isSquareImage(project) ? 'project-media-square' : ''}`} data-lightbox-src={project.image} data-lightbox-alt={project.title} aria-label={`Open ${project.title} image`}>
                     {project.image ? <img src={project.image} alt={project.title} style={`object-position: ${imagePosition(project)};`} class="transition duration-500 hover:scale-[1.02]" /> : <div class="flex h-full min-h-64 items-end bg-[radial-gradient(circle_at_30%_20%,rgba(125,211,252,0.45),transparent_18rem),linear-gradient(135deg,#1c1f24,#3d332d)] p-6"><span class="font-display text-3xl font-semibold text-white/90">0{index + 1}</span></div>}
                   </button>
                   <div class="flex flex-col justify-between gap-8 p-1 md:p-3">
                     <div>
-                      <div class="mb-3 flex flex-wrap items-center gap-3"><p class="text-sm font-semibold uppercase tracking-[0.2em] text-clay">{project.eyebrow}</p><span class="project-year-badge">{projectYear(project)}</span></div>
+                      <div class="mb-3 flex flex-wrap items-center gap-3"><p class="text-sm font-semibold uppercase tracking-[0.2em] text-clay">{project.eyebrow}</p><span class="project-year-badge">{project.year}</span></div>
                       <h3 class="font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">{project.title}</h3>
                       <p class="mt-5 text-base leading-8 text-ink/70">{project.description}</p>
                     </div>
                     <div>
-                      <div class="mb-5 flex flex-wrap gap-2">{project.tags.map((tag) => <span class="rounded-full bg-graphite/5 px-3 py-1 text-xs font-semibold text-ink/70">{tag}</span>)}</div>
-                      <div class="flex flex-wrap gap-3">{projectLinks(project).map((link) => <a class="rounded-full bg-graphite px-4 py-2 text-sm font-semibold text-white transition hover:bg-clay" href={link.href} target="_blank" rel="noreferrer">{link.label}</a>)}</div>
+                      <div class="mb-5 flex flex-wrap gap-3">{project.tags.map((tag) => <span class="rounded-full bg-graphite/7 px-3 py-1 text-xs font-semibold text-ink/75">{tag}</span>)}</div>
+                      <div class="flex flex-wrap gap-3">{project.links.map((link) => <a class="rounded-full bg-graphite px-4 py-2 text-sm font-semibold text-white transition hover:bg-clay" href={link.href} target="_blank" rel="noreferrer">{link.label}</a>)}</div>
                     </div>
                   </div>
                 </article>
@@ -165,13 +194,13 @@ const formalEducation = [
             </div>
 
             <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {secondaryProjects.map((project) => (
+              {secondaryProjectList.map((project) => (
                 <article class="card overflow-hidden p-4">
                   {project.image ? <button type="button" class={`secondary-media image-lightbox-trigger ${isContainImage(project) ? 'secondary-media-contain' : 'secondary-media-cover'}`} data-lightbox-src={project.image} data-lightbox-alt={project.title} aria-label={`Open ${project.title} image`}><img src={project.image} alt={project.title} style={`object-position: ${imagePosition(project)};`} /></button> : <div class="mb-5 h-40 rounded-[1.25rem] bg-[radial-gradient(circle_at_30%_20%,rgba(125,211,252,0.38),transparent_14rem),linear-gradient(135deg,#1c1f24,#685040)]"></div>}
-                  <div class="mb-3 flex items-center justify-between gap-3"><h3 class="font-display text-xl font-semibold text-ink">{project.title}</h3><span class="project-year-badge shrink-0">{projectYear(project)}</span></div>
+                  <div class="mb-3 flex items-center justify-between gap-3"><h3 class="font-display text-xl font-semibold text-ink">{project.title}</h3><span class="project-year-badge shrink-0">{project.year}</span></div>
                   <p class="mt-3 text-sm leading-6 text-ink/65">{project.description}</p>
-                  <div class="mt-4 flex flex-wrap gap-2">{project.tags.map((tag) => <span class="rounded-full bg-graphite/5 px-3 py-1 text-[11px] font-semibold text-ink/65">{tag}</span>)}</div>
-                  {projectLinks(project).length > 0 && <div class="mt-5 flex flex-wrap gap-2">{projectLinks(project).map((link) => <a class="rounded-full border border-black/10 px-3 py-2 text-sm font-semibold text-clay transition hover:border-clay hover:bg-clay hover:text-white" href={link.href} target="_blank" rel="noreferrer">{link.label}</a>)}</div>}
+                  <div class="mt-4 flex flex-wrap gap-3">{project.tags.map((tag) => <span class="rounded-full bg-graphite/7 px-3 py-1 text-[11px] font-semibold text-ink/70">{tag}</span>)}</div>
+                  {project.links.length > 0 && <div class="mt-5 flex flex-wrap gap-2">{project.links.map((link) => <a class="rounded-full border border-black/10 px-3 py-2 text-sm font-semibold text-clay transition hover:border-clay hover:bg-clay hover:text-white" href={link.href} target="_blank" rel="noreferrer">{link.label}</a>)}</div>}
                 </article>
               ))}
             </div>
@@ -192,7 +221,7 @@ const formalEducation = [
                         <h4 class="font-display text-xl font-semibold text-ink">{publication.title}</h4>
                         <p class="mt-2 text-sm leading-6 text-ink/60">{publication.authors}</p>
                         <p class="mt-2 text-sm leading-6 text-ink/75"><em>{publication.venue}</em></p>
-                        <div class="mt-4 flex flex-wrap gap-3">{publication.links.map((link) => <a class="text-sm font-semibold text-clay hover:text-ink" href={link.href} target="_blank" rel="noreferrer">{link.label}</a>)}{publication.title.includes('Sounds of Home') && <a class="text-sm font-semibold text-clay hover:text-ink" href="https://www.cvssp.org/data/ai4s/sounds_of_home/" target="_blank" rel="noreferrer">Dataset website</a>}</div>
+                        <div class="mt-4 flex flex-wrap gap-3">{publication.links.map((link) => <a class="text-sm font-semibold text-clay hover:text-ink" href={link.href} target="_blank" rel="noreferrer">{link.label}</a>)}</div>
                       </article>
                     ))}
                   </div>
@@ -225,12 +254,12 @@ const formalEducation = [
             <p class="section-kicker">Formal Education</p>
             <h2 class="section-title max-w-3xl">Formal studies.</h2>
             <div class="mt-12 grid gap-5 md:grid-cols-2">
-              {formalEducation.map((item) => (
+              {education.map((item) => (
                 <article class="card p-7">
                   <p class="text-sm font-semibold text-clay">{item.period}</p>
                   <h3 class="mt-4 font-display text-2xl font-semibold text-ink">{item.degree}</h3>
                   <p class="mt-2 text-sm font-semibold text-ink/60">{item.institution}</p>
-                  <p class="mt-5 text-sm leading-7 text-ink/70">{item.detail}</p>
+                  <p class="mt-5 text-sm leading-7 text-ink/70">{item.details}</p>
                 </article>
               ))}
             </div>
@@ -241,7 +270,22 @@ const formalEducation = [
           <div class="mx-auto max-w-6xl">
             <p class="section-kicker">Technical Stack</p>
             <h2 class="section-title max-w-3xl">Tools and methods used across research, software, audio, and deployment work.</h2>
-            <div class="mt-12 grid gap-5 md:grid-cols-2">{stackGroups.map((group) => <article class="card p-6"><h3 class="font-display text-2xl font-semibold text-ink">{group.name}</h3><div class="mt-5 flex flex-wrap gap-2">{group.items.map((item) => <span class="rounded-full bg-graphite/5 px-3 py-2 text-xs font-semibold text-ink/70">{item}</span>)}</div></article>)}</div>
+            <div class="mt-12 grid gap-6 md:grid-cols-2">{stackGroups.map((group) => <article class="card p-6"><h3 class="font-display text-2xl font-semibold text-ink">{group.name}</h3><div class="stack-chip-grid mt-6">{group.items.map((item) => <span class="stack-chip">{item}</span>)}</div></article>)}</div>
+          </div>
+        </section>
+
+        <section id="additional" class="px-4 py-24">
+          <div class="mx-auto max-w-6xl">
+            <p class="section-kicker">Additional Information</p>
+            <h2 class="section-title max-w-3xl">Languages, certifications, memberships, and grants.</h2>
+            <div class="mt-12 grid gap-5 md:grid-cols-2">
+              {additionalInfo.map((group) => (
+                <article class="card p-6">
+                  <h3 class="font-display text-2xl font-semibold text-ink">{group.title}</h3>
+                  <div class="stack-chip-grid mt-5">{group.items.map((item) => <span class="stack-chip">{item}</span>)}</div>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -250,41 +294,50 @@ const formalEducation = [
             <p class="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-signal">Contact</p>
             <div class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
               <div><h2 class="font-display text-4xl font-semibold tracking-tight text-balance md:text-6xl">Get in touch.</h2><p class="mt-6 max-w-2xl text-lg leading-8 text-white/70">{profile.availability}</p><p class="mt-6 text-white/70"><span class="font-semibold text-white">Email:</span> {profile.email}</p></div>
-              <div class="flex flex-wrap gap-3 lg:justify-end"><a class="rounded-full bg-signal px-5 py-3 text-sm font-bold text-graphite transition hover:bg-white" href={`mailto:${profile.email}`}>Email me</a><a class="rounded-full bg-white px-5 py-3 text-sm font-bold text-graphite transition hover:bg-signal" href={profile.links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a><CopyEmailButton email={profile.email} client:load /></div>
+              <div class="flex flex-wrap gap-3 lg:justify-end"><a class="rounded-full bg-signal px-5 py-3 text-sm font-bold text-graphite transition hover:bg-white" href={`mailto:${profile.email}`}>Email me</a><a class="rounded-full bg-white px-5 py-3 text-sm font-bold text-graphite transition hover:bg-signal" href={profile.links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a></div>
             </div>
             <div class="mt-10 flex flex-wrap gap-3 border-t border-white/10 pt-6"><a class="profile-link" href={profile.links.github} target="_blank" rel="noreferrer">GitHub</a><a class="profile-link" href={profile.links.scholar} target="_blank" rel="noreferrer">Scholar</a><a class="profile-link" href={profile.links.orcid} target="_blank" rel="noreferrer">ORCID</a></div>
           </div>
         </section>
 
-        <dialog id="image-lightbox" class="image-lightbox"><div class="image-lightbox-shell"><button type="button" class="image-lightbox-close" aria-label="Close image">×</button><img id="image-lightbox-img" src="" alt="" class="image-lightbox-img" /></div></dialog>
+        <div id="image-lightbox" class="image-lightbox" hidden aria-hidden="true">
+          <button type="button" class="image-lightbox-backdrop" aria-label="Close image"></button>
+          <div class="image-lightbox-shell">
+            <button type="button" class="image-lightbox-close" aria-label="Close image">×</button>
+            <div id="image-lightbox-frame" class="image-lightbox-frame"></div>
+          </div>
+        </div>
         <script>
-          const dialog = document.getElementById('image-lightbox');
-          const dialogImg = document.getElementById('image-lightbox-img');
-          const closeBtn = dialog?.querySelector('.image-lightbox-close');
+          const lightbox = document.getElementById('image-lightbox');
+          const frame = document.getElementById('image-lightbox-frame');
+          const closeButtons = lightbox?.querySelectorAll('.image-lightbox-close, .image-lightbox-backdrop') ?? [];
+          const closeLightbox = () => {
+            if (!lightbox || !frame) return;
+            frame.innerHTML = '';
+            lightbox.hidden = true;
+            lightbox.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+          };
           document.querySelectorAll('.image-lightbox-trigger').forEach((btn) => {
             btn.addEventListener('click', () => {
-              if (!dialog || !dialogImg) return;
-              dialogImg.src = btn.dataset.lightboxSrc || '';
-              dialogImg.alt = btn.dataset.lightboxAlt || 'Project image';
-              dialog.showModal();
+              if (!lightbox || !frame) return;
+              const src = btn.dataset.lightboxSrc;
+              if (!src) return;
+              const img = document.createElement('img');
+              img.src = src;
+              img.alt = btn.dataset.lightboxAlt || 'Project image';
+              img.className = 'image-lightbox-img';
+              frame.replaceChildren(img);
+              lightbox.hidden = false;
+              lightbox.setAttribute('aria-hidden', 'false');
               document.body.style.overflow = 'hidden';
             });
           });
-          const closeLightbox = () => {
-            if (!dialog) return;
-            dialog.close();
-            if (dialogImg) dialogImg.src = '';
-            document.body.style.overflow = '';
-          };
-          closeBtn?.addEventListener('click', closeLightbox);
-          dialog?.addEventListener('click', (event) => {
-            const shell = dialog.querySelector('.image-lightbox-shell');
-            if (shell && !shell.contains(event.target)) closeLightbox();
-          });
-          dialog?.addEventListener('close', () => { document.body.style.overflow = ''; });
-          document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && dialog?.open) closeLightbox(); });
+          closeButtons.forEach((button) => button.addEventListener('click', closeLightbox));
+          document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && lightbox && !lightbox.hidden) closeLightbox(); });
         </script>
       </main>
+      <ProfileAssistant client:load />
     </div>
   </body>
 </html>
