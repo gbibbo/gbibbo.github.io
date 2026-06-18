@@ -1,0 +1,1 @@
+{"scripts":{"dev":"astro dev","build":"astro check && astro build","preview":"astro preview"},"dependencies":{"@astrojs/check":"latest","@astrojs/react":"latest","@astrojs/tailwind":"latest","astro":"latest","react":"latest","react-dom":"latest","tailwindcss":"latest","typescript":"latest"},"devDependencies":{}}
