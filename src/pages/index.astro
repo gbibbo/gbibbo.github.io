@@ -19,11 +19,20 @@ const publicationYears = [...new Set(publications.map((publication) => publicati
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={profile.headline} />
+    <meta property="og:title" content={`${profile.name} · ${profile.role}`} />
+    <meta property="og:description" content={profile.headline} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/homepage_files/profile.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${profile.name} · ${profile.role}`} />
+    <meta name="twitter:description" content={profile.headline} />
+    <meta name="twitter:image" content="/homepage_files/profile.jpg" />
     <title>{profile.name} · {profile.role}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
     <link rel="shortcut icon" type="image/png" href="/homepage_files/favicon.png" />
+    <link rel="apple-touch-icon" href="/homepage_files/profile.jpg" />
   </head>
   <body>
     <div class="min-h-screen overflow-hidden">
@@ -42,18 +51,18 @@ const publicationYears = [...new Set(publications.map((publication) => publicati
       </header>
 
       <main id="home">
-        <section class="relative px-4 pb-24 pt-32 text-white md:pt-40">
-          <div class="absolute inset-x-0 top-0 -z-10 h-[36rem] bg-[radial-gradient(circle_at_70%_20%,rgba(125,211,252,0.2),transparent_22rem)]"></div>
+        <section class="relative overflow-hidden bg-graphite px-4 pb-24 pt-32 text-white md:pb-28 md:pt-40">
+          <div class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_20%,rgba(125,211,252,0.14),transparent_20rem),radial-gradient(circle_at_75%_10%,rgba(255,255,255,0.06),transparent_24rem),linear-gradient(180deg,#0e1520_0%,#121a25_100%)]"></div>
           <div class="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
             <div>
               <p class="mb-5 inline-flex rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-white/75">
                 {profile.location} · Audio AI · Machine Listening · MIR
               </p>
-              <h1 class="font-display text-5xl font-semibold leading-[0.95] tracking-tight text-balance md:text-7xl">
+              <h1 class="max-w-4xl font-display text-5xl font-semibold leading-[0.95] tracking-tight text-white text-balance md:text-7xl">
                 {profile.headline}
               </h1>
-              <p class="mt-7 max-w-2xl text-lg leading-8 text-white/70 md:text-xl">
-                I research, implement, evaluate, and deploy audio machine learning systems. My work connects sound event detection, voice activity detection, privacy-preserving audio, embedded ML, and music information retrieval.
+              <p class="mt-7 max-w-2xl text-lg leading-8 text-white/78 md:text-xl">
+                {profile.heroIntro}
               </p>
               <div class="mt-9 flex flex-wrap gap-3">
                 <a class="rounded-full bg-signal px-6 py-3 text-sm font-bold text-graphite transition hover:bg-white" href="#projects">View projects</a>
@@ -64,7 +73,7 @@ const publicationYears = [...new Set(publications.map((publication) => publicati
 
             <aside class="dark-card p-4 md:p-5">
               <div class="overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/5">
-                <img src="/homepage_files/gabriel_bibbo.png" alt="Gabriel Bibbó" class="aspect-[4/5] w-full object-cover" />
+                <img src="/homepage_files/profile.jpg" alt="Gabriel Bibbó" class="aspect-[4/5] w-full object-cover object-top" />
               </div>
               <div class="grid grid-cols-2 gap-3 pt-4 text-sm">
                 <div class="rounded-2xl bg-white/10 p-4">
@@ -99,9 +108,9 @@ const publicationYears = [...new Set(publications.map((publication) => publicati
             <div class="mt-12 grid gap-6">
               {mainProjects.map((project, index) => (
                 <article class="card grid gap-6 p-5 md:grid-cols-[0.95fr_1.4fr] md:p-7">
-                  <div class="overflow-hidden rounded-[1.5rem] bg-graphite">
+                  <div class={`project-media ${project.imageFit === 'contain' ? 'project-media-contain' : 'project-media-cover'}`}>
                     {project.image ? (
-                      <img src={project.image} alt={project.title} class="h-full min-h-64 w-full object-cover transition duration-500 hover:scale-105" />
+                      <img src={project.image} alt={project.title} class="transition duration-500 hover:scale-[1.02]" />
                     ) : (
                       <div class="flex h-full min-h-64 items-end bg-[radial-gradient(circle_at_30%_20%,rgba(125,211,252,0.45),transparent_18rem),linear-gradient(135deg,#1c1f24,#3d332d)] p-6">
                         <span class="font-display text-3xl font-semibold text-white/90">0{index + 1}</span>
@@ -132,7 +141,9 @@ const publicationYears = [...new Set(publications.map((publication) => publicati
             <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {secondaryProjects.map((project) => (
                 <article class="card overflow-hidden p-4">
-                  {project.image ? <img src={project.image} alt={project.title} class="mb-5 h-40 w-full rounded-[1.25rem] object-cover" /> : <div class="mb-5 h-40 rounded-[1.25rem] bg-[radial-gradient(circle_at_30%_20%,rgba(125,211,252,0.38),transparent_14rem),linear-gradient(135deg,#1c1f24,#685040)]"></div>}
+                  {project.image ? (
+                    <div class={`secondary-media ${project.imageFit === 'contain' ? 'secondary-media-contain' : 'secondary-media-cover'}`}><img src={project.image} alt={project.title} /></div>
+                  ) : <div class="mb-5 h-40 rounded-[1.25rem] bg-[radial-gradient(circle_at_30%_20%,rgba(125,211,252,0.38),transparent_14rem),linear-gradient(135deg,#1c1f24,#685040)]"></div>}
                   <h3 class="font-display text-xl font-semibold text-ink">{project.title}</h3>
                   <p class="mt-3 text-sm leading-6 text-ink/65">{project.description}</p>
                   <div class="mt-4 flex flex-wrap gap-2">
@@ -140,7 +151,7 @@ const publicationYears = [...new Set(publications.map((publication) => publicati
                   </div>
                   {project.links.length > 0 && (
                     <div class="mt-5 flex flex-wrap gap-2">
-                      {project.links.map((link) => <a class="text-sm font-semibold text-clay hover:text-ink" href={link.href} target="_blank" rel="noreferrer">{link.label}</a>)}
+                      {project.links.map((link) => <a class="rounded-full border border-black/10 px-3 py-2 text-sm font-semibold text-clay transition hover:border-clay hover:bg-clay hover:text-white" href={link.href} target="_blank" rel="noreferrer">{link.label}</a>)}
                     </div>
                   )}
                 </article>
@@ -181,8 +192,11 @@ const publicationYears = [...new Set(publications.map((publication) => publicati
             <h2 class="section-title max-w-3xl">Employment experience.</h2>
             <div class="mt-12 space-y-5">
               {experience.map((item) => (
-                <article class="card grid gap-5 p-6 md:grid-cols-[12rem_1fr]">
+                <article class="card grid gap-5 p-6 md:grid-cols-[11rem_5.5rem_1fr] md:items-start">
                   <div class="text-sm font-semibold text-clay">{item.period}</div>
+                  <div class="org-logo">
+                    <img src={item.logo} alt={item.logoAlt} class={item.logoFit === 'contain' ? 'h-10 w-10 object-contain' : 'h-10 w-10 object-cover'} />
+                  </div>
                   <div>
                     <h3 class="font-display text-2xl font-semibold text-ink">{item.title}</h3>
                     <p class="mt-1 text-sm font-semibold text-ink/60">{item.org}</p>
@@ -228,10 +242,10 @@ const publicationYears = [...new Set(publications.map((publication) => publicati
                 <CopyEmailButton email={profile.email} client:load />
               </div>
             </div>
-            <div class="mt-10 flex flex-wrap gap-4 border-t border-white/10 pt-6 text-sm text-white/60">
-              <a class="hover:text-white" href={profile.links.github} target="_blank" rel="noreferrer">GitHub</a>
-              <a class="hover:text-white" href={profile.links.scholar} target="_blank" rel="noreferrer">Scholar</a>
-              <a class="hover:text-white" href={profile.links.orcid} target="_blank" rel="noreferrer">ORCID</a>
+            <div class="mt-10 flex flex-wrap gap-3 border-t border-white/10 pt-6">
+              <a class="profile-link" href={profile.links.github} target="_blank" rel="noreferrer">GitHub</a>
+              <a class="profile-link" href={profile.links.scholar} target="_blank" rel="noreferrer">Scholar</a>
+              <a class="profile-link" href={profile.links.orcid} target="_blank" rel="noreferrer">ORCID</a>
             </div>
           </div>
         </section>
