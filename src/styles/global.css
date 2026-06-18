@@ -44,6 +44,10 @@ body {
   text-wrap: balance;
 }
 
+.project-year-badge {
+  @apply rounded-full border border-clay/25 bg-clay/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-clay;
+}
+
 .project-media {
   @apply overflow-hidden rounded-[1.5rem] bg-graphite;
   border: 0;
@@ -57,6 +61,18 @@ body {
 }
 
 .project-media-cover img {
+  object-fit: cover;
+}
+
+.project-media-square {
+  aspect-ratio: 1 / 1;
+  align-self: start;
+  max-width: 100%;
+}
+
+.project-media-square img {
+  min-height: 0;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -107,15 +123,20 @@ body {
 
 .experience-logo-contain,
 .experience-logo-cover {
-  width: 5rem;
-  height: 5rem;
+  width: 10rem;
+  height: 10rem;
   object-fit: contain;
+  object-position: left center;
   transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.experience-logo-ikatu {
+  width: 11rem;
 }
 
 .experience-logo-link:hover .experience-logo-contain,
 .experience-logo-link:hover .experience-logo-cover {
-  transform: scale(1.08);
+  transform: scale(1.04);
   opacity: 0.86;
 }
 
@@ -172,9 +193,17 @@ body {
     min-height: 14rem;
   }
 
+  .project-media-square img {
+    min-height: 0;
+  }
+
   .experience-logo-contain,
   .experience-logo-cover {
-    width: 4.25rem;
-    height: 4.25rem;
+    width: 7rem;
+    height: 7rem;
+  }
+
+  .experience-logo-ikatu {
+    width: 8rem;
   }
 }
