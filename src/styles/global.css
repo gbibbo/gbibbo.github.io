@@ -113,6 +113,25 @@ body {
   padding: 0.75rem;
 }
 
+.stack-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.stack-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  background: rgba(28, 31, 36, 0.07);
+  color: rgba(16, 24, 40, 0.78);
+  padding: 0.55rem 0.85rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
 .experience-side {
   display: flex;
   flex-direction: column;
@@ -156,25 +175,44 @@ body {
   @apply inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-bold text-white transition hover:border-signal hover:bg-signal hover:text-graphite;
 }
 
-.image-lightbox {
-  border: 0;
-  padding: 0;
-  background: transparent;
-  max-width: min(96vw, 1400px);
-  width: min(96vw, 1400px);
+.image-lightbox[hidden] {
+  display: none !important;
 }
 
-.image-lightbox::backdrop {
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.image-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
   background: rgba(10, 15, 22, 0.86);
   backdrop-filter: blur(4px);
+  cursor: zoom-out;
 }
 
 .image-lightbox-shell {
   position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: min(96vw, 1400px);
+  max-height: 92vh;
   padding: 2.5rem 1rem 1rem;
+}
+
+.image-lightbox-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .image-lightbox-img {
@@ -218,5 +256,13 @@ body {
   .experience-logo-ikatu {
     width: 12rem !important;
     max-width: 12rem !important;
+  }
+
+  .stack-chip-grid {
+    gap: 0.65rem;
+  }
+
+  .stack-chip {
+    font-size: 0.74rem;
   }
 }
