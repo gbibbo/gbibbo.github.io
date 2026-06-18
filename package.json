@@ -1,1 +1,22 @@
-{"scripts":{"dev":"astro dev","build":"astro check && astro build","preview":"astro preview"},"dependencies":{"@astrojs/check":"latest","@astrojs/react":"latest","@astrojs/tailwind":"latest","astro":"latest","react":"latest","react-dom":"latest","tailwindcss":"latest","typescript":"latest"},"devDependencies":{}}
+{
+  "name": "gabriel-bibbo-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/check": "latest",
+    "@astrojs/react": "latest",
+    "@astrojs/tailwind": "latest",
+    "astro": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "tailwindcss": "^3.4.17",
+    "typescript": "latest"
+  },
+  "devDependencies": {}
+}
