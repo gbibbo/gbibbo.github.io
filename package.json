@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && cp -R homepage_files dist/homepage_files && cp -R media dist/media",
     "preview": "astro preview"
   },
   "dependencies": {
