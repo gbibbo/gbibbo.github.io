@@ -1,11 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 272 92" role="img" aria-label="Google logo">
-  <rect width="272" height="92" fill="none"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 218 58" role="img" aria-label="Google logo">
   <g font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="700">
-    <text x="8" y="63" fill="#4285F4">G</text>
-    <text x="56" y="63" fill="#DB4437">o</text>
-    <text x="88" y="63" fill="#F4B400">o</text>
-    <text x="120" y="63" fill="#4285F4">g</text>
-    <text x="155" y="63" fill="#0F9D58">l</text>
-    <text x="176" y="63" fill="#DB4437">e</text>
+    <text x="0" y="48" fill="#4285F4">G</text>
+    <text x="48" y="48" fill="#DB4437">o</text>
+    <text x="80" y="48" fill="#F4B400">o</text>
+    <text x="112" y="48" fill="#4285F4">g</text>
+    <text x="147" y="48" fill="#0F9D58">l</text>
+    <text x="168" y="48" fill="#DB4437">e</text>
   </g>
 </svg>
