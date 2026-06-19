@@ -1,13 +1,24 @@
 const EDUCATION_LOGO_INJECTION = String.raw`
 <style>
-  .education-logo-link {
+  .education-card-header {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    min-height: 4.5rem;
-    margin-bottom: 1.1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(18, 26, 37, 0.08);
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.35rem;
+  }
+
+  .education-card-header > p {
+    margin: 0;
+    flex: 0 0 auto;
+  }
+
+  .education-logo-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1 1 auto;
+    min-width: 0;
     text-decoration: none;
   }
 
@@ -19,30 +30,29 @@ const EDUCATION_LOGO_INJECTION = String.raw`
   }
 
   .education-logo-upf {
-    max-width: 13.2rem;
-    max-height: 2.65rem;
+    max-width: 11.1rem;
+    max-height: 2.08rem;
   }
 
   .education-logo-fing {
-    max-width: 13.9rem;
-    max-height: 2.35rem;
+    max-width: 11.5rem;
+    max-height: 1.92rem;
   }
 
   @media (max-width: 640px) {
-    .education-logo-link {
-      min-height: 4rem;
-      margin-bottom: 0.95rem;
-      padding-bottom: 0.9rem;
+    .education-card-header {
+      gap: 1rem;
+      margin-bottom: 1.1rem;
     }
 
     .education-logo-upf {
-      max-width: 12.3rem;
-      max-height: 2.45rem;
+      max-width: 9.4rem;
+      max-height: 1.8rem;
     }
 
     .education-logo-fing {
-      max-width: 13rem;
-      max-height: 2.2rem;
+      max-width: 9.8rem;
+      max-height: 1.65rem;
     }
   }
 </style>
@@ -69,7 +79,14 @@ const EDUCATION_LOGO_INJECTION = String.raw`
     const cards = Array.from(education.querySelectorAll('article.card')).slice(0, 2);
     cards.forEach((card, index) => {
       const data = logos[index];
-      if (!data || card.querySelector('.education-logo-link')) return;
+      if (!data || card.querySelector('.education-card-header')) return;
+
+      const period = card.querySelector('p');
+      const title = card.querySelector('h3');
+      if (!period || !title) return;
+
+      const header = document.createElement('div');
+      header.className = 'education-card-header';
 
       const link = document.createElement('a');
       link.href = data.href;
@@ -86,7 +103,8 @@ const EDUCATION_LOGO_INJECTION = String.raw`
       image.decoding = 'async';
 
       link.append(image);
-      card.prepend(link);
+      header.append(period, link);
+      card.insertBefore(header, title);
     });
 
     education.dataset.logosApplied = 'true';
