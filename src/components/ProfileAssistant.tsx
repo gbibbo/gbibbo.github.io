@@ -5,6 +5,11 @@ type ChatMessage = {
   content: string;
 };
 
+type StatItem = {
+  v: string;
+  l: string;
+};
+
 const COPY = {
   en: {
     storageKey: 'gabriel-profile-assistant-v1-en',
@@ -36,20 +41,69 @@ const COPY = {
   },
 };
 
-const HERO_STATS = {
+const STAT_POOLS: Record<'en' | 'es', StatItem[]> = {
   en: [
-    ['7+', 'years across audio and embedded engineering'],
-    ['13', 'peer-reviewed publications and works'],
-    ['8', 'models benchmarked under acoustic degradations'],
-    ['197 GB', 'residential audio dataset built'],
+    { v: '7+', l: 'years across audio and embedded engineering' },
+    { v: '13', l: 'peer-reviewed publications and works' },
+    { v: '8', l: 'models benchmarked under acoustic degradations' },
+    { v: '197 GB', l: 'residential audio dataset built' },
+    { v: '93.3%', l: 'balanced accuracy in voice activity detection' },
+    { v: '21,340', l: 'degraded audio clips evaluated' },
+    { v: '1,344', l: 'one-hour recordings from real homes' },
+    { v: '8', l: 'homes recorded for Sounds of Home' },
+    { v: '4', l: 'years writing embedded C/C++ for Bang & Olufsen' },
+    { v: '239', l: 'tracks organized with embedding clustering' },
+    { v: '14', l: 'DJ playlists generated automatically' },
+    { v: '9/10', l: 'MSc thesis grade at UPF Barcelona' },
+    { v: '2', l: 'degrees: Electrical Engineering and MSc Sound and Music Computing' },
+    { v: '3', l: 'working languages: Spanish, English, Portuguese' },
+    { v: 'LoRA + OPRO', l: 'fine-tuning and prompt optimization for audio models' },
+    { v: 'MERT', l: 'music embeddings for DJ-library clustering' },
+    { v: 'PANNs', l: 'pre-trained audio networks on Raspberry Pi' },
+    { v: 'Slurm', l: 'reproducible evaluation pipelines on HPC' },
+    { v: 'Edge ML', l: 'real-time CNN inference on low-cost hardware' },
+    { v: 'Privacy', l: 'speech-removal workflows before audio release' },
+    { v: 'TIV', l: 'harmonic compatibility measure for DJ mixing' },
+    { v: '4-bit', l: 'quantization for memory-efficient model evaluation' },
+    { v: 'IEEE', l: 'Signal Processing Society member' },
+    { v: 'EPSRC', l: 'participant in the AI for Sound grant' },
   ],
   es: [
-    ['7+', 'años entre audio e ingeniería embebida'],
-    ['13', 'publicaciones y trabajos revisados por pares'],
-    ['8', 'modelos evaluados bajo degradaciones acústicas'],
-    ['197 GB', 'dataset residencial de audio construido'],
+    { v: '7+', l: 'años entre audio e ingeniería embebida' },
+    { v: '13', l: 'publicaciones y trabajos revisados por pares' },
+    { v: '8', l: 'modelos evaluados bajo degradaciones acústicas' },
+    { v: '197 GB', l: 'dataset residencial de audio construido' },
+    { v: '93,3%', l: 'balanced accuracy en detección de actividad de voz' },
+    { v: '21.340', l: 'clips de audio degradados evaluados' },
+    { v: '1.344', l: 'grabaciones de una hora en hogares reales' },
+    { v: '8', l: 'hogares grabados para Sounds of Home' },
+    { v: '4', l: 'años escribiendo C/C++ embebido para Bang & Olufsen' },
+    { v: '239', l: 'tracks organizados por clustering de embeddings' },
+    { v: '14', l: 'playlists de DJ generadas automáticamente' },
+    { v: '9/10', l: 'nota de la tesis de máster en UPF Barcelona' },
+    { v: '2', l: 'títulos: Ing. Eléctrica y MSc Sound and Music Computing' },
+    { v: '3', l: 'idiomas de trabajo: español, inglés y portugués' },
+    { v: 'LoRA + OPRO', l: 'fine-tuning y optimización de prompts en modelos de audio' },
+    { v: 'MERT', l: 'embeddings musicales para clustering de bibliotecas DJ' },
+    { v: 'PANNs', l: 'redes preentrenadas corriendo en Raspberry Pi' },
+    { v: 'Slurm', l: 'pipelines de evaluación reproducibles en HPC' },
+    { v: 'Edge ML', l: 'inferencia CNN en tiempo real en hardware de bajo costo' },
+    { v: 'Privacy', l: 'workflows que eliminan voz antes de publicar audio' },
+    { v: 'TIV', l: 'medida de compatibilidad armónica para mezclas de DJ' },
+    { v: '4-bit', l: 'cuantización para evaluar modelos con menos memoria' },
+    { v: 'IEEE', l: 'miembro de la Signal Processing Society' },
+    { v: 'EPSRC', l: 'participante del grant AI for Sound' },
   ],
 };
+
+const FLIP_ORDER = [0, 3, 2, 1];
+
+function writeFace(face: HTMLElement | null, item: StatItem) {
+  const value = face?.querySelector<HTMLElement>('.stat-value');
+  const label = face?.querySelector<HTMLElement>('.stat-label');
+  if (value) value.textContent = item.v;
+  if (label) label.textContent = item.l;
+}
 
 export default function ProfileAssistant() {
   const [lang, setLang] = useState<'en' | 'es'>('en');
@@ -65,16 +119,71 @@ export default function ProfileAssistant() {
   }, []);
 
   useEffect(() => {
-    const stats = HERO_STATS[lang];
-    const statBoxes = Array.from(document.querySelectorAll<HTMLElement>('#home aside .grid.grid-cols-2 > div'));
-    statBoxes.slice(0, stats.length).forEach((box, index) => {
-      const [value, label] = stats[index];
-      const valueEl = box.querySelector<HTMLElement>('div:first-child');
-      const labelEl = box.querySelector<HTMLElement>('div:last-child');
-      if (valueEl) valueEl.textContent = value;
-      if (labelEl) labelEl.textContent = label;
+    const pool = STAT_POOLS[lang];
+    const grid = document.querySelector<HTMLElement>('#home aside .grid.grid-cols-2');
+    if (!grid) return undefined;
+
+    grid.classList.add('stats-grid');
+    const cells = Array.from(grid.children).slice(0, 4) as HTMLElement[];
+    if (cells.length < 4) return undefined;
+
+    cells.forEach((cell, index) => {
+      cell.className = 'stat-flip';
+      cell.dataset.stat = 'true';
+      cell.innerHTML = `
+        <div class="stat-flip-inner">
+          <div class="stat-face">
+            <div class="stat-value"></div>
+            <div class="stat-label"></div>
+          </div>
+          <div class="stat-face stat-back">
+            <div class="stat-value"></div>
+            <div class="stat-label"></div>
+          </div>
+        </div>
+      `;
+      writeFace(cell.querySelector('.stat-face:not(.stat-back)'), pool[index]);
+      writeFace(cell.querySelector('.stat-back'), pool[(index + 4) % pool.length]);
     });
 
+    const rotations = [0, 0, 0, 0];
+    const shown = [0, 1, 2, 3];
+    let poolPointer = 4 % pool.length;
+    let step = 0;
+
+    const nextIndex = () => {
+      let guard = 0;
+      while (shown.includes(poolPointer) && guard < pool.length) {
+        poolPointer = (poolPointer + 1) % pool.length;
+        guard += 1;
+      }
+      const selected = poolPointer;
+      poolPointer = (poolPointer + 1) % pool.length;
+      return selected;
+    };
+
+    const interval = window.setInterval(() => {
+      const position = FLIP_ORDER[step % FLIP_ORDER.length];
+      step += 1;
+      const cell = cells[position];
+      const inner = cell.querySelector<HTMLElement>('.stat-flip-inner');
+      if (!inner) return;
+
+      const nextRotation = rotations[position] + 180;
+      const backWillShow = nextRotation % 360 === 180;
+      const face = cell.querySelector<HTMLElement>(backWillShow ? '.stat-back' : '.stat-face:not(.stat-back)');
+      const next = nextIndex();
+
+      writeFace(face, pool[next]);
+      shown[position] = next;
+      rotations[position] = nextRotation;
+      inner.style.transform = `rotateX(${nextRotation}deg)`;
+    }, 4000);
+
+    return () => window.clearInterval(interval);
+  }, [lang]);
+
+  useEffect(() => {
     const replacements: Array<[string, string]> = [
       [' The private audio collection is not included in the repo.', ''],
       [' La colección privada de audio no está incluida en el repositorio.', ''],
@@ -293,15 +402,8 @@ export default function ProfileAssistant() {
           padding: 1rem 1rem 0.85rem;
           border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .profile-assistant-title {
-          font-weight: 900;
-          letter-spacing: -0.02em;
-        }
-        .profile-assistant-subtitle {
-          margin-top: 0.1rem;
-          font-size: 0.78rem;
-          color: rgba(255,255,255,0.62);
-        }
+        .profile-assistant-title { font-weight: 900; letter-spacing: -0.02em; }
+        .profile-assistant-subtitle { margin-top: 0.1rem; font-size: 0.78rem; color: rgba(255,255,255,0.62); }
         .profile-assistant-close {
           border: 1px solid rgba(255,255,255,0.16);
           border-radius: 9999px;
@@ -327,23 +429,9 @@ export default function ProfileAssistant() {
           border-radius: 1rem;
           padding: 0.75rem 0.85rem;
         }
-        .profile-assistant-message.assistant {
-          align-self: flex-start;
-          background: rgba(255,255,255,0.08);
-          color: rgba(255,255,255,0.9);
-        }
-        .profile-assistant-message.user {
-          align-self: flex-end;
-          background: #7dd3fc;
-          color: #121a25;
-          font-weight: 700;
-        }
-        .profile-assistant-input {
-          padding: 0.9rem;
-          border-top: 1px solid rgba(255,255,255,0.1);
-          display: grid;
-          gap: 0.7rem;
-        }
+        .profile-assistant-message.assistant { align-self: flex-start; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); }
+        .profile-assistant-message.user { align-self: flex-end; background: #7dd3fc; color: #121a25; font-weight: 700; }
+        .profile-assistant-input { padding: 0.9rem; border-top: 1px solid rgba(255,255,255,0.1); display: grid; gap: 0.7rem; }
         .profile-assistant-input textarea {
           width: 100%;
           min-height: 4.2rem;
@@ -355,44 +443,14 @@ export default function ProfileAssistant() {
           padding: 0.85rem;
           outline: none;
         }
-        .profile-assistant-input textarea::placeholder {
-          color: rgba(255,255,255,0.45);
-        }
-        .profile-assistant-actions {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 0.75rem;
-        }
-        .profile-assistant-note {
-          font-size: 0.72rem;
-          color: rgba(255,255,255,0.5);
-        }
-        .profile-assistant-send {
-          border: 0;
-          border-radius: 9999px;
-          background: #7dd3fc;
-          color: #121a25;
-          padding: 0.65rem 1rem;
-          font-weight: 900;
-          cursor: pointer;
-        }
-        .profile-assistant-send:disabled {
-          opacity: 0.55;
-          cursor: not-allowed;
-        }
+        .profile-assistant-input textarea::placeholder { color: rgba(255,255,255,0.45); }
+        .profile-assistant-actions { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+        .profile-assistant-note { font-size: 0.72rem; color: rgba(255,255,255,0.5); }
+        .profile-assistant-send { border: 0; border-radius: 9999px; background: #7dd3fc; color: #121a25; padding: 0.65rem 1rem; font-weight: 900; cursor: pointer; }
+        .profile-assistant-send:disabled { opacity: 0.55; cursor: not-allowed; }
         @media (max-width: 640px) {
-          .profile-assistant-panel {
-            right: 0.75rem !important;
-            left: 0.75rem !important;
-            bottom: 4.9rem !important;
-            width: auto;
-            max-height: 72vh;
-          }
-          .profile-assistant-launcher {
-            right: 0.75rem !important;
-            bottom: 0.75rem !important;
-          }
+          .profile-assistant-panel { right: 0.75rem !important; left: 0.75rem !important; bottom: 4.9rem !important; width: auto; max-height: 72vh; }
+          .profile-assistant-launcher { right: 0.75rem !important; bottom: 0.75rem !important; }
         }
       `}</style>
 
