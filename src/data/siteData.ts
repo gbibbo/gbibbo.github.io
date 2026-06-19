@@ -1,8 +1,8 @@
 export const profile = {
   name: 'Gabriel Bibbó',
   role: 'Audio AI Research Engineer',
-  headline: 'Audio AI Research Engineer bridging machine listening research, experimental software, and deployable prototypes.',
-  heroIntro: 'I research, implement, evaluate, and deploy audio machine learning systems. My work connects sound event detection, voice activity detection, privacy-preserving audio, embedded ML, and music information retrieval.',
+  headline: 'Audio AI Research Engineer working on machine listening, privacy-preserving audio, and embedded ML.',
+  heroIntro: 'I build audio machine learning systems that run outside the notebook, across sound event detection, voice activity detection, privacy-preserving audio, and music information retrieval.',
   location: 'Montevideo, Uruguay',
   email: 'gabobibbo@gmail.com',
   availability: 'Italian citizen with EU work authorization. Open to remote roles in LATAM/Europe and selected relocation opportunities within the EU.',
@@ -22,7 +22,7 @@ export const mainProjects = [
     image: '/homepage_files/Qwen_Overall_BA.png',
     imageFit: 'contain',
     description:
-      'I tested how audio-language models detect speech when the audio is short, noisy, reverberant, or filtered. The project compares Qwen2-Audio-7B, Qwen2-Audio-7B with LoRA, Qwen3-Omni-30B, and Silero VAD on the same degraded test bank. The best result came from Qwen2-Audio-7B with LoRA and OPRO-Template: 93.3% balanced accuracy on 21,340 degraded clips.',
+      'This research evaluates how audio-language models detect speech when the audio is short, noisy, reverberant, or filtered. The project compares Qwen2-Audio-7B, Qwen2-Audio-7B with LoRA, Qwen3-Omni-30B, and Silero VAD on the same degraded test bank. The best result came from Qwen2-Audio-7B with LoRA and OPRO-Template: 93.3% balanced accuracy on 21,340 degraded clips.',
     tags: ['VAD', 'Qwen', 'LoRA', 'OPRO', 'Silero', 'PyTorch'],
     links: [{ label: 'Code', href: 'https://github.com/gbibbo/qwen-vad-lora' }],
   },
@@ -34,7 +34,7 @@ export const mainProjects = [
     imageFit: 'cover',
     imagePosition: 'center 58%',
     description:
-      'I built a backend platform to compare two ASR paths on the same audio: raw transcription and enhance-and-transcribe. The system stores jobs, audio files, transcripts, and provider payloads so each result can be inspected later. It uses FastAPI, Celery, PostgreSQL, Redis, MinIO, Docker Compose, metrics, tracing, Grafana, and CI.',
+      'The ASR Enhancement Platform compares two speech recognition paths on the same audio: raw transcription and enhance-and-transcribe. The backend stores jobs, audio files, transcripts, and provider payloads so each result can be inspected later. It uses FastAPI, Celery, PostgreSQL, Redis, MinIO, Docker Compose, metrics, tracing, Grafana, and CI.',
     tags: ['ASR', 'FastAPI', 'Celery', 'Docker', 'PostgreSQL', 'Redis'],
     links: [{ label: 'Code', href: 'https://github.com/gbibbo/asr_enhancement' }],
   },
@@ -45,7 +45,7 @@ export const mainProjects = [
     image: '/homepage_files/chime_2024_sounds_of_home.png',
     imageFit: 'cover',
     description:
-      'I worked on Sounds of Home, a residential audio dataset for sound event detection. The dataset contains 1,344 one-hour recordings from 8 homes in Belgium. AudioMoth recorders were placed in living rooms and kitchens. Speech was removed before release, and PANNs predictions were provided for the audio frames.',
+      'Sounds of Home is a residential audio dataset for sound event detection. It contains 1,344 one-hour recordings from 8 homes in Belgium, captured with AudioMoth recorders placed in living rooms and kitchens. Speech was removed before release, and PANNs predictions were provided for the audio frames.',
     tags: ['SED', 'Privacy', 'AudioMoth', 'PANNs', 'Datasets'],
     links: [
       { label: 'Official site', href: 'https://www.cvssp.org/data/ai4s/sounds_of_home/' },
@@ -59,7 +59,7 @@ export const mainProjects = [
     image: '/homepage_files/icwe_2022_harmonic_mixing.png',
     imageFit: 'contain',
     description:
-      'I built a music analysis system for estimating how well two EDM tracks mix harmonically. The system analyzes tracks, computes chroma features, converts them into Tonal Interval Vectors, compares harmonic compatibility, and suggests pitch shifts that can improve a mix. This was my MSc thesis work and later became an ICWE 2022 publication.',
+      'This music analysis system estimates how well two EDM tracks mix harmonically. It analyzes tracks, computes chroma features, converts them into Tonal Interval Vectors, compares harmonic compatibility, and suggests pitch shifts that can improve a mix. The work began as an MSc thesis and later became an ICWE 2022 publication.',
     tags: ['MIR', 'EDM', 'Chroma', 'TIV', 'Essentia', 'librosa'],
     links: [
       { label: 'Code', href: 'https://github.com/gbibbo/harmonic_mix' },
@@ -70,11 +70,11 @@ export const mainProjects = [
     title: 'Traktor ML',
     year: '2026',
     eyebrow: 'MIR · DJ library organization',
-    image: 'https://raw.githubusercontent.com/gbibbo/traktor/main/interface.png',
+    image: '/homepage_files/traktor_interface.svg',
     imageFit: 'contain',
     imagePosition: 'center center',
     description:
-      'I built a pipeline that turns a local Techno and Tech House library into Traktor-ready playlists. The system extracts MERT embeddings, separates stems with Demucs, reads BPM and key metadata with Essentia, clusters similar tracks, orders them for smoother transitions, and exports M3U playlists. The current V4 run processed 239 tracks and exported 14 playlists. The private audio collection is not included in the repo.',
+      'Traktor ML turns a local Techno and Tech House library into Traktor-ready playlists. The pipeline extracts MERT embeddings, separates stems with Demucs, reads BPM and key metadata with Essentia, clusters similar tracks, orders them for smoother transitions, and exports M3U playlists. The current V4 run processed 239 tracks and exported 14 playlists.',
     tags: ['MERT', 'Demucs', 'Essentia', 'HDBSCAN', 'UMAP', 'Streamlit'],
     links: [{ label: 'Code', href: 'https://github.com/gbibbo/traktor' }],
   },
@@ -84,10 +84,10 @@ export const secondaryProjects = [
   {
     title: 'Speech Removal Framework',
     year: '2025',
-    image: '/homepage_files/waspaa_2025_vad_demo.png',
-    imageFit: 'cover',
+    image: '/homepage_files/speech_removal_framework.svg',
+    imageFit: 'contain',
     description:
-      'Framework for removing speech from audio recordings before they are shared or published. It belongs to the privacy-preserving audio line of work and is linked to the WASPAA 2025 demo/publication.',
+      'A framework for removing speech from audio recordings before they are shared or published. The system supports privacy-preserving release workflows for audio datasets while retaining non-speech acoustic information for downstream sound event detection research.',
     tags: ['Speech removal', 'Privacy', 'WASPAA'],
     links: [
       { label: 'Demo', href: 'https://huggingface.co/spaces/gbibbo/vad_demo' },
@@ -100,7 +100,7 @@ export const secondaryProjects = [
     image: '/homepage_files/alpaca-diagram.jpg',
     imageFit: 'contain',
     description:
-      'Python-based algorithmic trading platform with market data ingestion, risk controls, backtesting, and real-time monitoring. Kept as a secondary project because it shows backend and system design outside Audio AI.',
+      'Python-based algorithmic trading platform with market data ingestion, risk controls, backtesting, and real-time monitoring.',
     tags: ['Python', 'Backtesting', 'Monitoring'],
     links: [{ label: 'Code', href: 'https://github.com/gbibbo/alpaca' }],
   },
@@ -123,7 +123,7 @@ export const secondaryProjects = [
     image: '/homepage_files/project_3hato.png',
     imageFit: 'cover',
     description:
-      'Mechanical tool designed during the pandemic to avoid touching shared surfaces directly. It is a physical prototyping project, not an AI project.',
+      'Mechanical tool designed during the pandemic to avoid touching shared surfaces directly.',
     tags: ['Product design', 'Prototyping'],
     links: [{ label: 'Video', href: 'https://www.youtube.com/watch?v=aQVo0i5OLWU' }],
   },
@@ -238,7 +238,7 @@ export const publications = [
   {
     year: '2022',
     title: 'A New Compatibility Measure for Harmonic EDM Mixing',
-    authors: 'Gabriel Bibbó',
+    authors: 'Gabriel Bibbó; Ángel Faraldo',
     venue: 'International Conference on Web Engineering (ICWE 2022), Bari, Italy, July 2022',
     links: [{ label: 'DOI', href: 'http://dx.doi.org/10.1007/978-3-031-09917-5_37' }],
   },
@@ -246,13 +246,13 @@ export const publications = [
     year: '2021',
     title: 'Towards a New Compatibility Measure for Harmonic EDM Mixing',
     authors: 'Gabriel Bibbó',
-    venue: 'Master thesis, Universitat Pompeu Fabra, Barcelona, Spain, 2021',
+    venue: 'Master thesis, Universitat Pompeu Fabra, Barcelona, Spain, 2021. Supervisor: Ángel Faraldo.',
     links: [{ label: 'Repository', href: 'https://github.com/MTG/essentia-research/tree/master/harmonic-mixing' }],
   },
   {
     year: '2017',
     title: 'Autonomous Mobile Robots Comunicated by Software Defined Radio',
-    authors: 'Gabriel Bibbó',
+    authors: 'Gabriel Bibbó; Mariana Gelós; Martín Randall; Pablo Belzarena; Federico Larroca',
     venue: 'Bachelor thesis, Universidad de la República, Montevideo, Uruguay, 2017',
     links: [{ label: 'Publication', href: 'https://www.colibri.udelar.edu.uy/jspui/handle/20.500.12008/36158' }],
   },
