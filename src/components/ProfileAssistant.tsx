@@ -43,56 +43,52 @@ const COPY = {
 
 const STAT_POOLS: Record<'en' | 'es', StatItem[]> = {
   en: [
-    { v: '7+', l: 'years across audio and embedded engineering' },
-    { v: '13', l: 'peer-reviewed publications and works' },
-    { v: '8', l: 'models benchmarked under acoustic degradations' },
-    { v: '197 GB', l: 'residential audio dataset built' },
-    { v: '93.3%', l: 'balanced accuracy in voice activity detection' },
-    { v: '21,340', l: 'degraded audio clips evaluated' },
-    { v: '1,344', l: 'one-hour recordings from real homes' },
-    { v: '8', l: 'homes recorded for Sounds of Home' },
-    { v: '4', l: 'years writing embedded C/C++ for Bang & Olufsen' },
-    { v: '239', l: 'tracks organized with embedding clustering' },
-    { v: '14', l: 'DJ playlists generated automatically' },
-    { v: '9/10', l: 'MSc thesis grade at UPF Barcelona' },
-    { v: '2', l: 'degrees: Electrical Engineering and MSc Sound and Music Computing' },
-    { v: '3', l: 'working languages: Spanish, English, Portuguese' },
-    { v: 'LoRA + OPRO', l: 'fine-tuning and prompt optimization for audio models' },
-    { v: 'MERT', l: 'music embeddings for DJ-library clustering' },
-    { v: 'PANNs', l: 'pre-trained audio networks on Raspberry Pi' },
-    { v: 'Slurm', l: 'reproducible evaluation pipelines on HPC' },
-    { v: 'Edge ML', l: 'real-time CNN inference on low-cost hardware' },
-    { v: 'Privacy', l: 'speech-removal workflows before audio release' },
-    { v: 'TIV', l: 'harmonic compatibility measure for DJ mixing' },
-    { v: '4-bit', l: 'quantization for memory-efficient model evaluation' },
+    { v: '7+', l: 'years across audio, ML, and embedded engineering' },
+    { v: '4', l: 'years shipping embedded C/C++ for Bang & Olufsen products' },
+    { v: '3', l: 'years as Research Engineer in Sound Sensing at University of Surrey' },
+    { v: '2', l: 'degrees: Electrical Engineering and Sound & Music Computing' },
+    { v: '13', l: 'publications and research outputs across audio, ML, and MIR' },
+    { v: '3', l: 'countries in study/work trajectory: Uruguay, Spain, and UK' },
+    { v: '3', l: 'working languages: Spanish, English C1, Portuguese A2' },
+    { v: 'EU', l: 'Italian citizen with European Union work authorization' },
+    { v: '9/10', l: 'MSc thesis grade at Universitat Pompeu Fabra, Barcelona' },
+    { v: 'C/C++', l: 'embedded firmware experience on product-facing hardware' },
+    { v: 'Python', l: 'research prototypes, data pipelines, and backend systems' },
+    { v: 'Audio ML', l: 'machine listening systems evaluated beyond notebook prototypes' },
+    { v: 'Privacy', l: 'experience with speech-removal workflows for sensitive audio' },
+    { v: 'Edge', l: 'real-time sound recognition deployed on Raspberry Pi hardware' },
+    { v: 'Backend', l: 'FastAPI, Celery, Docker, Redis, PostgreSQL, and observability' },
+    { v: 'Google', l: 'Tier 3 enterprise support for Google Workspace customers' },
+    { v: 'KPMG', l: 'IT audit experience with telecom and IT departments' },
+    { v: 'Product', l: 'requirements, architecture, implementation, validation, documentation' },
+    { v: 'Open source', l: 'public code, reproducible demos, and technical documentation' },
+    { v: 'DJ + producer', l: 'domain expertise in electronic music and MIR tools' },
     { v: 'IEEE', l: 'Signal Processing Society member' },
-    { v: 'EPSRC', l: 'participant in the AI for Sound grant' },
+    { v: 'EPSRC', l: 'participant in the AI for Sound research grant' },
   ],
   es: [
-    { v: '7+', l: 'años entre audio e ingeniería embebida' },
-    { v: '13', l: 'publicaciones y trabajos revisados por pares' },
-    { v: '8', l: 'modelos evaluados bajo degradaciones acústicas' },
-    { v: '197 GB', l: 'dataset residencial de audio construido' },
-    { v: '93,3%', l: 'balanced accuracy en detección de actividad de voz' },
-    { v: '21.340', l: 'clips de audio degradados evaluados' },
-    { v: '1.344', l: 'grabaciones de una hora en hogares reales' },
-    { v: '8', l: 'hogares grabados para Sounds of Home' },
-    { v: '4', l: 'años escribiendo C/C++ embebido para Bang & Olufsen' },
-    { v: '239', l: 'tracks organizados por clustering de embeddings' },
-    { v: '14', l: 'playlists de DJ generadas automáticamente' },
-    { v: '9/10', l: 'nota de la tesis de máster en UPF Barcelona' },
-    { v: '2', l: 'títulos: Ing. Eléctrica y MSc Sound and Music Computing' },
-    { v: '3', l: 'idiomas de trabajo: español, inglés y portugués' },
-    { v: 'LoRA + OPRO', l: 'fine-tuning y optimización de prompts en modelos de audio' },
-    { v: 'MERT', l: 'embeddings musicales para clustering de bibliotecas DJ' },
-    { v: 'PANNs', l: 'redes preentrenadas corriendo en Raspberry Pi' },
-    { v: 'Slurm', l: 'pipelines de evaluación reproducibles en HPC' },
-    { v: 'Edge ML', l: 'inferencia CNN en tiempo real en hardware de bajo costo' },
-    { v: 'Privacy', l: 'workflows que eliminan voz antes de publicar audio' },
-    { v: 'TIV', l: 'medida de compatibilidad armónica para mezclas de DJ' },
-    { v: '4-bit', l: 'cuantización para evaluar modelos con menos memoria' },
-    { v: 'IEEE', l: 'miembro de la Signal Processing Society' },
-    { v: 'EPSRC', l: 'participante del grant AI for Sound' },
+    { v: '7+', l: 'años entre audio, ML e ingeniería embebida' },
+    { v: '4', l: 'años enviando C/C++ embebido para productos Bang & Olufsen' },
+    { v: '3', l: 'años como Research Engineer in Sound Sensing en University of Surrey' },
+    { v: '2', l: 'títulos: Ingeniería Eléctrica y MSc Sound & Music Computing' },
+    { v: '13', l: 'publicaciones y trabajos de investigación en audio, ML y MIR' },
+    { v: '3', l: 'países en trayectoria de estudio/trabajo: Uruguay, España y Reino Unido' },
+    { v: '3', l: 'idiomas de trabajo: español, inglés C1 y portugués A2' },
+    { v: 'UE', l: 'ciudadano italiano con autorización laboral en la Unión Europea' },
+    { v: '9/10', l: 'nota de tesis de máster en Universitat Pompeu Fabra, Barcelona' },
+    { v: 'C/C++', l: 'firmware embebido para hardware orientado a producto' },
+    { v: 'Python', l: 'prototipos de investigación, pipelines de datos y backend' },
+    { v: 'Audio ML', l: 'sistemas de machine listening más allá del notebook' },
+    { v: 'Privacidad', l: 'workflows de remoción de voz para audio sensible' },
+    { v: 'Edge', l: 'reconocimiento de sonido en tiempo real sobre Raspberry Pi' },
+    { v: 'Backend', l: 'FastAPI, Celery, Docker, Redis, PostgreSQL y observabilidad' },
+    { v: 'Google', l: 'soporte enterprise Tier 3 para clientes de Google Workspace' },
+    { v: 'KPMG', l: 'experiencia en IT audit con telecomunicaciones y departamentos IT' },
+    { v: 'Producto', l: 'requisitos, arquitectura, implementación, validación y documentación' },
+    { v: 'Open source', l: 'código público, demos reproducibles y documentación técnica' },
+    { v: 'DJ + productor', l: 'criterio de dominio en música electrónica y herramientas MIR' },
+    { v: 'IEEE', l: 'miembro de IEEE Signal Processing Society' },
+    { v: 'EPSRC', l: 'participante del research grant AI for Sound' },
   ],
 };
 
@@ -352,6 +348,24 @@ export default function ProfileAssistant() {
   return (
     <>
       <style>{`
+        .font-display {
+          font-family: 'Space Grotesk', Inter, system-ui, sans-serif !important;
+          font-variation-settings: normal !important;
+        }
+        #home h1 {
+          letter-spacing: -0.055em !important;
+          text-shadow: none !important;
+        }
+        @media (min-width: 1024px) {
+          #home h1 {
+            font-size: clamp(4.8rem, 8vw, 8rem) !important;
+            line-height: 0.9 !important;
+          }
+        }
+        #home > section::after { display: none !important; }
+        .stat-value {
+          font-family: 'Space Grotesk', Inter, system-ui, sans-serif !important;
+        }
         .profile-assistant-launcher {
           position: fixed !important;
           right: 1.25rem !important;
@@ -370,79 +384,18 @@ export default function ProfileAssistant() {
           cursor: pointer;
           font-family: Inter, system-ui, sans-serif;
         }
-        .profile-assistant-dot {
-          width: 0.72rem;
-          height: 0.72rem;
-          border-radius: 9999px;
-          background: #7dd3fc;
-          box-shadow: 0 0 0 6px rgba(125,211,252,0.16);
-        }
-        .profile-assistant-panel {
-          position: fixed !important;
-          right: 1.25rem !important;
-          bottom: 5.3rem !important;
-          z-index: 9999 !important;
-          width: min(92vw, 420px);
-          max-height: min(74vh, 660px);
-          display: flex;
-          flex-direction: column;
-          overflow: hidden;
-          border: 1px solid rgba(255,255,255,0.14);
-          border-radius: 1.6rem;
-          background: #121a25;
-          color: #fff;
-          box-shadow: 0 30px 90px rgba(0,0,0,0.36);
-          font-family: Inter, system-ui, sans-serif;
-        }
-        .profile-assistant-header {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 1rem;
-          padding: 1rem 1rem 0.85rem;
-          border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
+        .profile-assistant-dot { width: 0.72rem; height: 0.72rem; border-radius: 9999px; background: #7dd3fc; box-shadow: 0 0 0 6px rgba(125,211,252,0.16); }
+        .profile-assistant-panel { position: fixed !important; right: 1.25rem !important; bottom: 5.3rem !important; z-index: 9999 !important; width: min(92vw, 420px); max-height: min(74vh, 660px); display: flex; flex-direction: column; overflow: hidden; border: 1px solid rgba(255,255,255,0.14); border-radius: 1.6rem; background: #121a25; color: #fff; box-shadow: 0 30px 90px rgba(0,0,0,0.36); font-family: Inter, system-ui, sans-serif; }
+        .profile-assistant-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1rem 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .profile-assistant-title { font-weight: 900; letter-spacing: -0.02em; }
         .profile-assistant-subtitle { margin-top: 0.1rem; font-size: 0.78rem; color: rgba(255,255,255,0.62); }
-        .profile-assistant-close {
-          border: 1px solid rgba(255,255,255,0.16);
-          border-radius: 9999px;
-          background: rgba(255,255,255,0.06);
-          color: #fff;
-          width: 2rem;
-          height: 2rem;
-          cursor: pointer;
-        }
-        .profile-assistant-messages {
-          flex: 1;
-          overflow-y: auto;
-          padding: 1rem;
-          display: flex;
-          flex-direction: column;
-          gap: 0.75rem;
-        }
-        .profile-assistant-message {
-          max-width: 86%;
-          white-space: pre-wrap;
-          line-height: 1.55;
-          font-size: 0.92rem;
-          border-radius: 1rem;
-          padding: 0.75rem 0.85rem;
-        }
+        .profile-assistant-close { border: 1px solid rgba(255,255,255,0.16); border-radius: 9999px; background: rgba(255,255,255,0.06); color: #fff; width: 2rem; height: 2rem; cursor: pointer; }
+        .profile-assistant-messages { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
+        .profile-assistant-message { max-width: 86%; white-space: pre-wrap; line-height: 1.55; font-size: 0.92rem; border-radius: 1rem; padding: 0.75rem 0.85rem; }
         .profile-assistant-message.assistant { align-self: flex-start; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); }
         .profile-assistant-message.user { align-self: flex-end; background: #7dd3fc; color: #121a25; font-weight: 700; }
         .profile-assistant-input { padding: 0.9rem; border-top: 1px solid rgba(255,255,255,0.1); display: grid; gap: 0.7rem; }
-        .profile-assistant-input textarea {
-          width: 100%;
-          min-height: 4.2rem;
-          resize: vertical;
-          border-radius: 1rem;
-          border: 1px solid rgba(255,255,255,0.14);
-          background: rgba(255,255,255,0.06);
-          color: #fff;
-          padding: 0.85rem;
-          outline: none;
-        }
+        .profile-assistant-input textarea { width: 100%; min-height: 4.2rem; resize: vertical; border-radius: 1rem; border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.06); color: #fff; padding: 0.85rem; outline: none; }
         .profile-assistant-input textarea::placeholder { color: rgba(255,255,255,0.45); }
         .profile-assistant-actions { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
         .profile-assistant-note { font-size: 0.72rem; color: rgba(255,255,255,0.5); }
@@ -474,18 +427,10 @@ export default function ProfileAssistant() {
           </div>
 
           <div className="profile-assistant-input">
-            <textarea
-              value={input}
-              onChange={(event) => setInput(event.target.value)}
-              onKeyDown={handleKeyDown}
-              maxLength={900}
-              placeholder={copy.placeholder}
-            />
+            <textarea value={input} onChange={(event) => setInput(event.target.value)} onKeyDown={handleKeyDown} maxLength={900} placeholder={copy.placeholder} />
             <div className="profile-assistant-actions">
               <span className="profile-assistant-note">{copy.note}</span>
-              <button type="button" className="profile-assistant-send" onClick={sendMessage} disabled={loading || !input.trim()}>
-                {copy.send}
-              </button>
+              <button type="button" className="profile-assistant-send" onClick={sendMessage} disabled={loading || !input.trim()}>{copy.send}</button>
             </div>
           </div>
         </section>
