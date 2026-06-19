@@ -16,7 +16,7 @@ const COPY = {
     close: 'Close profile assistant',
     thinking: 'Thinking…',
     placeholder: "Ask about Gabriel's projects, publications, experience, education, or availability…",
-    note: 'Answers use an expanded profile knowledge base.',
+    note: 'Answers use the public profile content only.',
     send: 'Send',
     launcher: 'Ask my profile',
   },
@@ -30,10 +30,25 @@ const COPY = {
     close: 'Cerrar asistente de perfil',
     thinking: 'Pensando…',
     placeholder: 'Preguntá sobre proyectos, publicaciones, experiencia, educación o disponibilidad de Gabriel…',
-    note: 'Las respuestas usan una base de conocimiento ampliada del perfil.',
+    note: 'Las respuestas usan solamente el contenido público del perfil.',
     send: 'Enviar',
-    launcher: 'Preguntar por mi perfil',
+    launcher: 'Preguntá a mi perfil',
   },
+};
+
+const HERO_STATS = {
+  en: [
+    ['7+', 'years across audio and embedded engineering'],
+    ['13', 'peer-reviewed publications and works'],
+    ['8', 'models benchmarked under acoustic degradations'],
+    ['197 GB', 'residential audio dataset built'],
+  ],
+  es: [
+    ['7+', 'años entre audio e ingeniería embebida'],
+    ['13', 'publicaciones y trabajos revisados por pares'],
+    ['8', 'modelos evaluados bajo degradaciones acústicas'],
+    ['197 GB', 'dataset residencial de audio construido'],
+  ],
 };
 
 export default function ProfileAssistant() {
@@ -47,6 +62,118 @@ export default function ProfileAssistant() {
   useEffect(() => {
     const pageLang = document.documentElement.lang?.startsWith('es') ? 'es' : 'en';
     setLang(pageLang);
+  }, []);
+
+  useEffect(() => {
+    const stats = HERO_STATS[lang];
+    const statBoxes = Array.from(document.querySelectorAll<HTMLElement>('#home aside .grid.grid-cols-2 > div'));
+    statBoxes.slice(0, stats.length).forEach((box, index) => {
+      const [value, label] = stats[index];
+      const valueEl = box.querySelector<HTMLElement>('div:first-child');
+      const labelEl = box.querySelector<HTMLElement>('div:last-child');
+      if (valueEl) valueEl.textContent = value;
+      if (labelEl) labelEl.textContent = label;
+    });
+
+    const replacements: Array<[string, string]> = [
+      [' The private audio collection is not included in the repo.', ''],
+      [' La colección privada de audio no está incluida en el repositorio.', ''],
+      [' It is a physical prototyping project, not an AI project.', ''],
+      [' Es un proyecto de prototipado físico, no un proyecto de AI.', ''],
+    ];
+
+    document.querySelectorAll<HTMLElement>('p').forEach((paragraph) => {
+      let text = paragraph.textContent ?? '';
+      let changed = false;
+      replacements.forEach(([from, to]) => {
+        if (text.includes(from)) {
+          text = text.replace(from, to);
+          changed = true;
+        }
+      });
+      if (changed) paragraph.textContent = text;
+    });
+  }, [lang]);
+
+  useEffect(() => {
+    const lightbox = document.getElementById('image-lightbox');
+    if (!lightbox) return;
+
+    lightbox.setAttribute('role', 'dialog');
+    lightbox.setAttribute('aria-modal', 'true');
+    lightbox.setAttribute('tabindex', '-1');
+
+    let lastTrigger: HTMLElement | null = null;
+
+    const focusableSelector = [
+      'a[href]',
+      'button:not([disabled])',
+      'textarea:not([disabled])',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])',
+    ].join(',');
+
+    const focusCloseButton = () => {
+      const close = lightbox.querySelector<HTMLElement>('.image-lightbox-close');
+      close?.focus();
+    };
+
+    const returnFocus = () => {
+      window.setTimeout(() => lastTrigger?.focus(), 0);
+    };
+
+    const onDocumentClick = (event: MouseEvent) => {
+      const target = event.target as HTMLElement | null;
+      const trigger = target?.closest?.('.image-lightbox-trigger') as HTMLElement | null;
+      if (trigger) {
+        lastTrigger = trigger;
+        window.setTimeout(focusCloseButton, 0);
+        return;
+      }
+      if (target?.closest?.('.image-lightbox-close, .image-lightbox-backdrop')) {
+        returnFocus();
+      }
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (lightbox.hidden) return;
+
+      if (event.key === 'Escape') {
+        returnFocus();
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+
+      const focusables = Array.from(lightbox.querySelectorAll<HTMLElement>(focusableSelector))
+        .filter((item) => item.offsetParent !== null || item === document.activeElement);
+
+      if (focusables.length === 0) {
+        event.preventDefault();
+        lightbox.focus();
+        return;
+      }
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('click', onDocumentClick, true);
+    document.addEventListener('keydown', onKeyDown, true);
+
+    return () => {
+      document.removeEventListener('click', onDocumentClick, true);
+      document.removeEventListener('keydown', onKeyDown, true);
+    };
   }, []);
 
   useEffect(() => {
