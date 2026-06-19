@@ -20,6 +20,13 @@ function jsonResponse(body: unknown, status = 200) {
   });
 }
 
+function normalizeText(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
+
 function cleanMessage(message: unknown): ChatMessage | null {
   if (!message || typeof message !== 'object') return null;
   const item = message as Record<string, unknown>;
@@ -42,17 +49,44 @@ function extractAnswer(result: any): string {
 
 function wantsSpanish(question: string): boolean {
   const q = question.toLowerCase();
-  return /[áéíóúñ¿¡]/.test(q) || q.includes(' en español') || q.includes('sabes decirlo') || q.includes('cómo') || q.includes('que ') || q.includes('cuál') || q.includes('edad') || q.includes('hola');
+  return /[áéíóúñ¿¡]/.test(q) || q.includes(' en español') || q.includes('sabes decirlo') || q.includes('cómo') || q.includes('dónde') || q.includes('donde') || q.includes('que ') || q.includes('cuál') || q.includes('edad') || q.includes('hola');
+}
+
+function asksResidenceQuestion(question: string): boolean {
+  const q = normalizeText(question);
+  return (
+    q.includes('donde vivio') ||
+    q.includes('donde ha vivido') ||
+    q.includes('donde vive') ||
+    q.includes('donde residio') ||
+    q.includes('donde reside') ||
+    q.includes('lugares donde vivio') ||
+    q.includes('historial de residencia') ||
+    q.includes('residencia de gabriel') ||
+    q.includes('vive gabriel') ||
+    q.includes('vivio gabriel') ||
+    q.includes('where did gabriel live') ||
+    q.includes('where has gabriel lived') ||
+    q.includes('where does gabriel live') ||
+    q.includes('where is gabriel based') ||
+    q.includes('gabriel residence')
+  );
 }
 
 function profileFallback(question: string): string {
-  const q = question.toLowerCase();
+  const q = normalizeText(question);
   const es = wantsSpanish(question);
 
   if (/^(hola|hello|hi|buenas)\b/.test(q.trim())) {
     return es
       ? 'Hola. Puedo responder preguntas sobre el perfil profesional de Gabriel: proyectos, publicaciones, experiencia, educación, stack técnico, contacto y disponibilidad.'
       : 'Hi. I can answer questions about Gabriel’s professional profile: projects, publications, experience, education, technical stack, contact and availability.';
+  }
+
+  if (asksResidenceQuestion(question)) {
+    return es
+      ? 'El perfil público no incluye un historial confirmado de lugares donde Gabriel vivió. Lo que sí indica es que actualmente está basado en Montevideo, Uruguay; que estudió en Universidad de la República y Universitat Pompeu Fabra; y que trabajó o colaboró con organizaciones en Montevideo, Barcelona, Guildford/UK y remoto. Esos datos no deben interpretarse como una lista de residencias.'
+      : 'The public profile does not include a confirmed history of places where Gabriel lived. It says he is currently based in Montevideo, Uruguay; studied at Universidad de la República and Universitat Pompeu Fabra; and worked or collaborated with organizations in Montevideo, Barcelona, Guildford/UK, and remotely. Those facts should not be interpreted as a residence history.';
   }
 
   if (q.includes('age') || q.includes('old') || q.includes('edad')) {
@@ -109,7 +143,7 @@ function profileFallback(question: string): string {
       : 'Traktor ML is a music-information-retrieval pipeline that turns a local Techno and Tech House library into Traktor-ready playlists. It uses MERT embeddings, Demucs stems, Essentia metadata, clustering and playlist export.';
   }
 
-  if (q.includes('publication') || q.includes('paper') || q.includes('research') || q.includes('publicación')) {
+  if (q.includes('publication') || q.includes('paper') || q.includes('research') || q.includes('publicacion')) {
     return es
       ? 'Gabriel tiene publicaciones y trabajos sobre audio privacy-preserving, sound event detection, environmental sound classification en hardware embebido, robustez ante acústica de salas y micrófonos, soundscapes, Raspberry Pi sound recognition y harmonic EDM mixing.'
       : 'Gabriel has publications and works across privacy-preserving audio, sound event detection, embedded environmental sound classification, room acoustics and microphone robustness, soundscape research, Raspberry Pi sound recognition, and harmonic EDM mixing.';
@@ -126,24 +160,35 @@ function profileFallback(question: string): string {
     : 'I can answer questions about Gabriel Bibbó’s professional profile, projects, publications, education, work experience, technical stack, contact details and availability. Try asking about Sounds of Home, ASR platform, VAD research, Traktor ML, 3H-ATO, or University of Surrey experience.';
 }
 
+function shouldUseDeterministicFallback(question: string): boolean {
+  return asksResidenceQuestion(question) || normalizeText(question).includes('edad') || normalizeText(question).includes('age');
+}
+
 function shouldReplaceWithFallback(answer: string, question: string): boolean {
-  const a = answer.toLowerCase();
-  const q = question.toLowerCase();
+  const a = normalizeText(answer);
+  const q = normalizeText(question);
   const asksKnownProject = ['sounds of home', '3hato', '3h-ato', 'asr', 'vad', 'qwen', 'traktor', 'alpaca', 'raspberry'].some((term) => q.includes(term));
 
   const genericIgnorance =
     a.includes('my knowledge cutoff') ||
     a.includes('last update') ||
-    a.includes('última actualización') ||
+    a.includes('ultima actualizacion') ||
     a.includes('no tengo registros') ||
     a.includes('i do not have records') ||
     a.includes('i don\'t have records') ||
     a.includes('i have no records') ||
-    a.includes('no tengo información sobre') ||
     a.includes('no tengo informacion sobre');
 
+  const residenceInference = asksResidenceQuestion(question) && (
+    a.includes('vivio en') ||
+    a.includes('ha vivido en') ||
+    a.includes('lived in') ||
+    a.includes('has lived in') ||
+    a.includes('where he lived')
+  );
+
   const contradictoryKnownProjectAnswer = asksKnownProject && genericIgnorance;
-  return contradictoryKnownProjectAnswer;
+  return contradictoryKnownProjectAnswer || residenceInference;
 }
 
 function postProcessAnswer(answer: string, question: string): string {
@@ -173,6 +218,10 @@ export async function onRequestPost(context: any) {
 
   const lastUserMessage = messages[messages.length - 1].content;
 
+  if (shouldUseDeterministicFallback(lastUserMessage)) {
+    return jsonResponse({ answer: profileFallback(lastUserMessage), source: 'deterministic-fallback' });
+  }
+
   if (!env?.AI?.run) {
     return jsonResponse({ answer: profileFallback(lastUserMessage), source: 'fallback-no-ai-binding' });
   }
@@ -182,6 +231,8 @@ export async function onRequestPost(context: any) {
 Use ONLY the knowledge base below. You are not a general web assistant and you must not talk about training data, knowledge cutoffs, or generic model limitations.
 
 Answer in the same language as the user unless they ask otherwise. Keep answers concise by default.
+
+Do not infer personal facts from professional facts. In particular, never infer where Gabriel lived from work locations, university locations, dataset locations, nationality, citizenship, or current base. If asked where he lived or lives, say the public profile does not include a confirmed residence history. You may separately mention current base and professional/education locations, clearly saying they are not a residence history.
 
 If the question asks about a topic that exists in the knowledge base, answer with the known facts first. If only part of the answer is known, say what is known and then say exactly what detail is not available. Do not start by saying you do not know if the knowledge base has partial information.
 
