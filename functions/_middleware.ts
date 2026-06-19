@@ -81,7 +81,7 @@ const EDUCATION_LOGO_INJECTION = String.raw`
       const image = document.createElement('img');
       image.src = data.src;
       image.alt = data.alt;
-      image.className = `education-logo-img ${data.className}`;
+      image.className = 'education-logo-img ' + data.className;
       image.loading = 'lazy';
       image.decoding = 'async';
 
