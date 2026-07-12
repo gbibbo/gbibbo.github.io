@@ -145,6 +145,30 @@ const SITE_PATCH = String.raw`
         'Publicación y presentación de investigación en IEEE WASPAA, CHiME Workshop, ICWE, Inter-Noise, SMC, UKAI, UKIS y AES. Supervisión de proyectos de grado y máster.',
         'Publicación y presentación de investigación en ICASSP, IEEE WASPAA, CHiME Workshop, Inter-Noise, SMC, UKAI, UKIS y AES. Supervisión de proyectos de grado y máster.'
       );
+      replaceExactText(
+        'The ASR Enhancement Platform compares two speech recognition paths on the same audio: raw transcription and enhance-and-transcribe. The backend stores jobs, audio files, transcripts, and provider payloads so each result can be inspected later. It uses FastAPI, Celery, PostgreSQL, Redis, MinIO, Docker Compose, metrics, tracing, Grafana, and CI.',
+        'An end-to-end MVP for comparing raw transcription with enhance-and-transcribe on pre-recorded audio. The backend persists jobs, audio artifacts, transcripts, and provider payloads, with FastAPI, Celery, PostgreSQL, Redis, MinIO, Docker Compose, metrics, tracing, Grafana, and CI. It is a reproducible engineering prototype, not a production-hardened service.'
+      );
+      replaceExactText(
+        'ASR Enhancement Platform compara dos caminos de reconocimiento de voz sobre el mismo audio: transcripción cruda y enhance-and-transcribe. El backend guarda jobs, archivos de audio, transcripciones y payloads de proveedores para poder inspeccionar cada resultado. Usa FastAPI, Celery, PostgreSQL, Redis, MinIO, Docker Compose, métricas, tracing, Grafana y CI.',
+        'MVP end-to-end para comparar transcripción cruda con enhance-and-transcribe sobre audio pregrabado. El backend conserva jobs, artefactos de audio, transcripciones y payloads de proveedores. Es un prototipo reproducible de ingeniería, no un servicio endurecido para producción.'
+      );
+      replaceExactText(
+        'Python-based algorithmic trading platform with market data ingestion, risk controls, backtesting, and real-time monitoring.',
+        'Software engineering prototype for algorithmic trading infrastructure, with market data ingestion, event processing, risk controls, historical simulation, persistence, API access, and monitoring. It has not been tested in production.'
+      );
+      replaceExactText(
+        'Plataforma de trading algorítmico en Python con ingesta de datos de mercado, controles de riesgo, backtesting y monitoreo en tiempo real.',
+        'Prototipo de ingeniería de software para infraestructura de trading algorítmico, con ingesta de datos, procesamiento de eventos, controles de riesgo, simulación histórica, persistencia, API y monitoreo. No fue probado en producción.'
+      );
+      replaceExactText(
+        'Sounds of Home is a residential audio dataset for sound event detection. It contains 1,344 one-hour recordings from 8 homes in Belgium, captured with AudioMoth recorders placed in living rooms and kitchens. Speech was removed before release, and PANNs predictions were provided for the audio frames.',
+        'Sounds of Home is a residential audio dataset for sound event detection. It contains 1,344 one-hour recordings collected from 8 participants in Belgium, using AudioMoth recorders placed in living rooms and kitchens. Speech was removed before release, and PANNs predictions were provided for the audio frames.'
+      );
+      replaceExactText(
+        'Sounds of Home es un dataset residencial para sound event detection. Contiene 1.344 grabaciones de una hora tomadas en 8 hogares de Bélgica, con grabadoras AudioMoth colocadas en salas de estar y cocinas. El habla fue removida antes de la publicación y se incluyeron predicciones de PANNs para los frames de audio.',
+        'Sounds of Home es un dataset residencial para sound event detection. Contiene 1.344 grabaciones de una hora obtenidas de 8 participantes en Bélgica, con grabadoras AudioMoth colocadas en salas de estar y cocinas. El habla fue removida antes de la publicación y se incluyeron predicciones de PANNs para los frames de audio.'
+      );
     };
 
     const patchRotatingStats = () => {
