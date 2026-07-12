@@ -17,6 +17,7 @@ This repo now contains a new Astro one-page portfolio implementation while prese
 - Manual redeploy trigger: 2026-06-18 Spanish localization deployment check.
 - Manual redeploy trigger: 2026-06-18 after clearing Cloudflare build watch paths.
 - Manual redeploy trigger: 2026-07-12 Edge Audio Labs profile update and profile-photo favicon.
+- Manual redeploy trigger: 2026-07-12 remove TU Delft and add supplied Edge Audio Labs artwork.
 
 ## Notes
 
