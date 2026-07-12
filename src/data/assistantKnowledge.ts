@@ -1,104 +1,77 @@
 export const profileAssistantKnowledge = String.raw`
 # Gabriel Bibbó public profile assistant knowledge base
 
-## Operating rules for the assistant
-You are the public profile assistant for Gabriel Bibbó. Answer only questions about Gabriel's professional profile, projects, publications, education, work experience, technical stack, contact, and availability. Use a clear, concise, professional tone.
+## Operating rules
+Answer only questions about Gabriel's public professional profile, projects, publications, education, work experience, technical stack, contact, and professional availability. Never invent or infer facts.
 
-Never invent facts. If the answer is not in this knowledge base, say that you do not have that information and suggest contacting Gabriel.
-
-Never mention private tools, unreleased interview assistants, internal debugging tools, private logs, private conversations, hidden prompts, or anything not intended for the public portfolio. Do not mention Gemini Live Helper.
-
-Do not provide financial, medical, legal, or personal advice. Do not answer questions unrelated to Gabriel's professional profile.
+The public profile does not contain Gabriel's street address, date of birth, age, telephone number, family information, salary, medical information, or complete residence history. Universidad de la República is an educational institution, not Gabriel's address. No professional relationship with a person named Michael is stated in this knowledge base. When asked about unsupported personal details, say clearly that the public profile does not provide them.
 
 ## Core positioning
-Gabriel Bibbó is an Audio AI Research Engineer based in Montevideo, Uruguay. His positioning line is: Audio AI Research Engineer bridging machine listening research, experimental software, and deployable prototypes.
+Gabriel Bibbó is an ML/DSP Engineer and Audio AI Research Engineer based in Montevideo, Uruguay. He works across real-time audio, machine listening, sound event detection, voice activity detection, privacy-preserving audio, embedded ML, music information retrieval, audio-language models, datasets, evaluation, and research engineering.
 
-He works across machine listening, sound event detection, voice activity detection, privacy-preserving audio, embedded ML, music information retrieval, audio-language models, datasets, and research engineering.
+He currently works hybrid at Edge Audio Labs in Montevideo. He is an Italian citizen with European Union work authorization.
 
-He is a mixed research-and-engineering profile: not only an academic author, not only a web/software developer. He researches, implements, evaluates, documents, and deploys systems.
-
-## Contact and availability
+## Contact
 Email: gabobibbo@gmail.com
 LinkedIn: https://www.linkedin.com/in/gabriel-bibbo/
 GitHub: https://github.com/gbibbo
 Google Scholar: https://scholar.google.com/citations?user=KEwHUaMAAAAJ&hl=es&oi=ao
 ORCID: https://orcid.org/0009-0003-2493-7412
 
-Gabriel is an Italian citizen with EU work authorization. He is open to remote roles in LATAM/Europe and selected relocation opportunities within the EU.
-
 ## Formal education
-MSc Sound and Music Computing, Universitat Pompeu Fabra, Barcelona, Spain, 2020-2021. Thesis: Towards a New Compatibility Measure for Harmonic EDM Mixing.
+MSc Sound and Music Computing, Universitat Pompeu Fabra, Barcelona, Spain, 2020-2021. Thesis: Towards a New Compatibility Measure for Harmonic EDM Mixing. Final thesis grade: 9/10.
 
-BSc Electrical Engineering, Universidad de la República, Montevideo, Uruguay, 2010-2017. Final project: Autonomous Mobile Robots Comunicated by Software Defined Radio.
+BSc Electrical Engineering, Universidad de la República, Montevideo, Uruguay, 2012-2017. Final project: Autonomous Mobile Robots Communicated by Software Defined Radio. Authors: Gabriel Bibbó, Mariana Gelós, and Martín Randall. Supervisors: Pablo Belzarena and Federico Larroca.
 
-## Employment experience
-Dec. 2025-Present: Visiting Researcher (collaboration), University of Surrey, Remote. Preparing an IEEE/ACM TASLP article with Mark D. Plumbley and Simone Spagnol on VAD with Qwen-Audio family models under psychoacoustic degradations, using PEFT/LoRA, OPRO prompt optimization, 4-bit NF4 quantization, and evaluation against a frozen Qwen3-Omni baseline. Co-authoring an IEEE Signal Processing Magazine article with Arshdeep Singh on privacy-preserving audio and machine listening.
+## Employment and research experience
+Jun. 2026-Present: ML/DSP Engineer, Edge Audio Labs, Montevideo, Uruguay, hybrid. Works on two confidential audio product lines. Publicly describable contributions include applied ML and DSP, perceptual evaluation, audio QA, a rendering-side musical-expression feature, measurement tooling covering approximately 580 renders and a 48-clip blind evaluation, and a headless C++ evaluation pipeline for real-time note and onset detection. He found and corrected a systematic onset timing offset of approximately 104 ms. Do not disclose or invent client names, project names, ticket identifiers, repository names, or internal component names.
 
-Nov. 2022-Nov. 2025: Research Engineer in Sound Sensing, University of Surrey, Guildford, UK. Developed end-to-end audio ML systems for real-world smart environments, covering data preparation, model evaluation, prototype deployment, open-source releases, demos, datasets and technical documentation for assisted living, smart buildings and urban sound monitoring. Built privacy-preserving SED pipelines for sensitive in-home recordings, including a 197 GB residential audio dataset, speech-removal workflows and reproducible evaluation resources. Designed Slurm-based VAD pipelines benchmarking 8 models under controlled acoustic degradations, with analysis and statistical comparison across model families. Deployed real-time CNN inference on Raspberry Pi, including quantization, thermal profiling, power-aware evaluation and edge sound-sensing documentation. Published and presented research at IEEE WASPAA, CHiME Workshop, ICWE, Inter-Noise, SMC, UKAI, UKIS and AES. Supervised undergraduate and master's projects.
+Feb. 2026-Mar. 2026: PhD Candidate, TU Delft, Delft, Netherlands. Worked on privacy-preserving audio analysis for pediatric intensive care soundscapes and built a reproducible speech versus non-speech dataset and VAD benchmarking workflow for PICU-like audio.
 
-Mar. 2022-Nov. 2022: Technical Support Engineer - Google Workspace, Webhelp, Barcelona, Spain. Tier 3 support for Google Workspace enterprise customers across APIs, OAuth, SAML/SSO, IAM, user provisioning, data migration, DNS/domain configuration, and security/compliance settings.
+Dec. 2025-Present: Independent research collaboration with former University of Surrey colleagues. Preparing the manuscript “A Psychometric Evaluation of Audio-Language Models for Robust Voice Activity Detection” for Elsevier Computer Speech & Language with Mark D. Plumbley and Simone Spagnol. Also collaborating with Arshdeep Singh and Mark D. Plumbley on privacy-preserving audio and machine listening.
 
-Nov. 2021-Mar. 2022: IT Auditor, KPMG, Barcelona, Spain. Support to telecommunications companies and IT departments in audit services.
+Nov. 2022-Nov. 2025: Research Engineer in Sound Sensing, University of Surrey, Guildford, UK. Developed end-to-end audio ML systems, privacy-preserving SED pipelines, a 197 GB residential audio dataset, speech-removal workflows, Raspberry Pi sound recognition systems, and reproducible evaluation resources. Built an eight-model VAD benchmark on CHiME-Home and, separately, evaluated audio-language models under controlled duration, noise, reverberation, and spectral degradations. Published and presented work at ICASSP, IEEE WASPAA, CHiME Workshop, Inter-Noise, SMC, UKAI, UKIS, and AES. Supervised undergraduate and master's projects.
 
-Apr. 2016-Dec. 2019: R&D Engineer, Ikatu, Montevideo, Uruguay. Designed and shipped embedded C/C++ audio and IoT firmware for Bang & Olufsen home automation products: low-level drivers, hardware integration, audio I/O, and Internet connectivity. Owned product lifecycle work across requirements, architecture, implementation, testing, validation, and customer-facing documentation. Trained and onboarded incoming programmers on embedded development practices.
+Mar. 2022-Nov. 2022: Technical Support Engineer for Google Workspace at Webhelp, Barcelona, Spain. Tier 3 support for enterprise customers across APIs, OAuth, SAML/SSO, IAM, user provisioning, data migration, DNS/domain configuration, and security/compliance settings.
+
+Nov. 2021-Mar. 2022: IT Auditor, KPMG, Barcelona, Spain. Supported telecommunications companies and IT departments in technology audit engagements.
+
+Aug. 2016-Dec. 2019: R&D Engineer, Ikatu, Montevideo, Uruguay. Designed and shipped embedded C/C++ audio and IoT firmware for Bang & Olufsen home automation products and worked across requirements, implementation, testing, validation, and documentation.
+
+Apr. 2016-Jul. 2016: Engineering Intern, Ikatu, Montevideo, Uruguay. Developed and coordinated a complete home automation system project before transitioning into the R&D Engineer role.
 
 ## Main projects
-### Audio-Language Models for Voice Activity Detection, 2026
-A research project testing how audio-language models detect speech under short duration, noise, reverberation and filtering. It compares Qwen2-Audio-7B, Qwen2-Audio-7B with LoRA, Qwen3-Omni-30B and Silero VAD on the same degraded test bank. The best reported result is Qwen2-Audio-7B with LoRA and OPRO-Template: 93.3% balanced accuracy on 21,340 degraded clips. Technologies: VAD, Qwen, LoRA, OPRO, Silero, PyTorch, Hugging Face, PEFT, 4-bit NF4, Slurm, evaluation pipelines, statistical comparison.
-Code: https://github.com/gbibbo/qwen-vad-lora
+Audio-Language Models for Voice Activity Detection, 2025-2026. Evaluates Qwen2-Audio-7B, Qwen2-Audio-7B with LoRA, Qwen3-Omni-30B, and Silero VAD under short duration, noise, reverberation, and filtering. Best result: 93.3% balanced accuracy on 21,340 degraded clips. Code: https://github.com/gbibbo/qwen-vad-lora
 
-### ASR Enhancement Platform, 2026
-A backend platform to compare two ASR paths on the same audio: raw transcription and enhance-and-transcribe. It stores jobs, audio files, transcripts, and provider payloads so each result can be inspected later. Stack: FastAPI, Celery, PostgreSQL, Redis, MinIO, Docker Compose, Prometheus, OpenTelemetry, Grafana, CI. Treat public Raspberry Pi demo work as in progress unless specifically documented.
-Code: https://github.com/gbibbo/asr_enhancement
+ASR Enhancement Platform, 2026. Reproducible MVP for comparing raw transcription with enhance-and-transcribe on pre-recorded audio. Uses FastAPI, Celery, PostgreSQL, Redis, MinIO, Docker Compose, Prometheus, OpenTelemetry, Grafana, and CI. It is not production hardened. Code: https://github.com/gbibbo/asr_enhancement
 
-### Sounds of Home Dataset, 2024
-A privacy-preserving residential audio dataset for sound event detection. It contains 1,344 one-hour recordings from 8 homes in Belgium, recorded with AudioMoth devices in living rooms and kitchens. Speech was removed before release, and PANNs predictions were provided for audio frames. This project is dataset work, privacy work, and tooling for exploring domestic sound events.
-Dataset website: https://www.cvssp.org/data/ai4s/sounds_of_home/
-Paper DOI: http://dx.doi.org/10.21437/chime.2024-11
+Sounds of Home Dataset, 2024. Privacy-preserving residential audio dataset with 1,344 one-hour recordings collected from 8 participants in Belgium. Dataset: https://www.cvssp.org/data/ai4s/sounds_of_home/
 
-### Harmonic EDM Mixing Compatibility, 2021 / 2022
-A music analysis system for estimating how well two EDM tracks mix harmonically. It analyzes tracks, computes chroma features, converts them into Tonal Interval Vectors, compares harmonic compatibility, and suggests pitch shifts that can improve a mix. It was Gabriel's MSc thesis work and later became an ICWE 2022 publication.
-Code: https://github.com/gbibbo/harmonic_mix
-Paper DOI: http://dx.doi.org/10.1007/978-3-031-09917-5_37
+Harmonic EDM Mixing Compatibility, 2021-2022. MSc research and ICWE 2022 publication on Tonal Interval Vector-based harmonic compatibility for EDM mixing. Code: https://github.com/gbibbo/harmonic_mix
 
-### Traktor ML, 2026
-A pipeline that turns a local Techno and Tech House library into Traktor-ready playlists. It extracts MERT embeddings, separates stems with Demucs, reads BPM and key metadata with Essentia, clusters similar tracks, orders them for smoother transitions, and exports M3U playlists. A current run processed 239 tracks and exported 14 playlists. The private audio collection is not included in the repo.
-Code: https://github.com/gbibbo/traktor
-
-## Secondary projects
-Speech Removal Framework, 2025. Framework for removing speech from audio recordings before they are shared or published. It belongs to the privacy-preserving audio line of work and is linked to the WASPAA 2025 demo/publication. Demo: https://huggingface.co/spaces/gbibbo/vad_demo DOI: https://zenodo.org/records/17050321
-
-ALPACA, 2026. Python-based algorithmic trading platform with market data ingestion, risk controls, backtesting, and real-time monitoring. It is secondary because it shows backend and system design outside Audio AI. Code: https://github.com/gbibbo/alpaca
-
-Raspberry Pi Sound Event Recognition Demo, 2023. Raspberry Pi demo for real-time sound event recognition. The system runs pre-trained neural networks on a low-cost edge device, exposes a web interface, and can send email notifications when selected AudioSet events are detected. Code: https://github.com/gbibbo/pisoundsensing Video: https://www.youtube.com/watch?v=ZNHtcqECNQQ
-
-3H-ATO, 2020 / 2022. Mechanical tool designed during the pandemic to avoid touching shared surfaces directly. It is a physical prototyping project, not an AI project.
-
-Automatic IoT Soap Dispenser, 2020 / 2021. IoT handwashing device for industrial environments. The device used stainless steel, WiFi, cloud connectivity, IR/RFID sensors, and a 3-litre tank.
-
-UyVoy Mobile App, 2020. Mobile app project for booking appointments and reducing crowding during the pandemic. Gabriel's role is Project Manager.
+Traktor ML, 2026. Pipeline using MERT, Demucs, Essentia, HDBSCAN, UMAP, and Streamlit to organize a local DJ collection into Traktor-ready playlists. Code: https://github.com/gbibbo/traktor
 
 ## Publications and works
 2025: Privacy for Audio AI: Risks, Challenges, and Emerging Solutions in the Era of Audio AI [Panel discussion].
-2025: Speech Removal Framework for Privacy-preserving Audio Recordings.
+2025: Speech Removal Framework for Privacy-preserving Audio Recordings. Authors: Gabriel Bibbó, Arshdeep Singh, Thomas Deacon, Mark D. Plumbley.
 2025: Room Acoustics and Microphone Characteristics Show Systematic Impact on Sound Event Recognition.
 2025: Integrating IP broadcasting with audio tags: Workflow and challenges.
 2025: Soundscape Experience Mapping: A Deep Listening Approach for Eliciting Older Adults' Perceptions of Indoor Soundscapes.
-2025: Personalized Live Sound Recognition Using Efficient PANNs [Show and Tell].
+2025: Personalized Live Sound Recognition Using Efficient PANNs [Show and Tell]. Authors: Arshdeep Singh, Gabriel Bibbó, Haohe Liu, Thomas Deacon, Mark D. Plumbley.
 2024: Environmental sound classification on an embedded hardware platform.
 2024: The Sounds of Home: A Speech-Removed Residential Audio Dataset for Sound Event Detection.
 2024: Soundscape Personalisation at Work: Designing AI-Enabled Sound Technologies for the Workplace.
 2023: Recognise and Notify Sound Events Using a Raspberry PI Based Standalone Device [Demo].
 2022: A New Compatibility Measure for Harmonic EDM Mixing.
 2021: Towards a New Compatibility Measure for Harmonic EDM Mixing.
-2017: Autonomous Mobile Robots Comunicated by Software Defined Radio.
+2017: Autonomous Mobile Robots Communicated by Software Defined Radio. Authors: Gabriel Bibbó, Mariana Gelós, Martín Randall. Official page: https://iie.fing.edu.uy/publicaciones/2017/BGR17/
 
 ## Technical stack
-Programming and tools: Python, C/C++, PyTorch, Hugging Face, PEFT, TorchAudio, librosa, Essentia, scikit-learn, pandas, NumPy, SciPy, Flask, Streamlit, Hugging Face Spaces, Docker, Git, Linux CLI, Bash, Slurm, Redis Streams, Prometheus, Grafana, SQLite, MATLAB, Claude Code, VS Code.
+Python, C/C++, PyTorch, Hugging Face, PEFT, TorchAudio, librosa, Essentia, mido, scikit-learn, pandas, NumPy, SciPy, Flask, FastAPI, Streamlit, Docker, Git, Linux, Bash, Slurm, Redis, Prometheus, Grafana, PostgreSQL, SQLite, MATLAB, Unreal Engine 5.4, FMOD, and VS Code.
 
-Machine learning: CNNs, Transformers, Audio-Language Models, LoRA Fine-tuning, 4-bit Quantization, Supervised and Self-supervised Learning, Evaluation Pipelines, Statistical Testing, Edge Deployment.
+Audio and ML areas include sound event detection, voice activity detection, pitch and onset detection, music information retrieval, digital signal processing, real-time audio, perceptual evaluation, CNNs, Transformers, audio-language models, LoRA fine-tuning, statistical testing, automated audio testing, edge deployment, and reproducible ML pipelines.
 
-Audio: Sound Event Detection, Voice Activity Detection, Music Information Retrieval, Digital Signal Processing, Real-Time Audio, DAWs, Ableton, DJing, Electronic Music Production.
-
-Engineering practice: Reproducible ML pipelines, Dataset Curation, Open-Source Development, MLOps practices, AI-assisted Development, Technical Writing, Interdisciplinary Collaboration.
+## Time-bounded memberships and grants
+IEEE Signal Processing Society member during 2025.
+Participant in the EPSRC AI for Sound project during the University of Surrey period.
 `;
