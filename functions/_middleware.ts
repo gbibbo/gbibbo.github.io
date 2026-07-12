@@ -1,7 +1,8 @@
 declare const HTMLRewriter: any;
 
 const EDGE_PROFILE_URL = 'https://www.edgeaudiolabs.com/#about-us:~:text=next%20vinyl%20find.-,Gabriel%20Bibb%C3%B3,-Software%20Developer';
-const PROFILE_FAVICON = '/homepage_files/profile.jpg?v=20260712';
+const EDGE_LOGO = '/homepage_files/edge-audio-labs.svg?v=20260712';
+const PROFILE_FAVICON = '/homepage_files/profile.jpg?v=20260712-2';
 
 const SITE_PATCH = String.raw`
 <style>
@@ -24,6 +25,16 @@ const SITE_PATCH = String.raw`
   .education-logo-img { display: block; width: auto; height: auto; object-fit: contain; }
   .education-logo-upf { max-width: 11.1rem; max-height: 2.08rem; }
   .education-logo-fing { max-width: 11.5rem; max-height: 1.92rem; }
+
+  .experience-logo-edge {
+    display: block;
+    width: 100%;
+    max-width: 11rem;
+    max-height: 5.5rem;
+    object-fit: contain;
+    border-radius: 0.65rem;
+  }
+
   @media (max-width: 640px) {
     .education-card-header { gap: 1rem; margin-bottom: 1.1rem; }
     .education-logo-upf { max-width: 9.4rem; max-height: 1.8rem; }
@@ -33,6 +44,7 @@ const SITE_PATCH = String.raw`
 <script>
 (() => {
   const edgeProfileUrl = ${JSON.stringify(EDGE_PROFILE_URL)};
+  const edgeLogo = ${JSON.stringify(EDGE_LOGO)};
   const profileFavicon = ${JSON.stringify(PROFILE_FAVICON)};
   const isEs = document.documentElement.lang?.startsWith('es');
 
@@ -49,6 +61,7 @@ const SITE_PATCH = String.raw`
   const applyEducationLogos = () => {
     const education = document.getElementById('education');
     if (!education || education.dataset.logosApplied === 'true') return;
+
     const logos = [
       {
         href: 'https://www.upf.edu/web/smc',
@@ -72,35 +85,68 @@ const SITE_PATCH = String.raw`
 
       const header = document.createElement('div');
       header.className = 'education-card-header';
+
       const link = document.createElement('a');
       link.href = data.href;
       link.target = '_blank';
       link.rel = 'noreferrer';
       link.className = 'education-logo-link';
       link.setAttribute('aria-label', data.alt);
+
       const image = document.createElement('img');
       image.src = data.src;
       image.alt = data.alt;
       image.className = 'education-logo-img ' + data.className;
       image.loading = 'lazy';
       image.decoding = 'async';
+
       link.append(image);
       header.append(period, link);
       card.insertBefore(header, title);
     });
+
     education.dataset.logosApplied = 'true';
   };
 
   const patchFavicon = () => {
     document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"]').forEach((link) => {
-      if (link.getAttribute('href') !== profileFavicon) link.setAttribute('href', profileFavicon);
-      if (link.getAttribute('type') !== 'image/jpeg') link.setAttribute('type', 'image/jpeg');
+      link.setAttribute('href', profileFavicon);
+      link.setAttribute('type', 'image/jpeg');
+    });
+  };
+
+  const patchExperience = () => {
+    document.querySelectorAll('#experience article').forEach((card) => {
+      const title = card.querySelector('h3')?.textContent?.trim() || '';
+      const org = card.querySelector('h3 + p')?.textContent?.trim() || '';
+
+      if (title === 'PhD Candidate' || org.includes('TU Delft')) {
+        card.remove();
+        return;
+      }
+
+      if (title !== 'ML/DSP Engineer') return;
+
+      const link = card.querySelector('.experience-logo-link');
+      const image = card.querySelector('.experience-logo-link img');
+
+      if (link) {
+        link.setAttribute('href', edgeProfileUrl);
+        link.setAttribute('aria-label', 'Edge Audio Labs profile');
+      }
+
+      if (image) {
+        image.setAttribute('src', edgeLogo);
+        image.setAttribute('alt', 'Edge Audio Labs');
+        image.classList.add('experience-logo-edge');
+      }
     });
   };
 
   const patchFacts = () => {
     patchFavicon();
     applyEducationLogos();
+    patchExperience();
 
     const heroRole = document.querySelector('#home h1 + p');
     setText(heroRole, isEs
@@ -116,14 +162,6 @@ const SITE_PATCH = String.raw`
     setText(contactCopy, isEs
       ? 'Actualmente trabajo de forma híbrida en Montevideo, Uruguay. Soy ciudadano italiano y tengo autorización de trabajo en la Unión Europea.'
       : 'Currently working hybrid in Montevideo, Uruguay. Italian citizen with European Union work authorization.');
-
-    document.querySelectorAll('#experience article').forEach((card) => {
-      const title = card.querySelector('h3')?.textContent?.trim();
-      const link = card.querySelector('.experience-logo-link');
-      if (!link) return;
-      if (title === 'ML/DSP Engineer' && link.getAttribute('href') !== edgeProfileUrl) link.setAttribute('href', edgeProfileUrl);
-      if (title === 'PhD Candidate' && link.getAttribute('href') !== 'https://www.tudelft.nl/') link.setAttribute('href', 'https://www.tudelft.nl/');
-    });
 
     replaceExactText('IEEE Signal Processing Society member', 'IEEE Signal Processing Society member, 2025');
     replaceExactText('Miembro de IEEE Signal Processing Society', 'Miembro de IEEE Signal Processing Society, 2025');
@@ -166,20 +204,21 @@ const SITE_PATCH = String.raw`
 
     document.querySelectorAll('.stat-label').forEach((label) => {
       const text = label.textContent?.trim();
-      if (text === '3 countries in study/work trajectory: Uruguay, Spain, and UK') {
-        label.textContent = '4 countries in study/work trajectory: Uruguay, Spain, UK, and the Netherlands';
+      if (text === '4 countries in study/work trajectory: Uruguay, Spain, UK, and the Netherlands') {
+        label.textContent = '3 countries in study/work trajectory: Uruguay, Spain, and UK';
         const value = label.closest('.stat-face')?.querySelector('.stat-value');
-        if (value) value.textContent = '4';
+        if (value) value.textContent = '3';
       }
-      if (text === '3 países en trayectoria de estudio/trabajo: Uruguay, España y Reino Unido') {
-        label.textContent = '4 países en trayectoria de estudio/trabajo: Uruguay, España, Reino Unido y Países Bajos';
+      if (text === '4 países en trayectoria de estudio/trabajo: Uruguay, España, Reino Unido y Países Bajos') {
+        label.textContent = '3 países en trayectoria de estudio/trabajo: Uruguay, España y Reino Unido';
         const value = label.closest('.stat-face')?.querySelector('.stat-value');
-        if (value) value.textContent = '4';
+        if (value) value.textContent = '3';
       }
     });
   };
 
   patchFacts();
+
   const observer = new MutationObserver(patchFacts);
   observer.observe(document.body, { childList: true, subtree: true, characterData: true });
 })();
