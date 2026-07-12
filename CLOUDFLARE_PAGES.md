@@ -16,6 +16,7 @@ This repo now contains a new Astro one-page portfolio implementation while prese
 - The site should be built from `src/` with Astro and published from `dist`.
 - Manual redeploy trigger: 2026-06-18 Spanish localization deployment check.
 - Manual redeploy trigger: 2026-06-18 after clearing Cloudflare build watch paths.
+- Manual redeploy trigger: 2026-07-12 Edge Audio Labs profile update and profile-photo favicon.
 
 ## Notes
 
