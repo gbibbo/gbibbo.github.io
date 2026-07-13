@@ -1,0 +1,82 @@
+name: Recover rotating stat cards
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/recover-stat-cards.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Search full repository history
+        run: |
+          mkdir -p debug
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess
+
+          repo = Path('.')
+          out = []
+          patterns = ['stat-flip', 'stat-face', 'stat-value', 'stat-label', '9/10', 'Final thesis grade', 'countries in study/work trajectory']
+
+          def run(*args):
+              return subprocess.run(args, text=True, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL).stdout
+
+          commits = run('git', 'rev-list', '--all').splitlines()
+          matches = []
+          for sha in commits:
+              grep_args = ['git', 'grep', '-n', '-I']
+              for pattern in patterns:
+                  grep_args += ['-e', pattern]
+              grep_args += [sha, '--']
+              text = run(*grep_args)
+              if text.strip():
+                  meta = run('git', 'show', '-s', '--format=%H|%cI|%s', sha).strip()
+                  matches.append((sha, meta, text))
+
+          out.append(f'COMMITS WITH MATCHES: {len(matches)}\n')
+          for index, (sha, meta, text) in enumerate(matches[:80], start=1):
+              out.append(f'\n===== MATCH {index} =====\n{meta}\n{text[:18000]}\n')
+
+          # Dump likely source files from the newest historical commit containing real stat-face markup.
+          chosen = None
+          chosen_files = []
+          for sha, meta, text in matches:
+              paths = []
+              for line in text.splitlines():
+                  if ':' in line:
+                      path = line.split(':', 1)[0]
+                      if path not in paths:
+                          paths.append(path)
+              for path in paths:
+                  content = run('git', 'show', f'{sha}:{path}')
+                  if 'stat-face' in content and ('stat-flip' in content or 'rotateY' in content or 'flip' in content.lower()):
+                      chosen = (sha, meta)
+                      chosen_files.append((path, content))
+              if chosen_files:
+                  break
+
+          if chosen:
+              out.append(f'\n===== CHOSEN HISTORICAL VERSION =====\n{chosen[1]}\n')
+              for path, content in chosen_files:
+                  out.append(f'\n----- FILE: {path} -----\n{content}\n')
+          else:
+              out.append('\nNO HISTORICAL FILE WITH ROTATING STAT MARKUP FOUND.\n')
+
+          Path('debug/stat-card-history.txt').write_text(''.join(out), encoding='utf-8')
+          PY
+      - name: Commit recovery report
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add debug/stat-card-history.txt
+          git commit -m 'Capture rotating stat card history [skip ci]'
+          git push
