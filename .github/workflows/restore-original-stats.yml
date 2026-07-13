@@ -1,0 +1,50 @@
+name: Restore original profile stats
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/restore-original-stats.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore original four-card rotation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          profile = Path('src/components/ProfileAssistant.tsx')
+          text = profile.read_text(encoding='utf-8')
+          text = text.replace("    { v: '9/10', l: 'MSc thesis grade at Universitat Pompeu Fabra, Barcelona' },\n", '')
+          text = text.replace("    { v: '9/10', l: 'nota de tesis de máster en Universitat Pompeu Fabra, Barcelona' },\n", '')
+          profile.write_text(text, encoding='utf-8')
+
+          for path in [Path('src/pages/index.astro'), Path('src/pages/es/index.astro')]:
+              page = path.read_text(encoding='utf-8')
+              page = page.replace('\n<script src="/homepage_files/rotating-stats.js"></script>', '')
+              path.write_text(page, encoding='utf-8')
+
+          wrong_script = Path('homepage_files/rotating-stats.js')
+          if wrong_script.exists():
+              wrong_script.unlink()
+
+          deploy = Path('CLOUDFLARE_PAGES.md')
+          deploy_text = deploy.read_text(encoding='utf-8')
+          marker = '- Manual redeploy trigger: 2026-07-13 restore the original four-card, 21-item profile-stat rotation and remove the rejected 9/10 item.\n'
+          if marker not in deploy_text:
+              deploy_text = deploy_text.replace('\n## Notes\n', '\n' + marker + '\n## Notes\n')
+              deploy.write_text(deploy_text, encoding='utf-8')
+          PY
+      - name: Commit restored stats
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Restore original profile statistic rotation'
+          git push
