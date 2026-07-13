@@ -1,0 +1,17 @@
+.experience-logo-edge {
+  display: block !important;
+  width: 8.6rem !important;
+  height: 7.1rem !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  border-radius: 0.9rem !important;
+}
+
+@media (max-width: 640px) {
+  .experience-logo-edge {
+    width: 7.4rem !important;
+    height: 6.1rem !important;
+  }
+}
