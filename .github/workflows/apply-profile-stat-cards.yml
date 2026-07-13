@@ -1,0 +1,90 @@
+name: Apply profile statistic cards
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/apply-profile-stat-cards.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace statistic card pool
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          cards = """const STAT_POOLS: Record<'en' | 'es', StatItem[]> = {
+  en: [
+    { v: '10 años / 10 years', l: 'De firmware embebido a research en audio ML' },
+    { v: 'Bang & Olufsen', l: '4 años de C/C++ embebido en productos que se enviaron' },
+    { v: 'Surrey', l: '3 años Research Engineer · EPSRC AI for Sound' },
+    { v: '13 papers', l: 'Peer-reviewed: ICASSP, WASPAA, CHiME, AES' },
+    { v: 'Producción / Ships', l: 'Features vivos en pipelines de audio de clientes' },
+    { v: 'Edge', l: 'Audio ML en tiempo real sobre hardware real' },
+    { v: 'Full stack', l: 'Del notebook al servicio: FastAPI, Docker, CI' },
+    { v: 'Open source', l: 'Repos, datasets y demos que cualquiera puede correr' },
+    { v: 'Google · KPMG', l: 'Soporte Tier 3 y auditoría IT en entornos enterprise' },
+    { v: 'Privacidad / Privacy', l: 'Speech removal antes de publicar cualquier audio' },
+    { v: '4 países / 4 countries', l: 'Uruguay, España, Reino Unido, Países Bajos' },
+    { v: 'Mentoría / Mentoring', l: 'Supervisé tesis y formé programadores entrantes' },
+    { v: 'MSc + BSc', l: 'Sound & Music Computing (UPF) · Eléctrica (UdelaR)' },
+    { v: 'Visa UE / EU work', l: 'Ciudadano italiano, con base en Montevideo' },
+    { v: 'ES · EN C1', l: 'Trabajo remoto diario con equipos de UK y la UE' },
+    { v: 'DJ', l: 'El oído detrás de la investigación' },
+  ],
+  es: [
+    { v: '10 años / 10 years', l: 'De firmware embebido a research en audio ML' },
+    { v: 'Bang & Olufsen', l: '4 años de C/C++ embebido en productos que se enviaron' },
+    { v: 'Surrey', l: '3 años Research Engineer · EPSRC AI for Sound' },
+    { v: '13 papers', l: 'Peer-reviewed: ICASSP, WASPAA, CHiME, AES' },
+    { v: 'Producción / Ships', l: 'Features vivos en pipelines de audio de clientes' },
+    { v: 'Edge', l: 'Audio ML en tiempo real sobre hardware real' },
+    { v: 'Full stack', l: 'Del notebook al servicio: FastAPI, Docker, CI' },
+    { v: 'Open source', l: 'Repos, datasets y demos que cualquiera puede correr' },
+    { v: 'Google · KPMG', l: 'Soporte Tier 3 y auditoría IT en entornos enterprise' },
+    { v: 'Privacidad / Privacy', l: 'Speech removal antes de publicar cualquier audio' },
+    { v: '4 países / 4 countries', l: 'Uruguay, España, Reino Unido, Países Bajos' },
+    { v: 'Mentoría / Mentoring', l: 'Supervisé tesis y formé programadores entrantes' },
+    { v: 'MSc + BSc', l: 'Sound & Music Computing (UPF) · Eléctrica (UdelaR)' },
+    { v: 'Visa UE / EU work', l: 'Ciudadano italiano, con base en Montevideo' },
+    { v: 'ES · EN C1', l: 'Trabajo remoto diario con equipos de UK y la UE' },
+    { v: 'DJ', l: 'El oído detrás de la investigación' },
+  ],
+};
+"""
+
+          profile = Path('src/components/ProfileAssistant.tsx')
+          text = profile.read_text(encoding='utf-8')
+          text = re.sub(r"const STAT_POOLS: Record<'en' \| 'es', StatItem\[]> = \{.*?\n\};\n\nconst FLIP_ORDER", cards + "\nconst FLIP_ORDER", text, flags=re.S)
+          profile.write_text(text, encoding='utf-8')
+
+          for path in [Path('src/pages/index.astro'), Path('src/pages/es/index.astro')]:
+              page = path.read_text(encoding='utf-8')
+              page = page.replace('\n<script src="/homepage_files/rotating-stats.js"></script>', '')
+              path.write_text(page, encoding='utf-8')
+
+          wrong_script = Path('homepage_files/rotating-stats.js')
+          if wrong_script.exists():
+              wrong_script.unlink()
+
+          deploy = Path('CLOUDFLARE_PAGES.md')
+          deploy_text = deploy.read_text(encoding='utf-8')
+          marker = '- Manual redeploy trigger: 2026-07-13 replace rotating profile statistics with the approved 16-card set.\n'
+          if marker not in deploy_text:
+              deploy_text = deploy_text.replace('\n## Notes\n', '\n' + marker + '\n## Notes\n')
+              deploy.write_text(deploy_text, encoding='utf-8')
+          PY
+      - name: Commit profile statistics
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Use approved rotating profile statistic cards'
+          git push
