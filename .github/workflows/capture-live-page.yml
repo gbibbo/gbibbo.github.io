@@ -14,28 +14,61 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Fetch deployed HTML
+      - name: Fetch and parse deployed HTML
         run: |
           mkdir -p debug
           curl --fail --location --retry 5 --retry-delay 3 --user-agent 'Mozilla/5.0' \
             'https://gbibbo-site.pages.dev/' \
             --output debug/live-page.html
+          python -m pip install --quiet beautifulsoup4
           python - <<'PY'
           from pathlib import Path
-          import re
+          from bs4 import BeautifulSoup
+          import json, re
+
           html = Path('debug/live-page.html').read_text(encoding='utf-8', errors='replace')
-          snippets = []
-          for pattern in [r'stat-flip', r'stat-face', r'stat-value', r'stat-label', r'9\s*/\s*10', r'21,340']:
-              snippets.append(f'## {pattern}\n')
-              for match in re.finditer(pattern, html, flags=re.I):
-                  a=max(0, match.start()-300); b=min(len(html), match.end()+500)
-                  snippets.append(html[a:b]+'\n\n')
-          Path('debug/live-stat-snippets.txt').write_text(''.join(snippets), encoding='utf-8')
+          soup = BeautifulSoup(html, 'html.parser')
+          output = []
+
+          def clean(node):
+              return ' '.join(node.get_text(' ', strip=True).split())
+
+          output.append('# Direct children of the profile-card grid')
+          grid = soup.select_one('#home aside .grid')
+          if grid:
+              for i, card in enumerate(grid.find_all(recursive=False), start=1):
+                  output.append(f'CARD {i}')
+                  output.append(f'classes: {" ".join(card.get("class", []))}')
+                  output.append(f'text: {clean(card)}')
+                  faces = card.select('.stat-face')
+                  for j, face in enumerate(faces, start=1):
+                      value = face.select_one('.stat-value')
+                      label = face.select_one('.stat-label')
+                      output.append(f'  FACE {j}: value={clean(value) if value else ""} | label={clean(label) if label else clean(face)}')
+          else:
+              output.append('GRID NOT FOUND')
+
+          output.append('\n# All stat faces anywhere under #home')
+          for i, face in enumerate(soup.select('#home .stat-face'), start=1):
+              value = face.select_one('.stat-value')
+              label = face.select_one('.stat-label')
+              output.append(f'FACE {i}: value={clean(value) if value else ""} | label={clean(label) if label else clean(face)}')
+
+          output.append('\n# Inline scripts mentioning stat cards')
+          for i, script in enumerate(soup.find_all('script'), start=1):
+              text = script.string or script.get_text() or ''
+              if any(token in text for token in ['stat-flip', 'stat-face', 'stat-value', 'stat-label', 'statsValues']):
+                  output.append(f'SCRIPT {i}:')
+                  for line in text.splitlines():
+                      if any(token in line for token in ['stat-flip', 'stat-face', 'stat-value', 'stat-label', 'statsValues', '9/10', '21,340']):
+                          output.append(line.strip())
+
+          Path('debug/live-stat-inventory.txt').write_text('\n'.join(output) + '\n', encoding='utf-8')
           PY
       - name: Commit capture
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add debug/live-page.html debug/live-stat-snippets.txt
-          git commit -m 'Capture deployed page HTML [skip ci]'
+          git add debug/live-page.html debug/live-stat-inventory.txt
+          git commit -m 'Capture deployed card inventory [skip ci]'
           git push
