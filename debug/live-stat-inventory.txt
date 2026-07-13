@@ -1,0 +1,22 @@
+# Direct children of the profile-card grid
+CARD 1
+classes: rounded-2xl bg-white/10 p-4
+text: 3+ yrs audio ML research engineering
+CARD 2
+classes: rounded-2xl bg-white/10 p-4
+text: 13 publications & works
+CARD 3
+classes: rounded-2xl bg-white/10 p-4
+text: EU work authorization
+CARD 4
+classes: rounded-2xl bg-white/10 p-4
+text: Audio AI · DSP · MIR
+
+# All stat faces anywhere under #home
+
+# Inline scripts mentioning stat cards
+SCRIPT 4:
+document.querySelectorAll('#home .stat-flip').forEach((card) => {
+document.querySelectorAll('.stat-label').forEach((label) => {
+const value = label.closest('.stat-face')?.querySelector('.stat-value');
+const value = label.closest('.stat-face')?.querySelector('.stat-value');
