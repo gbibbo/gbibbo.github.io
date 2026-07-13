@@ -61,3 +61,4 @@ The homepage currently shows four visible cards below Gabriel's profile photo. T
           git add src/data/assistantKnowledge.ts
           git commit -m 'Update profile assistant knowledge with current cards'
           git push
+# trigger: 20260713-2
