@@ -263,15 +263,31 @@ const SITE_PATCH = String.raw`
     });
   };
 
-  const removeThesisGradeStat = () => {
+  const replaceThesisGradeStat = () => {
     const containsGrade = (text) => /9\s*\/\s*10|final thesis grade|master(?:'s)? thesis grade|nota de tesis|calificaci[oó]n final de tesis/i.test(text || '');
+    const replacementLabel = isEs
+      ? 'clips evaluados bajo degradaciones de audio controladas'
+      : 'clips evaluated under controlled audio degradations';
+
+    const replaceFace = (face) => {
+      if (!face || !containsGrade(face.textContent)) return;
+      const value = face.querySelector('.stat-value') || face.firstElementChild;
+      const label = face.querySelector('.stat-label') || face.lastElementChild;
+      setText(value, '21,340');
+      setText(label, replacementLabel);
+    };
 
     document.querySelectorAll('#home .stat-flip').forEach((card) => {
-      if (containsGrade(card.textContent)) card.remove();
+      const faces = card.querySelectorAll('.stat-face');
+      if (faces.length) {
+        faces.forEach(replaceFace);
+      } else {
+        replaceFace(card);
+      }
     });
 
     document.querySelectorAll('#home aside .grid > div').forEach((card) => {
-      if (containsGrade(card.textContent)) card.remove();
+      replaceFace(card);
     });
   };
 
@@ -279,7 +295,7 @@ const SITE_PATCH = String.raw`
     patchFavicon();
     applyEducationLogos();
     patchExperience();
-    removeThesisGradeStat();
+    replaceThesisGradeStat();
 
     const heroRole = document.querySelector('#home h1 + p');
     setText(heroRole, isEs
