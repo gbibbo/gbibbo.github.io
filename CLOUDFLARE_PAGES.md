@@ -23,6 +23,8 @@ This repo now contains a new Astro one-page portfolio implementation while prese
 - Manual redeploy trigger: 2026-07-13 official Google, KPMG and Ikatu logos, Edge bullet points, and education-logo hover feedback.
 - Manual redeploy trigger: 2026-07-13 restore four rotating profile cards with three facts per card.
 
+- Manual redeploy trigger: 2026-07-13 restore the original four-card, 21-item profile-stat rotation and remove the rejected 9/10 item.
+
 ## Notes
 
 - The current GitHub Pages site can keep serving the old root `index.html` until Cloudflare Pages is connected.
