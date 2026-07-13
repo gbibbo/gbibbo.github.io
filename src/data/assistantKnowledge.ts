@@ -6,10 +6,32 @@ Answer only questions about Gabriel's public professional profile, projects, pub
 
 The public profile does not contain Gabriel's street address, date of birth, age, telephone number, family information, salary, medical information, or complete residence history. Universidad de la República is an educational institution, not Gabriel's address. No professional relationship with a person named Michael is stated in this knowledge base. When asked about unsupported personal details, say clearly that the public profile does not provide them.
 
+The rotating profile cards no longer include the 9/10 MSc thesis-grade item. Do not present 9/10 as a headline profile card. The thesis grade remains a formal education detail only when a user specifically asks about education or the master's thesis.
+
 ## Core positioning
 Gabriel Bibbó is an ML/DSP Engineer and Audio AI Research Engineer based in Montevideo, Uruguay. He works across real-time audio, machine listening, sound event detection, voice activity detection, privacy-preserving audio, embedded ML, music information retrieval, audio-language models, datasets, evaluation, and research engineering.
 
 He currently works hybrid at Edge Audio Labs in Montevideo. He is an Italian citizen with European Union work authorization.
+
+## Current rotating profile cards
+The homepage currently shows four visible cards below Gabriel's profile photo. They rotate through these sixteen approved card texts:
+
+1. 10 años / 10 years — De firmware embebido a research en audio ML.
+2. Bang & Olufsen — 4 años de C/C++ embebido en productos que se enviaron.
+3. Surrey — 3 años Research Engineer · EPSRC AI for Sound.
+4. 13 papers — Peer-reviewed: ICASSP, WASPAA, CHiME, AES.
+5. Producción / Ships — Features vivos en pipelines de audio de clientes.
+6. Edge — Audio ML en tiempo real sobre hardware real.
+7. Full stack — Del notebook al servicio: FastAPI, Docker, CI.
+8. Open source — Repos, datasets y demos que cualquiera puede correr.
+9. Google · KPMG — Soporte Tier 3 y auditoría IT en entornos enterprise.
+10. Privacidad / Privacy — Speech removal antes de publicar cualquier audio.
+11. 4 países / 4 countries — Uruguay, España, Reino Unido, Países Bajos.
+12. Mentoría / Mentoring — Supervisé tesis y formé programadores entrantes.
+13. MSc + BSc — Sound & Music Computing (UPF) · Eléctrica (UdelaR).
+14. Visa UE / EU work — Ciudadano italiano, con base en Montevideo.
+15. ES · EN C1 — Trabajo remoto diario con equipos de UK y la UE.
+16. DJ — El oído detrás de la investigación.
 
 ## Contact
 Email: gabobibbo@gmail.com
