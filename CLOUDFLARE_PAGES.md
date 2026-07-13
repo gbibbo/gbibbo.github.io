@@ -20,6 +20,7 @@ This repo now contains a new Astro one-page portfolio implementation while prese
 - Manual redeploy trigger: 2026-07-12 remove TU Delft and add supplied Edge Audio Labs artwork.
 - Manual redeploy trigger: 2026-07-13 crop Edge Audio Labs artwork to experience-card dimensions.
 - Manual redeploy trigger: 2026-07-13 replace Edge Audio Labs copy and company link.
+- Manual redeploy trigger: 2026-07-13 official Google, KPMG and Ikatu logos, Edge bullet points, education-logo hover feedback, and removal of the 9/10 profile stat.
 
 ## Notes
 
