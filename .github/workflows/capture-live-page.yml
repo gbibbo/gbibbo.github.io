@@ -1,0 +1,41 @@
+name: Capture live page
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/capture-live-page.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch deployed HTML
+        run: |
+          mkdir -p debug
+          curl --fail --location --retry 5 --retry-delay 3 --user-agent 'Mozilla/5.0' \
+            'https://gbibbo-site.pages.dev/' \
+            --output debug/live-page.html
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html = Path('debug/live-page.html').read_text(encoding='utf-8', errors='replace')
+          snippets = []
+          for pattern in [r'stat-flip', r'stat-face', r'stat-value', r'stat-label', r'9\s*/\s*10', r'21,340']:
+              snippets.append(f'## {pattern}\n')
+              for match in re.finditer(pattern, html, flags=re.I):
+                  a=max(0, match.start()-300); b=min(len(html), match.end()+500)
+                  snippets.append(html[a:b]+'\n\n')
+          Path('debug/live-stat-snippets.txt').write_text(''.join(snippets), encoding='utf-8')
+          PY
+      - name: Commit capture
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add debug/live-page.html debug/live-stat-snippets.txt
+          git commit -m 'Capture deployed page HTML [skip ci]'
+          git push
