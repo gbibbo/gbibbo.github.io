@@ -1,6 +1,6 @@
 declare const HTMLRewriter: any;
 
-const EDGE_PROFILE_URL = 'https://www.edgeaudiolabs.com/#about-us:~:text=next%20vinyl%20find.-,Gabriel%20Bibb%C3%B3,-Software%20Developer';
+const EDGE_PROFILE_URL = 'https://www.edgeaudiolabs.com/';
 const EDGE_LOGO = '/homepage_files/edge-audio-labs.svg?v=20260712';
 const PROFILE_FAVICON = '/homepage_files/profile.jpg?v=20260712-2';
 
@@ -27,18 +27,36 @@ const SITE_PATCH = String.raw`
   .education-logo-fing { max-width: 11.5rem; max-height: 1.92rem; }
 
   .experience-logo-edge {
-    display: block;
-    width: 100%;
-    max-width: 11rem;
-    max-height: 5.5rem;
-    object-fit: contain;
-    border-radius: 0.65rem;
+    display: block !important;
+    width: 8.6rem !important;
+    height: 7.1rem !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    border-radius: 0.9rem !important;
+  }
+
+  #experience .edge-copy {
+    display: grid;
+    gap: 1rem;
+  }
+  #experience .edge-copy li {
+    padding-left: 0 !important;
+  }
+  #experience .edge-copy li::before {
+    content: none !important;
+    margin: 0 !important;
   }
 
   @media (max-width: 640px) {
     .education-card-header { gap: 1rem; margin-bottom: 1.1rem; }
     .education-logo-upf { max-width: 9.4rem; max-height: 1.8rem; }
     .education-logo-fing { max-width: 9.8rem; max-height: 1.65rem; }
+    .experience-logo-edge {
+      width: 7.4rem !important;
+      height: 6.1rem !important;
+    }
   }
 </style>
 <script>
@@ -47,6 +65,12 @@ const SITE_PATCH = String.raw`
   const edgeLogo = ${JSON.stringify(EDGE_LOGO)};
   const profileFavicon = ${JSON.stringify(PROFILE_FAVICON)};
   const isEs = document.documentElement.lang?.startsWith('es');
+
+  const edgeCopy = [
+    'Machine learning, signal processing, and listening-based evaluation across two audio products under NDA.',
+    'Singing voice synthesis for Dorico, Sibelius, and MuseScore. I work on the neural rendering pipeline that turns a written score into a sung performance, in Python and PyTorch, validated with objective measurement and blind listening tests. Score dynamics now shape the timbre of the voice and not only its loudness, shipped without retraining the model.',
+    'Real-time note detection for guitar. I work on the C++ DSP that tracks pitch and onsets from a live guitar signal, and on the headless evaluation pipeline that regression-tests it against known cases. Removed a systematic 104 ms delay between the note played and the note reported, and hardened the detector against the edge cases slipping through it.',
+  ];
 
   const setText = (node, text) => {
     if (node && node.textContent !== text) node.textContent = text;
@@ -127,18 +151,35 @@ const SITE_PATCH = String.raw`
 
       if (title !== 'ML/DSP Engineer') return;
 
+      const period = card.querySelector('.experience-side > div:first-child');
+      const orgLine = card.querySelector('h3 + p');
       const link = card.querySelector('.experience-logo-link');
       const image = card.querySelector('.experience-logo-link img');
+      const list = card.querySelector('ul');
+
+      setText(period, isEs ? 'Jun. 2026–Presente' : 'Jun. 2026–Present');
+      setText(orgLine, 'Edge Audio Labs, Montevideo, Uruguay (Hybrid)');
 
       if (link) {
         link.setAttribute('href', edgeProfileUrl);
-        link.setAttribute('aria-label', 'Edge Audio Labs profile');
+        link.setAttribute('aria-label', 'Edge Audio Labs');
       }
 
       if (image) {
         image.setAttribute('src', edgeLogo);
         image.setAttribute('alt', 'Edge Audio Labs');
         image.classList.add('experience-logo-edge');
+      }
+
+      if (list && list.dataset.edgeCopy !== 'true') {
+        const paragraphs = edgeCopy.map((text) => {
+          const item = document.createElement('li');
+          item.textContent = text;
+          return item;
+        });
+        list.replaceChildren(...paragraphs);
+        list.classList.add('edge-copy');
+        list.dataset.edgeCopy = 'true';
       }
     });
   };
