@@ -20,8 +20,8 @@ This repo now contains a new Astro one-page portfolio implementation while prese
 - Manual redeploy trigger: 2026-07-12 remove TU Delft and add supplied Edge Audio Labs artwork.
 - Manual redeploy trigger: 2026-07-13 crop Edge Audio Labs artwork to experience-card dimensions.
 - Manual redeploy trigger: 2026-07-13 replace Edge Audio Labs copy and company link.
-- Manual redeploy trigger: 2026-07-13 official Google, KPMG and Ikatu logos, Edge bullet points, education-logo hover feedback, and removal of the 9/10 profile stat.
-- Manual redeploy trigger: 2026-07-13 preserve all four profile cards and replace the 9/10 thesis-grade content with the 21,340-clip VAD evaluation metric.
+- Manual redeploy trigger: 2026-07-13 official Google, KPMG and Ikatu logos, Edge bullet points, and education-logo hover feedback.
+- Manual redeploy trigger: 2026-07-13 restore four rotating profile cards with three facts per card.
 
 ## Notes
 
