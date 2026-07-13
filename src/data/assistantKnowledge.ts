@@ -24,7 +24,15 @@ MSc Sound and Music Computing, Universitat Pompeu Fabra, Barcelona, Spain, 2020-
 BSc Electrical Engineering, Universidad de la República, Montevideo, Uruguay, 2012-2017. Final project: Autonomous Mobile Robots Communicated by Software Defined Radio. Authors: Gabriel Bibbó, Mariana Gelós, and Martín Randall. Supervisors: Pablo Belzarena and Federico Larroca.
 
 ## Employment and research experience
-Jun. 2026-Present: ML/DSP Engineer, Edge Audio Labs, Montevideo, Uruguay, hybrid. Works on two confidential audio product lines. Publicly describable contributions include applied ML and DSP, perceptual evaluation, audio QA, a rendering-side musical-expression feature, measurement tooling covering approximately 580 renders and a 48-clip blind evaluation, and a headless C++ evaluation pipeline for real-time note and onset detection. He found and corrected a systematic onset timing offset of approximately 104 ms. Do not disclose or invent client names, project names, ticket identifiers, repository names, or internal component names.
+Jun. 2026-Present: ML/DSP Engineer, Edge Audio Labs, Montevideo, Uruguay, hybrid.
+
+Machine learning, signal processing, and listening-based evaluation across two audio products under NDA.
+
+Singing voice synthesis for Dorico, Sibelius, and MuseScore. Gabriel works on the neural rendering pipeline that turns a written score into a sung performance, in Python and PyTorch, validated with objective measurement and blind listening tests. Score dynamics now shape the timbre of the voice and not only its loudness, shipped without retraining the model.
+
+Real-time note detection for guitar. Gabriel works on the C++ DSP that tracks pitch and onsets from a live guitar signal, and on the headless evaluation pipeline that regression-tests it against known cases. He removed a systematic 104 ms delay between the note played and the note reported, and hardened the detector against edge cases slipping through it.
+
+Public company page: https://www.edgeaudiolabs.com/
 
 Dec. 2025-Present: Independent research collaboration with former University of Surrey colleagues. Preparing the manuscript “A Psychometric Evaluation of Audio-Language Models for Robust Voice Activity Detection” for Elsevier Computer Speech & Language with Mark D. Plumbley and Simone Spagnol. Also collaborating with Arshdeep Singh and Mark D. Plumbley on privacy-preserving audio and machine listening.
 
