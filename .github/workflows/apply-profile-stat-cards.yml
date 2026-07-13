@@ -88,3 +88,5 @@ jobs:
           git add -A
           git commit -m 'Use approved rotating profile statistic cards'
           git push
+
+# trigger: 2026-07-13 approved stat cards
