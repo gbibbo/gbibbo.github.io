@@ -2,6 +2,9 @@ declare const HTMLRewriter: any;
 
 const EDGE_PROFILE_URL = 'https://www.edgeaudiolabs.com/';
 const EDGE_LOGO = '/homepage_files/edge-audio-labs.svg?v=20260712';
+const GOOGLE_LOGO = '/homepage_files/logo-google-official.svg?v=20260713';
+const KPMG_LOGO = '/homepage_files/logo-kpmg-official.svg?v=20260713';
+const IKATU_LOGO = '/homepage_files/logo-ikatu-official.svg?v=20260713';
 const PROFILE_FAVICON = '/homepage_files/profile.jpg?v=20260712-2';
 
 const SITE_PATCH = String.raw`
@@ -21,8 +24,27 @@ const SITE_PATCH = String.raw`
     flex: 1 1 auto;
     min-width: 0;
     text-decoration: none;
+    cursor: pointer;
+    border-radius: 0.6rem;
   }
-  .education-logo-img { display: block; width: auto; height: auto; object-fit: contain; }
+  .education-logo-img {
+    display: block;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    transition: transform 180ms ease, opacity 180ms ease, filter 180ms ease;
+    transform-origin: center;
+  }
+  .education-logo-link:hover .education-logo-img,
+  .education-logo-link:focus-visible .education-logo-img {
+    transform: scale(1.05);
+    opacity: 0.86;
+    filter: drop-shadow(0 4px 8px rgba(16, 24, 40, 0.14));
+  }
+  .education-logo-link:focus-visible {
+    outline: 2px solid #c8794f;
+    outline-offset: 4px;
+  }
   .education-logo-upf { max-width: 11.1rem; max-height: 2.08rem; }
   .education-logo-fing { max-width: 11.5rem; max-height: 1.92rem; }
 
@@ -35,17 +57,53 @@ const SITE_PATCH = String.raw`
     object-fit: cover !important;
     object-position: center center !important;
     border-radius: 0.9rem !important;
+    transition: transform 180ms ease, opacity 180ms ease;
+  }
+
+  .experience-logo-official {
+    display: block !important;
+    width: 9.5rem !important;
+    height: 5.25rem !important;
+    max-width: 9.5rem !important;
+    max-height: 5.25rem !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    box-sizing: border-box !important;
+    padding: 0.45rem !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(16, 24, 40, 0.08) !important;
+    border-radius: 0.85rem !important;
+    box-shadow: 0 5px 14px rgba(16, 24, 40, 0.07) !important;
+    transition: transform 180ms ease, opacity 180ms ease, box-shadow 180ms ease;
+  }
+
+  .experience-logo-link:hover .experience-logo-edge,
+  .experience-logo-link:focus-visible .experience-logo-edge,
+  .experience-logo-link:hover .experience-logo-official,
+  .experience-logo-link:focus-visible .experience-logo-official {
+    transform: scale(1.04);
+    opacity: 0.88;
+  }
+  .experience-logo-link:hover .experience-logo-official,
+  .experience-logo-link:focus-visible .experience-logo-official {
+    box-shadow: 0 8px 20px rgba(16, 24, 40, 0.12) !important;
   }
 
   #experience .edge-copy {
     display: grid;
     gap: 1rem;
+    list-style: none;
+    padding-left: 0;
   }
   #experience .edge-copy li {
-    padding-left: 0 !important;
+    position: relative;
+    padding-left: 1.25rem !important;
   }
   #experience .edge-copy li::before {
-    content: none !important;
+    content: '•' !important;
+    position: absolute;
+    left: 0;
+    top: 0;
     margin: 0 !important;
   }
 
@@ -57,12 +115,21 @@ const SITE_PATCH = String.raw`
       width: 7.4rem !important;
       height: 6.1rem !important;
     }
+    .experience-logo-official {
+      width: 8rem !important;
+      height: 4.5rem !important;
+      max-width: 8rem !important;
+      max-height: 4.5rem !important;
+    }
   }
 </style>
 <script>
 (() => {
   const edgeProfileUrl = ${JSON.stringify(EDGE_PROFILE_URL)};
   const edgeLogo = ${JSON.stringify(EDGE_LOGO)};
+  const googleLogo = ${JSON.stringify(GOOGLE_LOGO)};
+  const kpmgLogo = ${JSON.stringify(KPMG_LOGO)};
+  const ikatuLogo = ${JSON.stringify(IKATU_LOGO)};
   const profileFavicon = ${JSON.stringify(PROFILE_FAVICON)};
   const isEs = document.documentElement.lang?.startsWith('es');
 
@@ -116,6 +183,7 @@ const SITE_PATCH = String.raw`
       link.rel = 'noreferrer';
       link.className = 'education-logo-link';
       link.setAttribute('aria-label', data.alt);
+      link.setAttribute('title', isEs ? 'Abrir sitio de la universidad' : 'Open university website');
 
       const image = document.createElement('img');
       image.src = data.src;
@@ -139,6 +207,21 @@ const SITE_PATCH = String.raw`
     });
   };
 
+  const patchLogo = (card, src, alt, className, href) => {
+    const link = card.querySelector('.experience-logo-link');
+    const image = link?.querySelector('img');
+    if (link && href) {
+      link.setAttribute('href', href);
+      link.setAttribute('aria-label', alt);
+      link.setAttribute('title', alt);
+    }
+    if (image) {
+      image.setAttribute('src', src);
+      image.setAttribute('alt', alt);
+      image.className = className;
+    }
+  };
+
   const patchExperience = () => {
     document.querySelectorAll('#experience article').forEach((card) => {
       const title = card.querySelector('h3')?.textContent?.trim() || '';
@@ -149,38 +232,46 @@ const SITE_PATCH = String.raw`
         return;
       }
 
+      if (title === 'Technical Support Engineer - Google Workspace' || org.includes('Webhelp')) {
+        patchLogo(card, googleLogo, 'Google', 'experience-logo-official experience-logo-google', 'https://workspace.google.com/');
+      } else if (title === 'IT Auditor' || org.includes('KPMG')) {
+        patchLogo(card, kpmgLogo, 'KPMG', 'experience-logo-official experience-logo-kpmg', 'https://kpmg.com/es/es.html');
+      } else if (title === 'R&D Engineer' || title === 'Engineering Intern' || org.includes('Ikatu')) {
+        patchLogo(card, ikatuLogo, 'Ikatu', 'experience-logo-official experience-logo-ikatu-official', 'https://www.ikatu.com/');
+      }
+
       if (title !== 'ML/DSP Engineer') return;
 
       const period = card.querySelector('.experience-side > div:first-child');
       const orgLine = card.querySelector('h3 + p');
-      const link = card.querySelector('.experience-logo-link');
-      const image = card.querySelector('.experience-logo-link img');
       const list = card.querySelector('ul');
 
       setText(period, isEs ? 'Jun. 2026–Presente' : 'Jun. 2026–Present');
       setText(orgLine, 'Edge Audio Labs, Montevideo, Uruguay (Hybrid)');
-
-      if (link) {
-        link.setAttribute('href', edgeProfileUrl);
-        link.setAttribute('aria-label', 'Edge Audio Labs');
-      }
-
-      if (image) {
-        image.setAttribute('src', edgeLogo);
-        image.setAttribute('alt', 'Edge Audio Labs');
-        image.classList.add('experience-logo-edge');
-      }
+      patchLogo(card, edgeLogo, 'Edge Audio Labs', 'experience-logo-edge', edgeProfileUrl);
 
       if (list && list.dataset.edgeCopy !== 'true') {
-        const paragraphs = edgeCopy.map((text) => {
+        const bullets = edgeCopy.map((text) => {
           const item = document.createElement('li');
           item.textContent = text;
           return item;
         });
-        list.replaceChildren(...paragraphs);
+        list.replaceChildren(...bullets);
         list.classList.add('edge-copy');
         list.dataset.edgeCopy = 'true';
       }
+    });
+  };
+
+  const removeThesisGradeStat = () => {
+    const containsGrade = (text) => /9\s*\/\s*10|final thesis grade|master(?:'s)? thesis grade|nota de tesis|calificaci[oó]n final de tesis/i.test(text || '');
+
+    document.querySelectorAll('#home .stat-flip').forEach((card) => {
+      if (containsGrade(card.textContent)) card.remove();
+    });
+
+    document.querySelectorAll('#home aside .grid > div').forEach((card) => {
+      if (containsGrade(card.textContent)) card.remove();
     });
   };
 
@@ -188,6 +279,7 @@ const SITE_PATCH = String.raw`
     patchFavicon();
     applyEducationLogos();
     patchExperience();
+    removeThesisGradeStat();
 
     const heroRole = document.querySelector('#home h1 + p');
     setText(heroRole, isEs
