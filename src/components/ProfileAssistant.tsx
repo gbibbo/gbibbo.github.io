@@ -10,6 +10,10 @@ type StatItem = {
   l: string;
 };
 
+type ProfileAssistantProps = {
+  lang?: 'en' | 'es';
+};
+
 const COPY = {
   en: {
     storageKey: 'gabriel-profile-assistant-v1-en',
@@ -27,14 +31,14 @@ const COPY = {
   },
   es: {
     storageKey: 'gabriel-profile-assistant-v1-es',
-    intro: 'Hola. Puedo responder preguntas sobre los proyectos, publicaciones, experiencia, educación, stack técnico y datos de contacto de Gabriel.',
+    intro: 'Hola. Puedo responder preguntas sobre los proyectos, publicaciones, experiencia, formación, stack técnico y datos de contacto de Gabriel.',
     unavailable: 'El asistente de perfil no está disponible temporalmente. Probá de nuevo más tarde o contactá directamente a Gabriel.',
     panelLabel: 'Asistente de perfil de Gabriel Bibbó',
     title: 'Asistente de perfil',
     subtitle: 'Proyectos, publicaciones, experiencia, contacto',
     close: 'Cerrar asistente de perfil',
     thinking: 'Pensando…',
-    placeholder: 'Preguntá sobre proyectos, publicaciones, experiencia, educación o disponibilidad de Gabriel…',
+    placeholder: 'Preguntá sobre proyectos, publicaciones, experiencia, formación o disponibilidad de Gabriel…',
     note: 'Las respuestas usan solamente el contenido público del perfil.',
     send: 'Enviar',
     launcher: 'Preguntá a mi perfil',
@@ -67,26 +71,26 @@ const STAT_POOLS: Record<'en' | 'es', StatItem[]> = {
   ],
   es: [
     { v: '7+', l: 'años entre audio, ML e ingeniería embebida' },
-    { v: '4', l: 'años enviando C/C++ embebido para productos Bang & Olufsen' },
-    { v: '3', l: 'años como Research Engineer in Sound Sensing en University of Surrey' },
+    { v: '4', l: 'años entregando C/C++ embebido para productos Bang & Olufsen' },
+    { v: '3', l: 'años como ingeniero de investigación en sensado sonoro en University of Surrey' },
     { v: '2', l: 'títulos: Ingeniería Eléctrica y MSc Sound & Music Computing' },
     { v: '13', l: 'publicaciones y trabajos de investigación en audio, ML y MIR' },
-    { v: '3', l: 'países en trayectoria de estudio/trabajo: Uruguay, España y Reino Unido' },
+    { v: '3', l: 'países en trayectoria de estudio y trabajo: Uruguay, España y Reino Unido' },
     { v: '3', l: 'idiomas de trabajo: español, inglés C1 y portugués A2' },
     { v: 'UE', l: 'ciudadano italiano con autorización laboral en la Unión Europea' },
     { v: 'C/C++', l: 'firmware embebido para hardware orientado a producto' },
-    { v: 'Python', l: 'prototipos de investigación, pipelines de datos y backend' },
-    { v: 'Audio ML', l: 'sistemas de machine listening más allá del notebook' },
-    { v: 'Privacidad', l: 'workflows de remoción de voz para audio sensible' },
-    { v: 'Edge', l: 'reconocimiento de sonido en tiempo real sobre Raspberry Pi' },
-    { v: 'Backend', l: 'FastAPI, Celery, Docker, Redis, PostgreSQL y observabilidad' },
-    { v: 'Google', l: 'soporte enterprise Tier 3 para clientes de Google Workspace' },
-    { v: 'KPMG', l: 'experiencia en IT audit con telecomunicaciones y departamentos IT' },
-    { v: 'Producto', l: 'requisitos, arquitectura, implementación, validación y documentación' },
-    { v: 'Open source', l: 'código público, demos reproducibles y documentación técnica' },
+    { v: 'Python', l: 'prototipos de investigación, flujos de datos y sistemas de servidor' },
+    { v: 'Audio ML', l: 'sistemas de escucha computacional evaluados más allá de prototipos iniciales' },
+    { v: 'Privacidad', l: 'experiencia con flujos de eliminación de habla para audio sensible' },
+    { v: 'Edge', l: 'reconocimiento de sonido en tiempo real desplegado en Raspberry Pi' },
+    { v: 'Servidor', l: 'FastAPI, Celery, Docker, Redis, PostgreSQL y observabilidad' },
+    { v: 'Google', l: 'soporte Tier 3 para clientes empresariales de Google Workspace' },
+    { v: 'KPMG', l: 'experiencia en auditoría de IT con telecomunicaciones y departamentos de IT' },
+    { v: 'Producto', l: 'requerimientos, arquitectura, implementación, validación y documentación' },
+    { v: 'Código abierto', l: 'código público, demostraciones reproducibles y documentación técnica' },
     { v: 'DJ + productor', l: 'criterio de dominio en música electrónica y herramientas MIR' },
     { v: 'IEEE', l: 'miembro de IEEE Signal Processing Society' },
-    { v: 'EPSRC', l: 'participante del research grant AI for Sound' },
+    { v: 'EPSRC', l: 'participante en la financiación de investigación AI for Sound' },
   ],
 };
 
@@ -99,13 +103,13 @@ function writeFace(face: HTMLElement | null, item: StatItem) {
   if (label) label.textContent = item.l;
 }
 
-export default function ProfileAssistant() {
-  const [lang, setLang] = useState<'en' | 'es'>('en');
+export default function ProfileAssistant({ lang: initialLang = 'en' }: ProfileAssistantProps) {
+  const [lang, setLang] = useState<'en' | 'es'>(initialLang);
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const copy = COPY[lang];
-  const [messages, setMessages] = useState<ChatMessage[]>([{ role: 'assistant', content: COPY.en.intro }]);
+  const [messages, setMessages] = useState<ChatMessage[]>([{ role: 'assistant', content: COPY[initialLang].intro }]);
 
   useEffect(() => {
     const pageLang = document.documentElement.lang?.startsWith('es') ? 'es' : 'en';
@@ -182,7 +186,7 @@ export default function ProfileAssistant() {
       [' The private audio collection is not included in the repo.', ''],
       [' La colección privada de audio no está incluida en el repositorio.', ''],
       [' It is a physical prototyping project, not an AI project.', ''],
-      [' Es un proyecto de prototipado físico, no un proyecto de AI.', ''],
+      [' Es un proyecto de prototipado físico, no un proyecto de IA.', ''],
     ];
 
     document.querySelectorAll<HTMLElement>('p').forEach((paragraph) => {
