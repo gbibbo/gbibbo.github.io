@@ -47,6 +47,7 @@ const ui = {
     closeImage: 'Close image',
     projectImage: 'Project image',
     languageSelector: 'Language selector',
+    visitLabel: 'Visit',
   },
   es: {
     nav: [
@@ -56,17 +57,17 @@ const ui = {
       { label: 'Experiencia', href: '#experience' },
       { label: 'Contacto', href: '#contact' },
     ],
-    role: 'Ingeniero de investigación en Audio AI',
-    heroBio: 'Construyo sistemas de machine learning de audio que funcionan fuera del notebook, en detección de eventos sonoros, detección de actividad de voz, audio que preserva la privacidad y recuperación de información musical. Cuatro años escribiendo C/C++ embebido para productos de Bang & Olufsen me enseñaron la distancia entre un prototipo y un dispositivo que llega a producción. También soy DJ y productor, y buena parte de mi interés por cómo escuchan las máquinas nació de cómo escucho yo.',
-    metaDescription: 'Ingeniero de investigación en Audio AI, trabajando en machine listening, audio que preserva la privacidad y ML embebido.',
-    heroPill: 'Montevideo, Uruguay · Audio AI · Machine Listening · MIR',
+    role: 'Ingeniero de investigación en IA de audio',
+    heroBio: 'Construyo sistemas de aprendizaje automático de audio que funcionan fuera del entorno de notebook, en detección de eventos sonoros, detección de actividad de voz, audio con preservación de privacidad y recuperación de información musical. Cuatro años programando C/C++ embebido para productos de Bang & Olufsen me enseñaron la distancia entre un prototipo y un dispositivo que llega a producción. También soy DJ y productor, y buena parte de mi interés por cómo escuchan las máquinas nació de cómo escucho yo.',
+    metaDescription: 'Ingeniero de investigación en IA de audio, con trabajo en escucha computacional, audio con preservación de privacidad y aprendizaje automático embebido.',
+    heroPill: 'Montevideo, Uruguay · IA de audio · Escucha computacional · MIR',
     viewProjects: 'Ver proyectos',
     emailMe: 'Escribime',
-    stats: ['investigación en audio ML', 'publicaciones y trabajos', 'autorización de trabajo', 'AI · DSP · MIR'],
+    stats: ['investigación en audio con ML', 'publicaciones y trabajos', 'autorización de trabajo', 'IA · DSP · MIR'],
     statsValues: ['3+ años', '13', 'UE', 'Audio'],
     projectsKicker: 'Proyectos',
-    projectsTitle: 'Sistemas de investigación, datasets, demos y herramientas de tecnología musical.',
-    projectsIntro: 'Primero el trabajo revisado por pares; después sistemas independientes y proyectos técnicos personales.',
+    projectsTitle: 'Sistemas de investigación, conjuntos de datos, demostraciones y herramientas de tecnología musical.',
+    projectsIntro: 'Primero el trabajo revisado por pares; después, sistemas independientes y proyectos técnicos personales.',
     publicationsKicker: 'Investigación / Publicaciones',
     publicationsTitle: 'Publicaciones y trabajos, ordenados por año.',
     experienceKicker: 'Experiencia',
@@ -76,10 +77,10 @@ const ui = {
     stackKicker: 'Stack técnico',
     stackTitle: 'Herramientas y métodos usados en investigación, software, audio y despliegue.',
     additionalKicker: 'Información adicional',
-    additionalTitle: 'Idiomas, certificaciones, membresías y grants.',
+    additionalTitle: 'Idiomas, certificaciones, membresías y financiación de investigación.',
     contactKicker: 'Contacto',
     contactTitle: 'Hablemos.',
-    emailLabel: 'Email:',
+    emailLabel: 'Correo:',
     contactAvailability: 'Ciudadano italiano con autorización de trabajo en la UE. Abierto a roles remotos en LATAM/Europa y a oportunidades seleccionadas de relocalización dentro de la UE.',
     switchToSpanish: 'Cambiar a español',
     switchToEnglish: 'Cambiar a inglés',
@@ -87,49 +88,50 @@ const ui = {
     closeImage: 'Cerrar imagen',
     projectImage: 'Imagen del proyecto',
     languageSelector: 'Selector de idioma',
+    visitLabel: 'Visitar',
   },
 }[lang];
 
 const projectTranslations = {
   es: {
     'Audio-Language Models for Voice Activity Detection': {
-      eyebrow: 'Audio AI · VAD · Evaluación de modelos',
-      description: 'Esta investigación evalúa cómo los audio-language models detectan habla cuando el audio es corto, ruidoso, reverberante o filtrado. El proyecto compara Qwen2-Audio-7B, Qwen2-Audio-7B con LoRA, Qwen3-Omni-30B y Silero VAD sobre el mismo banco de pruebas degradadas. El mejor resultado fue Qwen2-Audio-7B con LoRA y OPRO-Template: 93,3% de balanced accuracy sobre 21.340 clips degradados.',
+      eyebrow: 'IA de audio · VAD · Evaluación de modelos',
+      description: 'Esta investigación evalúa cómo los modelos audio lenguaje detectan habla cuando el audio es corto, ruidoso, reverberante o filtrado. El proyecto compara Qwen2-Audio-7B, Qwen2-Audio-7B con LoRA, Qwen3-Omni-30B y Silero VAD sobre el mismo banco de pruebas degradadas. El mejor resultado fue Qwen2-Audio-7B con LoRA y OPRO-Template: 93,3% de exactitud balanceada sobre 21.340 fragmentos degradados.',
     },
     'Sounds of Home Dataset': {
-      eyebrow: 'Dataset con privacidad · Audio doméstico',
-      description: 'Sounds of Home es un dataset residencial para sound event detection. Contiene 1.344 grabaciones de una hora tomadas en 8 hogares de Bélgica, con grabadoras AudioMoth colocadas en salas de estar y cocinas. El habla fue removida antes de la publicación y se incluyeron predicciones de PANNs para los frames de audio.',
+      eyebrow: 'Conjunto de datos con preservación de privacidad · Audio doméstico',
+      description: 'Sounds of Home es un conjunto de datos residencial para detección de eventos sonoros. Contiene 1.344 grabaciones de una hora tomadas en 8 hogares de Bélgica, con grabadoras AudioMoth colocadas en salas de estar y cocinas. El habla fue eliminada antes de la publicación y se incluyeron predicciones de PANNs para las tramas de audio.',
     },
     'Speech Removal Framework': {
-      eyebrow: 'Privacidad · Remoción de habla · WASPAA',
-      description: 'Framework para remover habla de grabaciones de audio antes de compartirlas o publicarlas. El sistema permite flujos de publicación de audio que preservan la privacidad, manteniendo información acústica no verbal útil para investigación en sound event detection.',
+      eyebrow: 'Privacidad · Eliminación de habla · WASPAA',
+      description: 'Sistema para eliminar habla de grabaciones de audio antes de compartirlas o publicarlas. Permite flujos de publicación de audio con preservación de privacidad, manteniendo información acústica no verbal útil para investigación en detección de eventos sonoros.',
     },
     'Harmonic EDM Mixing Compatibility': {
-      eyebrow: 'MIR · Mezcla armónica · Tesis MSc',
-      description: 'Este sistema de análisis musical estima qué tan bien pueden mezclarse armónicamente dos tracks de EDM. Analiza tracks, calcula chroma features, los convierte en Tonal Interval Vectors, compara compatibilidad armónica y sugiere transposiciones que pueden mejorar una mezcla. El trabajo comenzó como tesis de MSc y luego se publicó en ICWE 2022.',
+      eyebrow: 'MIR · Mezcla armónica · Tesis de maestría',
+      description: 'Este sistema de análisis musical estima qué tan bien pueden mezclarse armónicamente dos pistas de EDM. Analiza pistas, calcula características de croma, las convierte en vectores de intervalo tonal, compara compatibilidad armónica y sugiere transposiciones de altura que pueden mejorar una mezcla. El trabajo comenzó como tesis de maestría y luego se publicó en ICWE 2022.',
     },
     'ASR Enhancement Platform': {
-      eyebrow: 'Speech enhancement · Plataforma backend',
-      description: 'ASR Enhancement Platform compara dos caminos de reconocimiento de voz sobre el mismo audio: transcripción cruda y enhance-and-transcribe. El backend guarda jobs, archivos de audio, transcripciones y payloads de proveedores para poder inspeccionar cada resultado. Usa FastAPI, Celery, PostgreSQL, Redis, MinIO, Docker Compose, métricas, tracing, Grafana y CI.',
+      eyebrow: 'Mejora de habla · Plataforma de servidor',
+      description: 'ASR Enhancement Platform compara dos rutas de reconocimiento de voz sobre el mismo audio: transcripción directa y mejora seguida de transcripción. El servidor guarda trabajos, archivos de audio, transcripciones y respuestas de proveedores para poder inspeccionar cada resultado. Usa FastAPI, Celery, PostgreSQL, Redis, MinIO, Docker Compose, métricas, trazabilidad, Grafana e integración continua.',
     },
     'Traktor ML': {
       eyebrow: 'MIR · Organización de librería DJ',
-      description: 'Traktor ML convierte una librería local de Techno y Tech House en playlists listas para Traktor. El pipeline extrae embeddings MERT, separa stems con Demucs, lee BPM y tonalidad con Essentia, agrupa tracks similares, los ordena para transiciones más suaves y exporta playlists M3U. La corrida V4 procesó 239 tracks y exportó 14 playlists. La colección privada de audio no está incluida en el repositorio.',
+      description: 'Traktor ML convierte una librería local de Techno y Tech House en listas de reproducción listas para Traktor. El flujo de trabajo extrae representaciones MERT, separa stems con Demucs, lee BPM y tonalidad con Essentia, agrupa pistas similares, las ordena para lograr transiciones más suaves y exporta listas M3U. La corrida V4 procesó 239 pistas y exportó 14 listas de reproducción. La colección privada de audio no está incluida en el repositorio.',
     },
     ALPACA: {
-      description: 'Plataforma de trading algorítmico en Python con ingesta de datos de mercado, controles de riesgo, backtesting y monitoreo en tiempo real.',
+      description: 'Plataforma de compraventa algorítmica en Python con ingesta de datos de mercado, controles de riesgo, pruebas retrospectivas y monitoreo en tiempo real.',
     },
     'Raspberry Pi Sound Event Recognition Demo': {
-      description: 'Demo en Raspberry Pi para reconocimiento de eventos sonoros en tiempo real. El sistema ejecuta redes neuronales preentrenadas en un dispositivo edge de bajo costo, expone una interfaz web y puede enviar notificaciones por email cuando detecta eventos seleccionados de AudioSet.',
+      description: 'Demostración en Raspberry Pi para reconocimiento de eventos sonoros en tiempo real. El sistema ejecuta redes neuronales preentrenadas en un dispositivo de bajo costo, expone una interfaz web y puede enviar notificaciones por correo electrónico cuando detecta eventos seleccionados de AudioSet.',
     },
     '3H-ATO': {
-      description: 'Herramienta mecánica diseñada durante la pandemia para evitar tocar directamente superficies compartidas. Es un proyecto de prototipado físico, no un proyecto de AI.',
+      description: 'Herramienta mecánica diseñada durante la pandemia para evitar tocar directamente superficies compartidas. Es un proyecto de prototipado físico, no un proyecto de IA.',
     },
     'Automatic IoT Soap Dispenser': {
-      description: 'Dispositivo IoT de higiene de manos para entornos industriales. Usaba acero inoxidable, WiFi, conectividad cloud, sensores IR/RFID y un tanque de 3 litros.',
+      description: 'Dispositivo IoT de higiene de manos para entornos industriales. Usaba acero inoxidable, WiFi, conectividad en la nube, sensores IR/RFID y un tanque de 3 litros.',
     },
     'UyVoy Mobile App': {
-      description: 'Proyecto de app móvil para reservar turnos y reducir aglomeraciones durante la pandemia. Mi rol figura como Project Manager.',
+      description: 'Proyecto de aplicación móvil para reservar turnos y reducir aglomeraciones durante la pandemia. Mi rol figura como gestor de proyecto.',
     },
   },
 };
@@ -200,39 +202,48 @@ const companyMeta = (item) => {
 
 const tagTranslations = {
   Privacy: 'Privacidad',
-  Datasets: 'Datasets',
-  Dataset: 'Dataset',
-  'Speech removal': 'Remoción de habla',
+  Datasets: 'Conjuntos de datos',
+  Dataset: 'Conjunto de datos',
+  'Speech removal': 'Eliminación de habla',
   Monitoring: 'Monitoreo',
   Sensors: 'Sensores',
   'Industrial hygiene': 'Higiene industrial',
-  'Mobile app': 'App móvil',
+  'Mobile app': 'Aplicación móvil',
   'Civic tech': 'Tecnología cívica',
   'Project management': 'Gestión de proyectos',
   'Product design': 'Diseño de producto',
   Prototyping: 'Prototipado',
-  'Edge AI': 'AI edge',
+  'Edge AI': 'IA en dispositivo de borde',
   'Raspberry Pi': 'Raspberry Pi',
   'Physical prototyping': 'Prototipado físico',
-  'Backtesting': 'Backtesting',
+  Backtesting: 'Pruebas retrospectivas',
 };
 const localizeTag = (tag) => (isEs ? tagTranslations[tag] ?? tag : tag);
 
 const localizePeriod = (period) => {
   if (!isEs) return period;
-  return period.replaceAll('Dec.', 'Dic.').replaceAll('Apr.', 'Abr.').replace('Present', 'Presente');
+  return period
+    .replaceAll('Dec.', 'Dic.')
+    .replaceAll('Apr.', 'Abr.')
+    .replaceAll('Aug.', 'Ago.')
+    .replace('Present', 'Presente');
 };
 
 const localizePlace = (text) => {
   if (!isEs) return text;
-  return text.replaceAll('Spain', 'España').replaceAll('Remote', 'Remoto');
+  return text
+    .replaceAll('Spain', 'España')
+    .replaceAll('Netherlands', 'Países Bajos')
+    .replaceAll('UK', 'Reino Unido')
+    .replaceAll('Remote', 'Remoto')
+    .replaceAll('Hybrid', 'híbrido');
 };
 
 const additionalInfo = isEs ? [
-  { title: 'Idiomas', items: ['Español — Nativo', 'Inglés — C1', 'Portugués — A2'] },
-  { title: 'Certificaciones', items: ['PRINCE2 Foundation', 'Deep Learning Specialization', 'Machine Learning — Stanford / Coursera'] },
+  { title: 'Idiomas', items: ['Español: nativo', 'Inglés: C1', 'Portugués: A2'] },
+  { title: 'Certificaciones', items: ['PRINCE2 Foundation', 'Deep Learning Specialization', 'Machine Learning, Stanford / Coursera'] },
   { title: 'Música y membresías', items: ['Escuela de música: Virgilio Scarabelli Alberti', 'Miembro de IEEE Signal Processing Society'] },
-  { title: 'Grants de investigación', items: ['Participante en EPSRC AI for Sound'] },
+  { title: 'Financiación de investigación', items: ['Participante en EPSRC AI for Sound'] },
 ] : [
   { title: 'Languages', items: ['Spanish — Native', 'English — C1', 'Portuguese — A2'] },
   { title: 'Certifications', items: ['PRINCE2 Foundation', 'Deep Learning Specialization', 'Machine Learning — Stanford / Coursera'] },
@@ -242,38 +253,62 @@ const additionalInfo = isEs ? [
 
 const experienceTranslations = {
   es: {
-    'Visiting Researcher (collaboration)': {
-      title: 'Visiting Researcher (collaboration)',
+    'ML/DSP Engineer': {
+      title: 'Ingeniero de ML/DSP',
+      org: 'Edge Audio Labs, Montevideo, Uruguay (híbrido)',
       bullets: [
-        'Preparación de un artículo para IEEE/ACM TASLP con Mark D. Plumbley y Simone Spagnol (Università Iuav di Venezia) sobre VAD con la familia Qwen-Audio bajo degradaciones psicoacústicas, usando PEFT/LoRA, optimización de prompts con OPRO, cuantización 4-bit NF4 y evaluación contra un baseline congelado de Qwen3-Omni.',
-        'Coautoría de un artículo para IEEE Signal Processing Magazine con Arshdeep Singh (King’s College London) sobre audio que preserva la privacidad y machine listening.',
+        'Aplicación de aprendizaje automático, procesamiento digital de señales, pruebas y evaluación perceptual en dos líneas confidenciales de productos de audio, sin revelar clientes ni identidades de proyecto.',
+        'Diseño y entrega de una funcionalidad del lado del renderizado que mapea dinámicas de partitura a expresión tímbrica del modelo, en lugar de limitarse a ganancia posterior al renderizado, después de reconstruir el flujo de audio completo e identificar una falla oculta en la ruta de control.',
+        'Construcción de herramientas de medición y pruebas de escucha sobre aproximadamente 580 renderizados y una evaluación ciega de 48 fragmentos, seguida de entrega de la funcionalidad del lado del servidor sin reentrenar el modelo.',
+        'Construcción de un flujo de evaluación C++ sin interfaz para detección de notas y ataques en tiempo real, desde entradas WAV y MIDI hasta el DSP de producción, métricas JSON, pruebas de regresión y casos canarios adversariales.',
+        'Detección y corrección de un desplazamiento sistemático de ataques de aproximadamente 104 ms, mejora de la lógica de protección del detector y comunicación de resultados mediante documentación técnica, pull requests, Jira y presentaciones para cliente.',
+      ],
+    },
+    'PhD Candidate': {
+      title: 'Doctorando',
+      org: 'TU Delft, Delft, Países Bajos',
+      bullets: [
+        'Trabajo en análisis de audio con preservación de privacidad para paisajes sonoros de unidades de cuidados intensivos pediátricos dentro del programa de investigación Auditory Footprints.',
+        'Construcción de un conjunto de datos reproducible de habla y no habla, y de un flujo de evaluación comparativa de VAD para audio similar al de una unidad pediátrica, con etiquetado conservador y trazabilidad por fragmento.',
+      ],
+    },
+    'Independent Research Collaboration': {
+      title: 'Colaboración independiente de investigación',
+      org: 'Colaboradores de la University of Surrey, remoto',
+      bullets: [
+        'Preparación del manuscrito “A Psychometric Evaluation of Audio-Language Models for Robust Voice Activity Detection” para Elsevier Computer Speech & Language con Mark D. Plumbley y Simone Spagnol.',
+        'Coautoría de trabajos con Arshdeep Singh y Mark D. Plumbley sobre audio con preservación de privacidad y escucha computacional.',
       ],
     },
     'Research Engineer in Sound Sensing': {
-      title: 'Research Engineer in Sound Sensing',
+      title: 'Ingeniero de investigación en sensado sonoro',
       bullets: [
-        'Desarrollo de sistemas end-to-end de audio ML para entornos inteligentes reales, cubriendo preparación de datos, evaluación de modelos, despliegue de prototipos, releases open-source, demos, datasets y documentación técnica para assisted living, smart buildings y monitoreo de sonido urbano.',
-        'Construcción de pipelines de SED con preservación de privacidad para grabaciones sensibles en hogares, incluyendo un dataset residencial de 197 GB, workflows de remoción de habla y recursos reproducibles de evaluación.',
-        'Diseño de pipelines VAD basados en Slurm para comparar 8 modelos bajo degradaciones acústicas controladas, con análisis de robustez y comparación estadística entre familias de modelos.',
-        'Despliegue de inferencia CNN en tiempo real en Raspberry Pi, incluyendo cuantización, perfilado térmico, evaluación de consumo y documentación de edge sound sensing.',
-        'Publicación y presentación de investigación en IEEE WASPAA, CHiME Workshop, ICWE, Inter-Noise, SMC, UKAI, UKIS y AES. Supervisión de proyectos de grado y máster.',
+        'Desarrollo de sistemas de aprendizaje automático de audio de extremo a extremo para entornos inteligentes reales, cubriendo preparación de datos, evaluación de modelos, despliegue de prototipos, publicaciones de código abierto, demostraciones, conjuntos de datos y documentación técnica.',
+        'Construcción de flujos SED con preservación de privacidad para grabaciones sensibles en hogares, incluyendo un conjunto de datos residencial de 197 GB, flujos de eliminación de habla y recursos reproducibles de evaluación.',
+        'Construcción de un banco de pruebas VAD de ocho modelos sobre CHiME-Home y, en paralelo, evaluación de modelos audio lenguaje bajo degradaciones controladas de duración, ruido, reverberación y filtrado espectral.',
+        'Despliegue de inferencia CNN en tiempo real en Raspberry Pi, incluyendo latencia, temperatura, eficiencia y evaluación de robustez para sensado sonoro en dispositivos de borde.',
+        'Publicación y presentación de investigación en ICASSP, IEEE WASPAA, CHiME Workshop, Inter-Noise, SMC, UKAI, UKIS y AES. Supervisión de proyectos de grado y máster.',
       ],
     },
     'Technical Support Engineer - Google Workspace': {
-      title: 'Technical Support Engineer - Google Workspace',
-      bullets: ['Soporte Tier 3 para clientes enterprise de Google Workspace en APIs, OAuth, SAML/SSO, IAM, aprovisionamiento de usuarios, migración de datos, configuración DNS/dominios y ajustes de seguridad/compliance.'],
+      title: 'Ingeniero de soporte técnico, Google Workspace',
+      bullets: ['Soporte Tier 3 para clientes empresariales de Google Workspace en APIs, OAuth, SAML/SSO, IAM, aprovisionamiento de usuarios, migración de datos, configuración de DNS/dominios y ajustes de seguridad/cumplimiento normativo.'],
     },
     'IT Auditor': {
-      title: 'IT Auditor',
-      bullets: ['Soporte a empresas de telecomunicaciones y departamentos de IT en servicios de auditoría.'],
+      title: 'Auditor de IT',
+      bullets: ['Soporte a empresas de telecomunicaciones y departamentos de IT en trabajos de auditoría tecnológica.'],
     },
     'R&D Engineer': {
-      title: 'R&D Engineer',
+      title: 'Ingeniero de I+D',
       bullets: [
-        'Diseño y entrega de firmware de audio e IoT en C/C++ embebido para productos de automatización del hogar de Bang & Olufsen: drivers de bajo nivel, integración de hardware, audio I/O y conectividad a Internet.',
-        'Trabajo sobre el ciclo de vida del producto: requerimientos, arquitectura, implementación, testing, validación y documentación orientada a cliente.',
+        'Diseño y entrega de firmware de audio e IoT en C/C++ embebido para productos de automatización del hogar de Bang & Olufsen, incluyendo controladores de bajo nivel, integración de hardware, entrada/salida de audio y conectividad a Internet.',
+        'Trabajo a lo largo del ciclo de vida del producto: requerimientos, arquitectura, implementación, pruebas, validación y documentación orientada a cliente.',
         'Capacitación e incorporación de nuevos programadores en prácticas de desarrollo embebido.',
       ],
+    },
+    'Engineering Intern': {
+      title: 'Pasante de ingeniería',
+      bullets: ['Desarrollo y coordinación de un proyecto completo de automatización del hogar antes de pasar al rol de Ingeniero de I+D.'],
     },
   },
 };
@@ -282,11 +317,12 @@ const educationTranslations = {
   es: {
     'MSc Sound and Music Computing': {
       degree: 'MSc Sound and Music Computing',
+      institution: 'Universitat Pompeu Fabra, Barcelona, España',
       details: 'Tesis de máster sobre compatibilidad armónica para mezcla EDM. Calificación final de tesis: 9/10.',
     },
     'BSc Electrical Engineering': {
-      degree: 'BSc Electrical Engineering',
-      details: 'Tesis de grado sobre robots móviles autónomos comunicados mediante software-defined radio.',
+      degree: 'BSc en Ingeniería Eléctrica',
+      details: 'Tesis de grado sobre robots móviles autónomos comunicados mediante radio definida por software.',
     },
   },
 };
@@ -297,21 +333,29 @@ const stackTranslations = {
     ML: 'ML',
     Audio: 'Audio',
     Practice: 'Práctica',
-    'Supervised and Self-supervised Learning': 'Aprendizaje supervisado y self-supervised',
-    'Evaluation Pipelines': 'Pipelines de evaluación',
-    'Statistical Testing': 'Testing estadístico',
-    'Edge Deployment': 'Despliegue edge',
+    'Audio-Language Models': 'Modelos audio lenguaje',
+    'LoRA Fine-tuning': 'Ajuste fino con LoRA',
+    '4-bit Quantization': 'Cuantización de 4 bits',
+    'Supervised and Self-supervised Learning': 'Aprendizaje supervisado y autosupervisado',
+    'Evaluation Pipelines': 'Flujos de evaluación',
+    'Statistical Testing': 'Pruebas estadísticas',
+    'Edge Deployment': 'Despliegue en dispositivos de borde',
     'Sound Event Detection': 'Detección de eventos sonoros',
     'Voice Activity Detection': 'Detección de actividad de voz',
+    'Pitch and Onset Detection': 'Detección de altura y ataques',
     'Music Information Retrieval': 'Recuperación de información musical',
     'Digital Signal Processing': 'Procesamiento digital de señales',
     'Real-Time Audio': 'Audio en tiempo real',
+    'Perceptual Evaluation': 'Evaluación perceptual',
+    DAWs: 'Estaciones de audio digital (DAW)',
+    DJing: 'DJ',
     'Electronic Music Production': 'Producción de música electrónica',
-    'Reproducible ML pipelines': 'Pipelines ML reproducibles',
-    'Dataset Curation': 'Curaduría de datasets',
-    'Open-Source Development': 'Desarrollo open-source',
+    'Reproducible ML pipelines': 'Flujos ML reproducibles',
+    'Automated Audio Testing': 'Pruebas automatizadas de audio',
+    'Dataset Curation': 'Curaduría de conjuntos de datos',
+    'Open-Source Development': 'Desarrollo de código abierto',
     'MLOps practices': 'Prácticas MLOps',
-    'AI-assisted Development': 'Desarrollo asistido por AI',
+    'AI-assisted Development': 'Desarrollo asistido por IA',
     'Technical Writing': 'Escritura técnica',
     'Interdisciplinary Collaboration': 'Colaboración interdisciplinaria',
   },
@@ -325,18 +369,36 @@ const translatedStackGroups = stackGroups.map((group) => ({
   items: group.items.map((item) => (isEs ? stackTranslations.es[item] ?? item : item)),
 }));
 
+const publicationVenueTranslations = {
+  'Towards a New Compatibility Measure for Harmonic EDM Mixing': 'Tesis de máster, Universitat Pompeu Fabra, Barcelona, España, 2021. Tutor: Ángel Faraldo.',
+  'Autonomous Mobile Robots Communicated by Software Defined Radio': 'Tesis de grado, Universidad de la República, Montevideo, Uruguay, 2017. Tutores: Pablo Belzarena y Federico Larroca.',
+};
+
+const localizeVenue = (publication) => {
+  if (!isEs) return publication.venue;
+  return publicationVenueTranslations[publication.title] ?? publication.venue
+    .replaceAll('Spain', 'España')
+    .replaceAll('Greece', 'Grecia')
+    .replaceAll('Italy', 'Italia')
+    .replaceAll('U.S.A', 'Estados Unidos')
+    .replaceAll('April', 'abril')
+    .replaceAll('June', 'junio')
+    .replaceAll('July', 'julio')
+    .replaceAll('August', 'agosto')
+    .replaceAll('September', 'septiembre')
+    .replaceAll('October', 'octubre');
+};
+
 const correctedPublications = publications.map((publication) => {
-  if (publication.title === 'A New Compatibility Measure for Harmonic EDM Mixing') return { ...publication, authors: 'Gabriel Bibbó; Ángel Faraldo' };
-  if (publication.title === 'Towards a New Compatibility Measure for Harmonic EDM Mixing') return { ...publication, venue: isEs ? 'Tesis de máster, Universitat Pompeu Fabra, Barcelona, España, 2021. Tutor: Ángel Faraldo.' : 'Master thesis, Universitat Pompeu Fabra, Barcelona, Spain, 2021. Supervisor: Ángel Faraldo.' };
-  if (publication.title === 'Autonomous Mobile Robots Comunicated by Software Defined Radio') return { ...publication, authors: 'Gabriel Bibbó; Mariana Gelós; Martín Randall; Pablo Belzarena; Federico Larroca', venue: isEs ? 'Tesis de grado, Universidad de la República, Montevideo, Uruguay, 2017.' : publication.venue };
-  return publication;
+  if (publication.title === 'A New Compatibility Measure for Harmonic EDM Mixing') return { ...publication, authors: 'Gabriel Bibbó; Ángel Faraldo', venue: localizeVenue(publication) };
+  return { ...publication, venue: localizeVenue(publication) };
 });
 const publicationYears = [...new Set(correctedPublications.map((publication) => publication.year))];
 
 const linkLabel = (label) => {
   if (!isEs) return label;
   return ({
-    Code: 'Código', Paper: 'Artículo', Link: 'Enlace', Identifier: 'Identificador', Repository: 'Repositorio', Publication: 'Publicación', 'Official site': 'Sitio oficial', 'Dataset site': 'Sitio del dataset', 'AES program': 'Programa AES', Demo: 'Demo', DOI: 'DOI', Video: 'Video', ISBN: 'ISBN', Preprint: 'Preprint',
+    Code: 'Código', Paper: 'Artículo', Link: 'Enlace', Identifier: 'Identificador', Repository: 'Repositorio', Publication: 'Publicación', 'Official site': 'Sitio oficial', 'Dataset site': 'Sitio del dataset', 'AES program': 'Programa AES', 'Open research': 'Repositorio institucional', Demo: 'Demo', DOI: 'DOI', Video: 'Video', ISBN: 'ISBN', Preprint: 'Preprint',
   })[label] ?? label;
 };
 ---
@@ -438,7 +500,7 @@ const linkLabel = (label) => {
 
         <section id="publications" class="px-4 py-24"><div class="mx-auto max-w-6xl"><p class="section-kicker">{ui.publicationsKicker}</p><h2 class="section-title max-w-3xl">{ui.publicationsTitle}</h2><div class="mt-12 space-y-10">{publicationYears.map((year) => <section class="grid gap-5 md:grid-cols-[8rem_1fr]"><h3 class="font-display text-3xl font-semibold text-clay">{year}</h3><div class="space-y-4">{correctedPublications.filter((publication) => publication.year === year).map((publication) => <article class="rounded-3xl border border-black/10 bg-white/70 p-6"><h4 class="font-display text-xl font-semibold text-ink">{publication.title}</h4><p class="mt-2 text-sm leading-6 text-ink/60">{publication.authors}</p><p class="mt-2 text-sm leading-6 text-ink/75"><em>{publication.venue}</em></p><div class="mt-4 flex flex-wrap gap-3">{publication.links.map((link) => <a class="text-sm font-semibold text-clay hover:text-ink" href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>)}</div></article>)}</div></section>)}</div></div></section>
 
-        <section id="experience" class="px-4 py-24"><div class="mx-auto max-w-6xl"><p class="section-kicker">{ui.experienceKicker}</p><h2 class="section-title max-w-3xl">{ui.experienceTitle}</h2><div class="mt-12 space-y-5">{translatedExperience.map((item) => { const company = companyMeta(item); return <article class="card grid gap-5 p-6 md:grid-cols-[11rem_1fr] md:items-start"><div class="experience-side"><div class="text-sm font-semibold text-clay">{localizePeriod(item.period)}</div><a class="experience-logo-link" href={company.url} target="_blank" rel="noreferrer" aria-label={`Visit ${item.org}`}><img src={company.logo} alt={company.alt} class={`experience-logo-contain ${item.org.includes('Ikatu') ? 'experience-logo-ikatu' : ''}`} /></a></div><div><h3 class="font-display text-2xl font-semibold text-ink">{item.title}</h3><p class="mt-1 text-sm font-semibold text-ink/60">{localizePlace(item.org)}</p><ul class="mt-5 space-y-3 text-sm leading-7 text-ink/70">{item.bullets.map((bullet) => <li class="pl-4 before:mr-3 before:content-['•']">{bullet}</li>)}</ul></div></article>; })}</div></div></section>
+        <section id="experience" class="px-4 py-24"><div class="mx-auto max-w-6xl"><p class="section-kicker">{ui.experienceKicker}</p><h2 class="section-title max-w-3xl">{ui.experienceTitle}</h2><div class="mt-12 space-y-5">{translatedExperience.map((item) => { const company = companyMeta(item); return <article class="card grid gap-5 p-6 md:grid-cols-[11rem_1fr] md:items-start"><div class="experience-side"><div class="text-sm font-semibold text-clay">{localizePeriod(item.period)}</div><a class="experience-logo-link" href={company.url} target="_blank" rel="noreferrer" aria-label={`${ui.visitLabel} ${localizePlace(item.org)}`}><img src={company.logo} alt={company.alt} class={`experience-logo-contain ${item.org.includes('Ikatu') ? 'experience-logo-ikatu' : ''}`} /></a></div><div><h3 class="font-display text-2xl font-semibold text-ink">{item.title}</h3><p class="mt-1 text-sm font-semibold text-ink/60">{localizePlace(item.org)}</p><ul class="mt-5 space-y-3 text-sm leading-7 text-ink/70">{item.bullets.map((bullet) => <li class="pl-4 before:mr-3 before:content-['•']">{bullet}</li>)}</ul></div></article>; })}</div></div></section>
 
         <section id="education" class="px-4 py-24"><div class="mx-auto max-w-6xl"><p class="section-kicker">{ui.educationKicker}</p><h2 class="section-title max-w-3xl">{ui.educationTitle}</h2><div class="mt-12 grid gap-5 md:grid-cols-2">{translatedEducation.map((item) => <article class="card p-7"><p class="text-sm font-semibold text-clay">{item.period}</p><h3 class="mt-4 font-display text-2xl font-semibold text-ink">{item.degree}</h3><p class="mt-2 text-sm font-semibold text-ink/60">{localizePlace(item.institution)}</p><p class="mt-5 text-sm leading-7 text-ink/70">{item.details}</p></article>)}</div></div></section>
 
@@ -461,7 +523,7 @@ const linkLabel = (label) => {
           document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && lightbox && !lightbox.hidden) closeLightbox(); });
         </script>
       </main>
-      <ProfileAssistant client:load />
+      <ProfileAssistant lang={lang} client:load />
     </div>
   </body>
 </html>
