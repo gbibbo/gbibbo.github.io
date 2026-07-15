@@ -18,6 +18,69 @@
     ['DJ', 'El oído detrás de la investigación'],
   ];
 
+  const edgeLogoSvg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="420" height="300" viewBox="0 0 420 300">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#2637ff"/>
+          <stop offset="0.55" stop-color="#5c26e8"/>
+          <stop offset="1" stop-color="#b500ff"/>
+        </linearGradient>
+        <linearGradient id="wave" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#70e2ff" stop-opacity="0.95"/>
+          <stop offset="1" stop-color="#e88bff" stop-opacity="0.85"/>
+        </linearGradient>
+        <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="2.2"/>
+        </filter>
+      </defs>
+      <rect width="420" height="300" rx="24" fill="url(#bg)"/>
+      <g opacity="0.95" fill="none" stroke="url(#wave)" stroke-width="2.2">
+        <path d="M-50 77 C48 33 120 38 211 78 C296 116 356 114 470 66"/>
+        <path d="M-53 99 C51 55 133 61 218 98 C304 136 365 133 474 85" opacity="0.7"/>
+        <path d="M-58 121 C46 79 136 78 221 118 C307 158 371 153 480 104" opacity="0.48"/>
+        <path d="M-60 145 C60 102 145 104 230 140 C314 176 377 175 481 127" opacity="0.32"/>
+      </g>
+      <g transform="translate(73 89)" fill="#ffffff">
+        <rect x="0" y="13" width="72" height="13" rx="6.5" opacity="0.95"/>
+        <rect x="0" y="48" width="72" height="13" rx="6.5" opacity="0.95"/>
+        <rect x="0" y="83" width="72" height="13" rx="6.5" opacity="0.95"/>
+        <rect x="39" y="7" width="28" height="25" rx="7" opacity="0.95"/>
+        <rect x="16" y="42" width="28" height="25" rx="7" opacity="0.95"/>
+        <rect x="45" y="77" width="28" height="25" rx="7" opacity="0.95"/>
+      </g>
+      <text x="176" y="116" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="37" fill="#fff" letter-spacing="1.2">EDGE</text>
+      <text x="176" y="158" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="37" fill="#fff" letter-spacing="1.2">AUDIO</text>
+      <text x="176" y="200" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="37" fill="#fff" letter-spacing="1.2">LABS</text>
+      <ellipse cx="316" cy="222" rx="115" ry="35" fill="#4b17cc" opacity="0.24" filter="url(#soft)"/>
+    </svg>
+  `;
+
+  const edgeLogoUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(edgeLogoSvg)}`;
+
+  const edgeExperienceCopy = {
+    en: {
+      period: 'Jun. 2026–Present',
+      title: 'ML/DSP Engineer',
+      org: 'Edge Audio Labs, Montevideo, Uruguay (Hybrid)',
+      bullets: [
+        'Machine learning, signal processing, and listening-based evaluation across two audio products under NDA.',
+        'Singing voice synthesis for Dorico, Sibelius, and MuseScore. I work on the neural rendering pipeline that turns a written score into a sung performance, in Python and PyTorch, validated with objective measurement and blind listening tests. Score dynamics now shape the timbre of the voice and not only its loudness, shipped without retraining the model.',
+        'Real-time note detection for guitar. I work on the C++ DSP that tracks pitch and onsets from a live guitar signal, and on the headless evaluation pipeline that regression-tests it against known cases. Removed a systematic 104 ms delay between the note played and the note reported, and hardened the detector against the edge cases slipping through it.',
+      ],
+    },
+    es: {
+      period: 'Jun. 2026–Presente',
+      title: 'Ingeniero de ML/DSP',
+      org: 'Edge Audio Labs, Montevideo, Uruguay (híbrido)',
+      bullets: [
+        'Aprendizaje automático, procesamiento de señales y evaluación basada en escucha en dos productos de audio bajo NDA.',
+        'Síntesis de voz cantada para Dorico, Sibelius y MuseScore. Trabajo sobre el pipeline de renderizado neuronal que convierte una partitura escrita en una interpretación cantada, en Python y PyTorch, validado con mediciones objetivas y pruebas ciegas de escucha. Las dinámicas de partitura ahora moldean el timbre de la voz y no solo su volumen, entregado sin reentrenar el modelo.',
+        'Detección de notas en tiempo real para guitarra. Trabajo sobre el DSP C++ que sigue altura y ataques desde una señal de guitarra en vivo, y sobre el pipeline de evaluación sin interfaz que lo prueba contra casos conocidos. Eliminé un retraso sistemático de 104 ms entre la nota tocada y la nota reportada, y robustecí el detector contra casos límite que se estaban filtrando.',
+      ],
+    },
+  };
+
   const flipOrder = [0, 3, 2, 1];
 
   const writeFace = (face, item) => {
@@ -81,6 +144,27 @@
       #home .approved-stat-grid:hover .stat-flip-inner {
         transition-duration: 900ms !important;
       }
+      #experience article.card:first-of-type .experience-logo-link {
+        background: transparent !important;
+        border: 0 !important;
+        box-shadow: none !important;
+      }
+      #experience article.card:first-of-type img {
+        display: block !important;
+        width: 8.6rem !important;
+        height: 7.1rem !important;
+        max-width: none !important;
+        max-height: none !important;
+        object-fit: cover !important;
+        object-position: center center !important;
+        border-radius: 0.9rem !important;
+      }
+      @media (max-width: 640px) {
+        #experience article.card:first-of-type img {
+          width: 7.4rem !important;
+          height: 6.1rem !important;
+        }
+      }
       @media (max-width: 420px) {
         #home .approved-stat, #home .approved-stat .stat-flip-inner { min-height: 8rem !important; }
         #home .approved-stat .stat-value { font-size: 1.14rem !important; }
@@ -92,6 +176,43 @@
       }
     `;
     document.head.append(style);
+  };
+
+  const installEdgeExperiencePatch = () => {
+    const article = document.querySelector('#experience article.card');
+    if (!article) return false;
+
+    const lang = document.documentElement.lang?.startsWith('es') ? 'es' : 'en';
+    const copy = edgeExperienceCopy[lang];
+
+    const period = article.querySelector('.experience-side div');
+    const title = article.querySelector('h3');
+    const org = title?.nextElementSibling;
+    const list = article.querySelector('ul');
+    const logo = article.querySelector('.experience-side img');
+    const logoLink = article.querySelector('.experience-logo-link');
+
+    if (period) period.textContent = copy.period;
+    if (title) title.textContent = copy.title;
+    if (org) org.textContent = copy.org;
+    if (logo) {
+      logo.src = edgeLogoUrl;
+      logo.alt = 'Edge Audio Labs logo';
+      logo.classList.add('experience-logo-edge');
+    }
+    if (logoLink) logoLink.setAttribute('aria-label', `${lang === 'es' ? 'Visitar' : 'Visit'} ${copy.org}`);
+
+    if (list) {
+      list.replaceChildren(...copy.bullets.map((bullet) => {
+        const item = document.createElement('li');
+        item.className = "pl-4 before:mr-3 before:content-['•']";
+        item.textContent = bullet;
+        return item;
+      }));
+    }
+
+    article.dataset.approvedExperience = '20260715';
+    return true;
   };
 
   const install = () => {
@@ -175,9 +296,10 @@
   };
 
   const scheduleInstall = () => {
-    window.setTimeout(install, 700);
-    window.setTimeout(install, 1600);
-    window.setTimeout(install, 3000);
+    window.setTimeout(() => { installStyle(); install(); installEdgeExperiencePatch(); }, 100);
+    window.setTimeout(() => { installStyle(); install(); installEdgeExperiencePatch(); }, 700);
+    window.setTimeout(() => { installStyle(); install(); installEdgeExperiencePatch(); }, 1600);
+    window.setTimeout(() => { installStyle(); install(); installEdgeExperiencePatch(); }, 3000);
   };
 
   if (document.readyState === 'loading') {
