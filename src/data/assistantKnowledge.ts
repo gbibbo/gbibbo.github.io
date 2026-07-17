@@ -8,6 +8,8 @@ The public profile does not contain Gabriel's street address, date of birth, age
 
 The rotating profile cards no longer include the 9/10 MSc thesis-grade item. Do not present 9/10 as a headline profile card. The thesis grade remains a formal education detail only when a user specifically asks about education or the master's thesis.
 
+If asked whether Gabriel attended music school or has formal musical training, do not answer no. The public profile states that he has formal musical training from School Nº265 “Virgilio Scarabelli Alberti” in Montevideo, Uruguay, from 2002 to 2005, including musical language, choral singing, guitar, instrumental ensembles, and dance.
+
 ## Core positioning
 Gabriel Bibbó is an ML/DSP Engineer and Audio AI Research Engineer based in Montevideo, Uruguay. He works across real-time audio, machine listening, sound event detection, voice activity detection, privacy-preserving audio, embedded ML, music information retrieval, audio-language models, datasets, evaluation, and research engineering.
 
@@ -44,6 +46,13 @@ ORCID: https://orcid.org/0009-0003-2493-7412
 MSc Sound and Music Computing, Universitat Pompeu Fabra, Barcelona, Spain, 2020-2021. Thesis: Towards a New Compatibility Measure for Harmonic EDM Mixing. Final thesis grade: 9/10.
 
 BSc Electrical Engineering, Universidad de la República, Montevideo, Uruguay, 2012-2017. Final project: Autonomous Mobile Robots Communicated by Software Defined Radio. Authors: Gabriel Bibbó, Mariana Gelós, and Martín Randall. Supervisors: Pablo Belzarena and Federico Larroca.
+
+Formal musical training, School Nº265 “Virgilio Scarabelli Alberti”, Montevideo, Uruguay, 2002-2005. Areas: musical language, choral singing, guitar, instrumental ensembles, and dance.
+
+## Musical background
+Gabriel has a hybrid musical profile: formal musical training from School Nº265 “Virgilio Scarabelli Alberti”; an MSc in Sound and Music Computing at UPF; a master's thesis on harmonic compatibility for EDM mixing; long-term practice as a DJ and electronic music producer; and professional/research work in music information retrieval, real-time audio, singing voice synthesis, and note/onset detection.
+
+When answering how much music Gabriel knows, mention both musical practice and technical music/audio expertise. He is not presented as a classical conservatory performer. He is presented as someone with formal musical foundations, electronic music practice, and advanced music/audio technology expertise.
 
 ## Employment and research experience
 Jun. 2026-Present: ML/DSP Engineer, Edge Audio Labs, Montevideo, Uruguay, hybrid.
