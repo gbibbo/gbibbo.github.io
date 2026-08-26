@@ -42,7 +42,6 @@ const copy = isEs
       researchSince: 'Investigación en audio desde 2022',
       publicationsCount: `${publicationsData.length} publicaciones y trabajos`,
       eu: 'Autorización laboral UE',
-      ask: 'Preguntá a mi perfil',
       updated: 'Actualizado',
       questions: 'Preguntas de trabajo',
       questionItems: [
@@ -71,7 +70,6 @@ const copy = isEs
       researchSince: 'Audio research since 2022',
       publicationsCount: `${publicationsData.length} publications & works`,
       eu: 'EU work authorization',
-      ask: 'Ask my profile',
       updated: 'Updated',
       questions: 'Working questions',
       questionItems: [
@@ -100,7 +98,7 @@ const linkLabel = (label) => {
     Code: 'Código', Paper: 'Artículo', DOI: 'DOI', Demo: 'Demo', Video: 'Video',
     'Official site': 'Sitio', 'Dataset site': 'Dataset', Identifier: 'Registro', Link: 'Enlace',
     Repository: 'Repositorio', Publication: 'Publicación', Preprint: 'Preprint', ISBN: 'ISBN',
-    'Open research': 'Open research', 'AES program': 'Programa AES',
+    'Open research': 'Open research', 'AES program': 'Programa AES', Program: 'Programa',
   }[label] ?? label);
 };
 
@@ -115,9 +113,9 @@ const languageText = profile.languages.map((item) => `${isEs ? item.nameEs : ite
 const experienceVisual = (item) => {
   if (item.org === 'Edge Audio Labs') return { image: '/homepage_files/edge-audio-labs.svg', alt: 'Edge Audio Labs', href: item.orgUrl };
   if (item.org.includes('University of Surrey')) return { image: '/homepage_files/surrey.jpg', alt: 'University of Surrey', href: 'https://www.surrey.ac.uk/' };
-  if (item.org === 'Webhelp') return { image: '/homepage_files/logo-google.svg', alt: 'Google Workspace', href: 'https://workspace.google.com/' };
-  if (item.org === 'KPMG') return { image: '/homepage_files/logo-kpmg.svg', alt: 'KPMG', href: item.orgUrl };
-  if (item.org === 'Ikatu') return { image: '/homepage_files/logo-ikatu.svg', alt: 'Ikatu', href: item.orgUrl };
+  if (item.org === 'Webhelp') return { image: '/homepage_files/logo-google-official.svg', alt: 'Google', href: 'https://workspace.google.com/' };
+  if (item.org === 'KPMG') return { image: '/homepage_files/logo-kpmg-official.svg', alt: 'KPMG', href: item.orgUrl };
+  if (item.org === 'Ikatu') return { image: '/homepage_files/logo-ikatu-official.svg', alt: 'Ikatu', href: item.orgUrl };
   return null;
 };
 
@@ -191,7 +189,6 @@ const publicationImages = {
               <a href={profile.links.scholar} target="_blank" rel="noreferrer">Scholar</a>
               <a href={profile.links.orcid} target="_blank" rel="noreferrer">ORCID</a>
               <a href={cvHref}>CV</a>
-              <button type="button" class="ask-profile-cta" data-open-assistant><span aria-hidden="true">🤖</span><span>{copy.ask}</span></button>
             </div>
             <p class="updated">{copy.updated} {updatedDate}</p>
           </div>
@@ -217,7 +214,7 @@ const publicationImages = {
               <div class="selected-list">
                 {selectedProjects.map((project) => (
                   <article class="selected-item">
-                    <a class="selected-media" href={projectPrimaryHref(project)} target="_blank" rel="noreferrer" aria-label={projectTitle(project)}><img src={project.image} alt={projectTitle(project)} loading="lazy" /></a>
+                    <a class={`selected-media selected-media-${project.imageFit ?? 'contain'}`} href={projectPrimaryHref(project)} target="_blank" rel="noreferrer" aria-label={projectTitle(project)}><img src={project.image} alt={projectTitle(project)} loading="lazy" style={`object-position: ${project.imagePosition ?? 'center center'};`} /></a>
                     <div class="selected-copy">
                       <div class="meta-line"><span>{projectCategory(project)}</span><span>{project.years}</span></div>
                       <h3>{projectTitle(project)}</h3>
@@ -307,7 +304,7 @@ const publicationImages = {
             <div class="plain-project-list">
               {otherProjects.map((project) => (
                 <article class="plain-project-item">
-                  <a class="project-thumb" href={projectPrimaryHref(project)} target="_blank" rel="noreferrer"><img src={project.image} alt={projectTitle(project)} loading="lazy" /></a>
+                  <a class={`project-thumb project-thumb-${project.imageFit ?? 'contain'}`} href={projectPrimaryHref(project)} target="_blank" rel="noreferrer"><img src={project.image} alt={projectTitle(project)} loading="lazy" style={`object-position: ${project.imagePosition ?? 'center center'};`} /></a>
                   <div>
                     <div class="meta-line"><span>{projectCategory(project)}</span><span>{project.years}</span></div>
                     <h3>{projectTitle(project)}</h3>
@@ -367,10 +364,5 @@ const publicationImages = {
     </main>
 
     <ProfileAssistantV2 client:load lang={isEs ? 'es' : 'en'} />
-    <script>
-      document.querySelectorAll('[data-open-assistant]').forEach((button) => {
-        button.addEventListener('click', () => window.dispatchEvent(new CustomEvent('open-profile-assistant')));
-      });
-    </script>
   </body>
 </html>
