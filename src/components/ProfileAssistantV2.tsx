@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { offlineProfileAnswer } from '../data/offlineProfileAnswer';
 
 type ChatMessage = { role: 'user' | 'assistant'; content: string };
 type Props = { lang?: 'en' | 'es' };
@@ -81,25 +80,25 @@ export default function ProfileAssistantV2({ lang: initialLang = 'en' }: Props) 
     setMessages(next);
     setInput('');
     setLoading(true);
+
     try {
+      const conversation = next.slice(1).slice(-10);
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ language: lang, messages: next.slice(-10) }),
+        body: JSON.stringify({ language: lang, messages: conversation }),
       });
       const data = await response.json().catch(() => ({}));
-      const modelUnavailable = data?.source === 'fallback-no-ai-binding' || data?.source === 'fallback-ai-error';
-      const localAnswer = modelUnavailable ? offlineProfileAnswer(text, lang) : null;
-      const answer = localAnswer
-        ?? (typeof data.answer === 'string'
-          ? data.answer
-          : typeof data.error === 'string'
-            ? data.error
-            : copy.unavailable);
+      if (data?.warning) console.warn('Profile assistant:', data.warning);
+      const answer = typeof data.answer === 'string'
+        ? data.answer
+        : typeof data.error === 'string'
+          ? data.error
+          : copy.unavailable;
       setMessages([...next, { role: 'assistant', content: answer }]);
-    } catch {
-      const localAnswer = offlineProfileAnswer(text, lang);
-      setMessages([...next, { role: 'assistant', content: localAnswer ?? copy.unavailable }]);
+    } catch (error) {
+      console.error('Profile assistant request failed', error);
+      setMessages([...next, { role: 'assistant', content: copy.unavailable }]);
     } finally {
       setLoading(false);
     }
