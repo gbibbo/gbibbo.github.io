@@ -1,0 +1,52 @@
+/* Logo presentation corrections for experience and education. */
+
+/* Keep institutional/company marks readable at all times. */
+.entity-thumb {
+  background: #ffffff !important;
+  border: 1px solid rgba(17, 20, 15, .10) !important;
+  box-shadow: 0 3px 12px rgba(17, 20, 15, .07);
+  opacity: 1 !important;
+}
+.entity-thumb:hover,
+.entity-thumb:focus-visible {
+  opacity: 1 !important;
+}
+.entity-thumb img,
+.experience-thumb img,
+.education-thumb img {
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+}
+
+/* Edge Audio Labs: square crop centred on the actual brand lockup. */
+.entity-thumb:has(img[src*='edge-audio-labs']) {
+  aspect-ratio: 1 / 1 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+.entity-thumb:has(img[src*='edge-audio-labs']) img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: 39% center !important;
+  transform: none !important;
+}
+
+/* University raster assets contain generous internal whitespace, so enlarge the marks inside the shared frame. */
+.education-thumb img[src*='UPFMTG'] {
+  transform: scale(1.22) !important;
+}
+.education-thumb img[src*='FING'] {
+  transform: scale(1.30) !important;
+}
+.experience-thumb img[src*='surrey'] {
+  transform: scale(.96) !important;
+}
+
+/* Preserve white-backed presentation on hover rather than revealing the section background. */
+.entity-thumb:hover img,
+.entity-thumb:focus-visible img {
+  opacity: 1 !important;
+}
