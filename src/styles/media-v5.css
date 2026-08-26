@@ -23,9 +23,10 @@
 
 /*
   Edge source artwork is 480x120. A square `cover` crop exposes 120px of
-  source width. At 39-42% the crop starts around x=140-151, which is why the
-  stacked EDGE / AUDIO / LABS wordmark is visibly cut on its right edge in the
-  screenshot. Shifting the crop window about 40px right corresponds to ~53%.
+  source width. In the rendered 156px square, the white lockup begins around
+  x=63 and is clipped at x=155. Allowing for the missing right half of the
+  stacked wordmark means shifting the source window roughly 32-36px right.
+  That maps from the previous 39% position to about 48-49%.
 */
 .entity-thumb:has(img[src*='edge-audio-labs']) {
   aspect-ratio: 1 / 1 !important;
@@ -38,7 +39,7 @@
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
-  object-position: 53% center !important;
+  object-position: 49% center !important;
   transform: none !important;
 }
 
