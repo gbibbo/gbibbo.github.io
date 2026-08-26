@@ -14,14 +14,16 @@ const { lang = 'en' } = Astro.props;
 const isEs = lang === 'es';
 const siteUrl = profile.links.web.replace(/\/$/, '');
 const canonical = isEs ? `${siteUrl}/es/cv/` : `${siteUrl}/cv/`;
-const updated = isEs ? '26 agosto 2026' : '26 August 2026';
+const [updatedYear, updatedMonth, updatedDay] = profile.updated.split('-');
+const monthsEn = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const monthsEs = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+const updated = `${Number(updatedDay)} ${isEs ? monthsEs[Number(updatedMonth) - 1] : monthsEn[Number(updatedMonth) - 1]} ${updatedYear}`;
 
 const copy = isEs
   ? {
       back: 'Volver al perfil',
       print: 'Guardar / imprimir PDF',
       updated: 'Actualizado',
-      summary: 'Investigador e ingeniero de Audio ML con experiencia en machine listening, DSP, sistemas de audio en tiempo real, privacidad acústica, ML embebido y tecnología musical. Combina investigación publicada con desarrollo de software y sistemas orientados a producto.',
       education: 'Educación',
       employment: 'Experiencia profesional',
       publications: 'Publicaciones',
@@ -35,7 +37,6 @@ const copy = isEs
       back: 'Back to profile',
       print: 'Save / print PDF',
       updated: 'Updated',
-      summary: 'Audio ML researcher and engineer with experience across machine listening, DSP, real-time audio systems, acoustic privacy, embedded ML, and music technology. Combines peer-reviewed research with product-facing software and systems engineering.',
       education: 'Education',
       employment: 'Employment Experience',
       publications: 'Publications',
@@ -71,7 +72,7 @@ const langText = profile.languages.map((item) => `${isEs ? item.nameEs : item.na
       <header class="cv-header">
         <div>
           <h1>{profile.name}</h1>
-          <p class="cv-role">{isEs ? 'Investigador e ingeniero de Audio ML' : 'Audio ML Researcher and Engineer'}</p>
+          <p class="cv-role">{isEs ? profile.roleEs : profile.role}</p>
         </div>
         <div class="cv-links">
           <a href={profile.links.web}>Web</a>
@@ -82,7 +83,7 @@ const langText = profile.languages.map((item) => `${isEs ? item.nameEs : item.na
         </div>
       </header>
 
-      <p class="cv-summary">{copy.summary}</p>
+      <p class="cv-summary">{isEs ? profile.summaryEs : profile.summary}</p>
       <p class="cv-updated">{copy.updated}: {updated}</p>
 
       <section class="cv-section">
