@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Stack",
+    "items": ["Python", "C/C++", "PyTorch", "Hugging Face", "PEFT", "TorchAudio", "librosa", "Essentia", "mido", "scikit-learn", "pandas", "NumPy", "SciPy", "Flask", "FastAPI", "Streamlit", "Docker", "Git", "Linux CLI", "Bash", "Slurm", "Redis", "Prometheus", "Grafana", "PostgreSQL", "SQLite", "MATLAB", "Unreal Engine 5.4", "FMOD", "VS Code"]
+  },
+  {
+    "name": "ML",
+    "items": ["CNNs", "Transformers", "Audio-Language Models", "LoRA Fine-tuning", "4-bit Quantization", "Supervised and Self-supervised Learning", "Evaluation Pipelines", "Statistical Testing", "Edge Deployment"]
+  },
+  {
+    "name": "Audio",
+    "items": ["Sound Event Detection", "Voice Activity Detection", "Pitch and Onset Detection", "Music Information Retrieval", "Digital Signal Processing", "Real-Time Audio", "Perceptual Evaluation", "DAWs", "Ableton", "DJing", "Electronic Music Production"]
+  },
+  {
+    "name": "Practice",
+    "items": ["Reproducible ML pipelines", "Automated Audio Testing", "Dataset Curation", "Open-Source Development", "MLOps practices", "AI-assisted Development", "Technical Writing", "Interdisciplinary Collaboration"]
+  }
+]
