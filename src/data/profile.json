@@ -1,11 +1,15 @@
 {
   "name": "Gabriel Bibbó",
   "role": "Audio ML researcher and engineer",
+  "roleEs": "Investigador e ingeniero de Audio ML",
   "headline": "Audio ML researcher and engineer working on machine listening, DSP, real-time audio, privacy-preserving audio, and music technology.",
+  "headlineEs": "Investigador e ingeniero de Audio ML especializado en machine listening, DSP, audio en tiempo real, privacidad acústica y tecnología musical.",
   "summary": "I build and evaluate machine-learning and audio-processing systems that have to work outside the notebook, from audio-language models and acoustic privacy to real-time audio software and tools for musicians.",
+  "summaryEs": "Construyo y evalúo sistemas de machine learning y procesamiento de audio que tienen que funcionar fuera del notebook: desde modelos audio-lenguaje y privacidad acústica hasta software de audio en tiempo real y herramientas para músicos.",
   "location": "Montevideo, Uruguay",
   "email": "gabobibbo@gmail.com",
   "availability": "Available for academic collaboration, consulting, contract research, and selected remote opportunities in audio ML, machine listening, DSP, and music technology.",
+  "availabilityEs": "Disponible para colaboración académica, consultoría, contract research y oportunidades remotas seleccionadas en audio ML, machine listening, DSP y tecnología musical.",
   "updated": "2026-08-26",
   "links": {
     "web": "https://gbibbo-site.pages.dev/",
@@ -15,10 +19,10 @@
     "orcid": "https://orcid.org/0009-0003-2493-7412"
   },
   "stats": [
-    { "value": "2016", "labelEn": "engineering since", "labelEs": "ingeniería desde" },
-    { "value": "2022", "labelEn": "audio research since", "labelEs": "investigación en audio desde" },
-    { "value": "13", "labelEn": "publications & works", "labelEs": "publicaciones y trabajos" },
-    { "value": "EU", "labelEn": "work authorization", "labelEs": "autorización laboral" }
+    { "key": "engineeringSince", "value": "2016", "labelEn": "engineering since", "labelEs": "ingeniería desde" },
+    { "key": "audioResearchSince", "value": "2022", "labelEn": "audio research since", "labelEs": "investigación en audio desde" },
+    { "key": "publications", "value": "", "labelEn": "publications & works", "labelEs": "publicaciones y trabajos" },
+    { "key": "euWork", "value": "EU", "labelEn": "work authorization", "labelEs": "autorización laboral" }
   ],
   "languages": [
     { "nameEn": "Spanish", "nameEs": "Español", "levelEn": "Native", "levelEs": "Nativo" },
