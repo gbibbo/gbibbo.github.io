@@ -10,3 +10,8 @@ if (surreyCurrent) {
   surreyCurrent.title = 'Visiting Researcher (collaboration)';
   surreyCurrent.org = 'University of Surrey, Remote';
 }
+
+const tuDelftIndex = experience.findIndex((item) => item.org.includes('TU Delft'));
+if (tuDelftIndex !== -1) {
+  experience.splice(tuDelftIndex, 1);
+}
