@@ -1,0 +1,29 @@
+[
+  {
+    "dates": "Sep.2020-Aug.2021",
+    "degree": "MSc Sound and Music Computing",
+    "institution": "Universitat Pompeu Fabra",
+    "location": "Barcelona, Spain",
+    "credits": "60 ECTS",
+    "focus": "Computational models, audio engineering, perception, cognition, and interactive systems",
+    "details": "Master thesis on harmonic compatibility for EDM mixing. Final thesis grade: 9/10."
+  },
+  {
+    "dates": "Feb.2012-Dec.2017",
+    "degree": "BSc Electrical Engineering",
+    "institution": "Universidad de la República - Facultad de Ingeniería",
+    "location": "Montevideo, Uruguay",
+    "credits": "Equivalent to 300 ECTS",
+    "focus": "Specialisation in electronics and signal processing",
+    "details": "Bachelor thesis on autonomous mobile robots communicated by software-defined radio."
+  },
+  {
+    "dates": "Mar.2002-Dec.2005",
+    "degree": "Formal musical training",
+    "institution": "School Nº265 ‘Virgilio Scarabelli Alberti’",
+    "location": "Montevideo, Uruguay",
+    "credits": "",
+    "focus": "Musical language, choral singing, guitar, and instrumental ensembles",
+    "details": ""
+  }
+]
