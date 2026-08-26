@@ -1,0 +1,198 @@
+/* Media composition pass: larger, consistent visual anchors without dedicating full text columns. */
+
+/* Selected work: large visual anchor floated into the row so text can wrap beneath it. */
+.selected-item {
+  display: flow-root;
+  padding: 34px 0;
+}
+.selected-media {
+  float: right;
+  width: clamp(300px, 38%, 370px);
+  height: auto;
+  aspect-ratio: 16 / 10;
+  margin: 0 0 18px 34px;
+  overflow: hidden;
+}
+.selected-media img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+}
+.selected-media-cover img { object-fit: cover; }
+.selected-media-contain img { object-fit: contain; }
+
+/* Experience + education: date stays in a narrow gutter; logo floats inside the content area. */
+.experience-item,
+.education-item,
+.education-item.no-thumb {
+  display: flow-root;
+  position: relative;
+  min-height: 150px;
+  padding: 30px 0;
+}
+.date-col {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  width: 112px;
+}
+.entity-copy {
+  margin-left: 136px;
+}
+.entity-thumb {
+  float: right;
+  width: 200px;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  margin: 0 0 18px 30px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+.entity-thumb img,
+.education-thumb img,
+.experience-thumb img[src*='surrey'],
+.experience-thumb img[src*='edge-audio'],
+.experience-thumb img[src*='google-official'],
+.experience-thumb img[src*='kpmg-official'],
+.experience-thumb img[src*='ikatu-official'] {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  object-position: center;
+}
+.experience-thumb img[src*='edge-audio'] { transform: scale(1.08); }
+.experience-thumb img[src*='surrey'] { transform: scale(.98); }
+.experience-thumb img[src*='google-official'] { transform: scale(1.02); }
+.experience-thumb img[src*='kpmg-official'] { transform: scale(1.02); }
+.experience-thumb img[src*='ikatu-official'] { transform: scale(1.04); }
+
+/* Publications: one consistent 4:3 crop, floated right. The copy regains the full width below the image. */
+.publication-item {
+  display: flow-root;
+  min-height: 176px;
+  padding: 24px 0;
+}
+.publication-thumb {
+  float: right;
+  width: 230px;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  margin: 0 0 16px 30px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  overflow: hidden;
+}
+.publication-thumb img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Other projects: large 16:10 media at the right of a full-width row. */
+.plain-project-list {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+.plain-project-item {
+  display: flow-root;
+  min-height: 180px;
+  padding: 26px 0;
+}
+.project-thumb {
+  float: right;
+  width: 250px;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  margin: 0 0 16px 32px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  overflow: hidden;
+}
+.project-thumb img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-position: center;
+}
+.project-thumb-cover img { object-fit: cover; }
+.project-thumb-contain img { object-fit: contain; }
+
+/* Medium desktop / tablet: keep the same composition but scale the anchors down gradually. */
+@media (max-width: 1040px) {
+  .selected-media { width: min(40%, 320px); }
+  .entity-thumb { width: 176px; }
+  .publication-thumb { width: 205px; }
+  .project-thumb { width: 220px; }
+}
+
+@media (max-width: 820px) {
+  .selected-media { width: min(44%, 300px); margin-left: 26px; }
+  .date-col { width: 96px; }
+  .entity-copy { margin-left: 112px; }
+  .entity-thumb { width: 164px; margin-left: 24px; }
+  .publication-thumb { width: 190px; margin-left: 24px; }
+  .project-thumb { width: 205px; margin-left: 24px; }
+}
+
+/* Mobile: media becomes a horizontal block above the copy rather than squeezing the text. */
+@media (max-width: 680px) {
+  .selected-item,
+  .publication-item,
+  .plain-project-item,
+  .experience-item,
+  .education-item,
+  .education-item.no-thumb {
+    display: flow-root;
+    min-height: 0;
+  }
+
+  .selected-media,
+  .publication-thumb,
+  .project-thumb {
+    float: none;
+    width: min(100%, 430px);
+    margin: 0 0 20px 0;
+  }
+  .selected-media { aspect-ratio: 16 / 10; }
+  .publication-thumb { aspect-ratio: 4 / 3; }
+  .project-thumb { aspect-ratio: 16 / 10; }
+
+  .date-col {
+    position: static;
+    width: auto;
+    margin-bottom: 10px;
+  }
+  .entity-copy { margin-left: 0; }
+  .entity-thumb {
+    float: right;
+    width: 176px;
+    margin: -30px 0 16px 22px;
+  }
+}
+
+/* Narrow phones: logos also move into their own row for predictable cropping and legibility. */
+@media (max-width: 500px) {
+  .entity-thumb {
+    float: none;
+    width: min(58vw, 190px);
+    margin: 4px 0 18px 0;
+  }
+  .selected-media,
+  .publication-thumb,
+  .project-thumb {
+    width: 100%;
+  }
+}
