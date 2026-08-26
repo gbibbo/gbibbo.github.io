@@ -17,7 +17,10 @@ import {
 const { lang = 'en' } = Astro.props;
 const isEs = lang === 'es';
 const siteUrl = profile.links.web.replace(/\/$/, '');
-const updatedDate = isEs ? '26 ago 2026' : '26 Aug 2026';
+const [updatedYear, updatedMonth, updatedDay] = profile.updated.split('-');
+const monthEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][Number(updatedMonth) - 1];
+const monthEs = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'][Number(updatedMonth) - 1];
+const updatedDate = `${Number(updatedDay)} ${isEs ? monthEs : monthEn} ${updatedYear}`;
 
 const copy = isEs
   ? {
@@ -29,8 +32,8 @@ const copy = isEs
         ['Más', '#more'],
         ['Contacto', '#contact'],
       ],
-      role: 'Investigador e ingeniero de Audio ML. Machine listening, DSP y sistemas en tiempo real.',
-      intro: 'Construyo y evalúo sistemas de machine learning y procesamiento de audio que tienen que funcionar fuera del notebook: desde modelos audio-lenguaje y privacidad acústica hasta software de audio en tiempo real y herramientas para músicos.',
+      role: `${profile.roleEs}. Machine listening, DSP y sistemas en tiempo real.`,
+      intro: profile.summaryEs,
       contact: 'Contacto',
       ask: 'Preguntá a mi perfil',
       cv: 'CV / guardar PDF',
@@ -56,9 +59,9 @@ const copy = isEs
       stackTitle: 'Stack técnico',
       additionalTitle: 'Idiomas, membresías y grants',
       contactTitle: 'Contacto',
-      contactBody: 'Disponible para colaboración académica, consultoría, contract research y oportunidades remotas seleccionadas en audio ML, machine listening, DSP y tecnología musical.',
+      contactBody: profile.availabilityEs,
       pageTitle: 'Gabriel Bibbó · Audio ML research and engineering',
-      metaDescription: 'Gabriel Bibbó, investigador e ingeniero de Audio ML especializado en machine listening, DSP, privacidad acústica, sistemas en tiempo real y tecnología musical.',
+      metaDescription: profile.headlineEs,
     }
   : {
       nav: [
@@ -69,7 +72,7 @@ const copy = isEs
         ['More', '#more'],
         ['Contact', '#contact'],
       ],
-      role: 'Audio ML researcher and engineer. Machine listening, DSP, and real-time systems.',
+      role: `${profile.role}. Machine listening, DSP, and real-time systems.`,
       intro: profile.summary,
       contact: 'Contact',
       ask: 'Ask my profile',
@@ -98,7 +101,7 @@ const copy = isEs
       contactTitle: 'Contact',
       contactBody: profile.availability,
       pageTitle: 'Gabriel Bibbó · Audio ML research and engineering',
-      metaDescription: 'Gabriel Bibbó, Audio ML researcher and engineer working on machine listening, DSP, acoustic privacy, real-time systems, and music technology.',
+      metaDescription: profile.headline,
     };
 
 const linkLabel = (label) => {
@@ -117,7 +120,8 @@ const projectDescription = (project) => isEs ? project.descriptionEs : project.d
 const publicationYears = [...new Set(otherPublications.map((publication) => publication.year))];
 const canonical = isEs ? `${siteUrl}/es/` : `${siteUrl}/`;
 const socialImage = `${siteUrl}/homepage_files/profile.jpg`;
-const cvHref = isEs ? '/es/cv/' : '/cv/';
+const cvHref = isEs ? '/es/cv/?print=1' : '/cv/?print=1';
+const factValue = (fact) => fact.key === 'publications' ? String(publicationsData.length) : fact.value;
 ---
 
 <!doctype html>
@@ -161,7 +165,7 @@ const cvHref = isEs ? '/es/cv/' : '/cv/';
             <p class="v2-role">{copy.role}</p>
             <p class="v2-intro">{copy.intro}</p>
             <div class="v2-hero-actions">
-              <a href={cvHref}>{copy.cv}</a>
+              <a href={cvHref} target="_blank" rel="noreferrer">{copy.cv}</a>
               <a href={`mailto:${profile.email}`}>{copy.contact}</a>
               <button type="button" data-open-assistant>{copy.ask}</button>
             </div>
@@ -180,7 +184,7 @@ const cvHref = isEs ? '/es/cv/' : '/cv/';
 
       <section class="v2-facts" aria-label="Profile facts">
         <div class="v2-shell v2-fact-grid">
-          {profile.stats.map((fact) => <div class="v2-fact"><strong>{fact.value}</strong><span>{isEs ? fact.labelEs : fact.labelEn}</span></div>)}
+          {profile.stats.map((fact) => <div class="v2-fact"><strong>{factValue(fact)}</strong><span>{isEs ? fact.labelEs : fact.labelEn}</span></div>)}
         </div>
       </section>
 
