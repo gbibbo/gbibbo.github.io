@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { offlineProfileAnswer } from '../data/offlineProfileAnswer';
 
 type ChatMessage = { role: 'user' | 'assistant'; content: string };
 type Props = { lang?: 'en' | 'es' };
@@ -87,14 +88,18 @@ export default function ProfileAssistantV2({ lang: initialLang = 'en' }: Props) 
         body: JSON.stringify({ language: lang, messages: next.slice(-10) }),
       });
       const data = await response.json().catch(() => ({}));
-      const answer = typeof data.answer === 'string'
-        ? data.answer
-        : typeof data.error === 'string'
-          ? data.error
-          : copy.unavailable;
+      const modelUnavailable = data?.source === 'fallback-no-ai-binding' || data?.source === 'fallback-ai-error';
+      const localAnswer = modelUnavailable ? offlineProfileAnswer(text, lang) : null;
+      const answer = localAnswer
+        ?? (typeof data.answer === 'string'
+          ? data.answer
+          : typeof data.error === 'string'
+            ? data.error
+            : copy.unavailable);
       setMessages([...next, { role: 'assistant', content: answer }]);
     } catch {
-      setMessages([...next, { role: 'assistant', content: copy.unavailable }]);
+      const localAnswer = offlineProfileAnswer(text, lang);
+      setMessages([...next, { role: 'assistant', content: localAnswer ?? copy.unavailable }]);
     } finally {
       setLoading(false);
     }
