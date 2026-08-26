@@ -1,0 +1,97 @@
+[
+  {
+    "dates": "Jun.2026-Present",
+    "role": "ML/DSP Engineer",
+    "org": "Edge Audio Labs",
+    "orgUrl": "https://edgeaudiolabs.com/",
+    "location": "Montevideo, Uruguay",
+    "mode": "Hybrid",
+    "summary": "ML/DSP product work spanning neural audio rendering, real-time detection, measurement, and perceptual evaluation.",
+    "bullets": [
+      "Applied machine learning, digital signal processing, testing, and perceptual evaluation across two confidential audio product lines, without disclosing client or project identities.",
+      "Designed and delivered a rendering-side feature that maps score dynamics to model-level timbral expression rather than post-render gain alone, after reverse-engineering the end-to-end audio pipeline and identifying a hidden control-path failure.",
+      "Built measurement and listening-test tooling covering approximately 580 renders and a 48-clip blind evaluation, then delivered the feature server-side without retraining the model.",
+      "Built a headless C++ evaluation pipeline for real-time note and onset detection, from WAV and MIDI inputs through the production DSP to JSON metrics, regression tests, and adversarial canary cases.",
+      "Found and corrected a systematic onset timing offset of approximately 104 ms, improved detector guard logic, and communicated results through technical documentation, pull requests, Jira, and client-facing presentations."
+    ]
+  },
+  {
+    "dates": "Dec.2025-Present",
+    "role": "Visiting Researcher (collaboration)",
+    "org": "University of Surrey",
+    "orgUrl": "https://www.surrey.ac.uk/",
+    "location": "Remote",
+    "mode": "Research collaboration",
+    "summary": "Ongoing research collaboration on robust VAD and privacy-preserving machine listening.",
+    "bullets": [
+      "Preparing the manuscript ‘A Psychometric Evaluation of Audio-Language Models for Robust Voice Activity Detection’ for Elsevier Computer Speech & Language with Mark D. Plumbley and Simone Spagnol.",
+      "Co-authoring work with Arshdeep Singh and Mark D. Plumbley on privacy-preserving audio and machine listening."
+    ]
+  },
+  {
+    "dates": "Nov.2022-Nov.2025",
+    "role": "Research Engineer in Sound Sensing",
+    "org": "University of Surrey",
+    "orgUrl": "https://www.surrey.ac.uk/",
+    "location": "Guildford, UK",
+    "mode": "Research engineering",
+    "summary": "Research engineering for real-world sound sensing, privacy-preserving audio, and edge deployment.",
+    "bullets": [
+      "Developed end-to-end audio ML systems for real-world smart environments, covering data preparation, model evaluation, prototype deployment, open-source releases, demos, datasets, and technical documentation.",
+      "Built privacy-preserving SED pipelines for sensitive in-home recordings, including a 197 GB residential audio dataset, speech-removal workflows, and reproducible evaluation resources.",
+      "Built an eight-model VAD benchmark on CHiME-Home and, separately, evaluated audio-language models under controlled duration, noise, reverberation, and spectral degradations.",
+      "Deployed real-time CNN inference on Raspberry Pi, including latency, thermal, efficiency, and robustness evaluation for edge sound sensing.",
+      "Published and presented research at ICASSP, IEEE WASPAA, CHiME Workshop, Inter-Noise, SMC, UKAI, UKIS, and AES. Supervised undergraduate and master’s projects."
+    ]
+  },
+  {
+    "dates": "Mar.2022-Nov.2022",
+    "role": "Technical Support Engineer - Google Workspace",
+    "org": "Webhelp",
+    "orgUrl": "https://workspace.google.com/",
+    "location": "Barcelona, Spain",
+    "mode": "Enterprise support",
+    "summary": "Enterprise Google Workspace support across identity, APIs, migration, and configuration.",
+    "bullets": [
+      "Tier 3 support for Google Workspace enterprise customers across APIs, OAuth, SAML/SSO, IAM, user provisioning, data migration, DNS/domain configuration, and security/compliance settings."
+    ]
+  },
+  {
+    "dates": "Nov.2021-Mar.2022",
+    "role": "IT Auditor",
+    "org": "KPMG",
+    "orgUrl": "https://kpmg.com/es/es.html",
+    "location": "Barcelona, Spain",
+    "mode": "Technology audit",
+    "summary": "Technology audit work for telecommunications companies and IT organisations.",
+    "bullets": [
+      "Supported telecommunications companies and IT departments in technology audit engagements."
+    ]
+  },
+  {
+    "dates": "Aug.2016-Dec.2019",
+    "role": "R&D Engineer",
+    "org": "Ikatu",
+    "orgUrl": "https://www.ikatu.com/",
+    "location": "Montevideo, Uruguay",
+    "mode": "Embedded R&D",
+    "summary": "Embedded C/C++ audio and home-automation engineering for product-facing Bang & Olufsen systems.",
+    "bullets": [
+      "Designed and shipped embedded C/C++ audio and IoT firmware for Bang & Olufsen home automation products, including low-level drivers, hardware integration, audio I/O, and Internet connectivity.",
+      "Worked across requirements, architecture, implementation, testing, validation, and customer-facing documentation.",
+      "Trained and onboarded incoming programmers in embedded development practices."
+    ]
+  },
+  {
+    "dates": "Apr.2016-Jul.2016",
+    "role": "Engineering Intern",
+    "org": "Ikatu",
+    "orgUrl": "https://www.ikatu.com/",
+    "location": "Montevideo, Uruguay",
+    "mode": "Engineering internship",
+    "summary": "Home-automation project work across engineering implementation and coordination.",
+    "bullets": [
+      "Developed and coordinated a complete home automation system project before transitioning into the R&D Engineer role."
+    ]
+  }
+]
