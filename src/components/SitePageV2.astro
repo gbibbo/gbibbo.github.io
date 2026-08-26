@@ -43,7 +43,6 @@ const copy = isEs
       publicationsCount: `${publicationsData.length} publicaciones y trabajos`,
       eu: 'Autorización laboral UE',
       ask: 'Preguntá a mi perfil',
-      cv: 'CV',
       updated: 'Actualizado',
       questions: 'Preguntas de trabajo',
       questionItems: [
@@ -73,7 +72,6 @@ const copy = isEs
       publicationsCount: `${publicationsData.length} publications & works`,
       eu: 'EU work authorization',
       ask: 'Ask my profile',
-      cv: 'CV',
       updated: 'Updated',
       questions: 'Working questions',
       questionItems: [
@@ -109,9 +107,41 @@ const linkLabel = (label) => {
 const projectTitle = (project) => isEs ? project.titleEs : project.title;
 const projectCategory = (project) => isEs ? project.categoryEs : project.category;
 const projectDescription = (project) => isEs ? project.descriptionEs : project.description;
-const profileRole = isEs ? profile.roleEs : profile.role;
+const projectPrimaryHref = (project) => project.links?.[0]?.href ?? project.image;
+const publicationPrimaryHref = (publication) => publication.links?.[0]?.href ?? '#';
 const availability = isEs ? profile.availabilityEs : profile.availability;
 const languageText = profile.languages.map((item) => `${isEs ? item.nameEs : item.nameEn} ${isEs ? item.levelEs : item.levelEn}`).join(' · ');
+
+const experienceVisual = (item) => {
+  if (item.org === 'Edge Audio Labs') return { image: '/homepage_files/edge-audio-labs.svg', alt: 'Edge Audio Labs', href: item.orgUrl };
+  if (item.org.includes('University of Surrey')) return { image: '/homepage_files/surrey.jpg', alt: 'University of Surrey', href: 'https://www.surrey.ac.uk/' };
+  if (item.org === 'Webhelp') return { image: '/homepage_files/logo-google.svg', alt: 'Google Workspace', href: 'https://workspace.google.com/' };
+  if (item.org === 'KPMG') return { image: '/homepage_files/logo-kpmg.svg', alt: 'KPMG', href: item.orgUrl };
+  if (item.org === 'Ikatu') return { image: '/homepage_files/logo-ikatu.svg', alt: 'Ikatu', href: item.orgUrl };
+  return null;
+};
+
+const educationVisual = (item) => {
+  if (item.institution.includes('Pompeu Fabra')) return { image: '/homepage_files/UPFMTG.png', alt: 'Universitat Pompeu Fabra Music Technology Group', href: 'https://www.upf.edu/web/mtg' };
+  if (item.institution.includes('Universidad de la República')) return { image: '/homepage_files/FING.png', alt: 'Facultad de Ingeniería, Universidad de la República', href: 'https://www.fing.edu.uy/' };
+  return null;
+};
+
+const publicationImages = {
+  'Privacy for Audio AI: Risks, Challenges, and Emerging Solutions in the Era of Audio AI [Panel discussion]': '/homepage_files/privacy_AES_panel.png',
+  'Speech Removal Framework for Privacy-preserving Audio Recordings': '/homepage_files/waspaa_2025_vad_demo.png',
+  'Room Acoustics and Microphone Characteristics Show Systematic Impact on Sound Event Recognition': '/homepage_files/internoise_2025_room_acoustics_mics.png',
+  'Integrating IP broadcasting with audio tags: Workflow and challenges': '/homepage_files/ip_broadcasting_audio_tags_workflow.png',
+  "Soundscape Experience Mapping: A Deep Listening Approach for Eliciting Older Adults' Perceptions of Indoor Soundscapes": '/homepage_files/euronoise_2025_soundscape_experience_mapping.png',
+  'Personalized Live Sound Recognition Using Efficient PANNs [Show and Tell]': '/homepage_files/icassp_2025_pann_recognition.png',
+  'Environmental sound classification on an embedded hardware platform': '/homepage_files/internoise_2024_embedded_esc.png',
+  'The Sounds of Home: A Speech-Removed Residential Audio Dataset for Sound Event Detection': '/homepage_files/chime_2024_sounds_of_home.png',
+  'Soundscape Personalisation at Work: Designing AI-Enabled Sound Technologies for the Workplace': '/homepage_files/smc_2024_soundscape_workplace.png',
+  'Recognise and Notify Sound Events Using a Raspberry PI Based Standalone Device [Demo]': '/homepage_files/waspaa_2023_raspberry_pi_sed.png',
+  'A New Compatibility Measure for Harmonic EDM Mixing': '/homepage_files/icwe_2022_harmonic_mixing.png',
+  'Towards a New Compatibility Measure for Harmonic EDM Mixing': '/homepage_files/thesis_2021_harmonic_mixing.png',
+  'Autonomous Mobile Robots Communicated by Software Defined Radio': '/homepage_files/thesis_2017_mobile_robots_sdr.png',
+};
 ---
 
 <!doctype html>
@@ -149,8 +179,8 @@ const languageText = profile.languages.map((item) => `${isEs ? item.nameEs : ite
             <h1>{profile.name}</h1>
             <p class="hero-role">{copy.role}</p>
             <p class="technical-line">{copy.technicalLine}</p>
-            <p class="current-line"><strong>Edge Audio Labs</strong> · University of Surrey collaboration</p>
-            <p class="credentials-line">{educationData[0].degree} · {educationData[1].degree}</p>
+            <p class="current-line"><a href="https://edgeaudiolabs.com/" target="_blank" rel="noreferrer"><strong>Edge Audio Labs</strong></a> · <a href="https://www.surrey.ac.uk/" target="_blank" rel="noreferrer">University of Surrey collaboration</a></p>
+            <p class="credentials-line"><a href="https://www.upf.edu/web/mtg" target="_blank" rel="noreferrer">{educationData[0].degree}</a> · <a href="https://www.fing.edu.uy/" target="_blank" rel="noreferrer">{educationData[1].degree}</a></p>
             <div class="signal-row" aria-label="Profile facts">
               <span>{copy.engineeringSince}</span><span>{copy.researchSince}</span><span>{copy.publicationsCount}</span><span>{copy.eu}</span>
             </div>
@@ -161,7 +191,7 @@ const languageText = profile.languages.map((item) => `${isEs ? item.nameEs : ite
               <a href={profile.links.scholar} target="_blank" rel="noreferrer">Scholar</a>
               <a href={profile.links.orcid} target="_blank" rel="noreferrer">ORCID</a>
               <a href={cvHref}>CV</a>
-              <button type="button" data-open-assistant>{copy.ask}</button>
+              <button type="button" class="ask-profile-cta" data-open-assistant><span aria-hidden="true">🤖</span><span>{copy.ask}</span></button>
             </div>
             <p class="updated">{copy.updated} {updatedDate}</p>
           </div>
@@ -181,20 +211,23 @@ const languageText = profile.languages.map((item) => `${isEs ? item.nameEs : ite
           </div>
 
           <div class="content-block" id="work">
-            <div class="heading-line"><h2>{copy.selected}</h2><p>{copy.selectedLine}</p></div>
-            <div class="selected-list">
-              {selectedProjects.map((project) => (
-                <article class="selected-item">
-                  <div class="selected-media"><img src={project.image} alt="" loading="lazy" /></div>
-                  <div class="selected-copy">
-                    <div class="meta-line"><span>{projectCategory(project)}</span><span>{project.years}</span></div>
-                    <h3>{projectTitle(project)}</h3>
-                    <p class="project-description">{projectDescription(project)}</p>
-                    <p class="tag-line">{project.tags.join(' · ')}</p>
-                    {project.links.length > 0 && <div class="link-row">{project.links.map((link) => <a href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>)}</div>}
-                  </div>
-                </article>
-              ))}
+            <h2>{copy.selected}</h2>
+            <div class="block-body">
+              <p class="section-line">{copy.selectedLine}</p>
+              <div class="selected-list">
+                {selectedProjects.map((project) => (
+                  <article class="selected-item">
+                    <a class="selected-media" href={projectPrimaryHref(project)} target="_blank" rel="noreferrer" aria-label={projectTitle(project)}><img src={project.image} alt={projectTitle(project)} loading="lazy" /></a>
+                    <div class="selected-copy">
+                      <div class="meta-line"><span>{projectCategory(project)}</span><span>{project.years}</span></div>
+                      <h3>{projectTitle(project)}</h3>
+                      <p class="project-description">{projectDescription(project)}</p>
+                      <p class="tag-line">{project.tags.join(' · ')}</p>
+                      {project.links.length > 0 && <div class="link-row">{project.links.map((link) => <a href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>)}</div>}
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -207,33 +240,35 @@ const languageText = profile.languages.map((item) => `${isEs ? item.nameEs : ite
           <div class="content-block" id="experience">
             <h2>{copy.experience}</h2>
             <div class="experience-list">
-              {experienceData.map((item) => (
+              {experienceData.map((item) => { const visual = experienceVisual(item); return (
                 <article class="experience-item">
                   <div class="date-col">{item.dates}</div>
-                  <div>
+                  {visual && <a class="entity-thumb experience-thumb" href={visual.href} target="_blank" rel="noreferrer"><img src={visual.image} alt={visual.alt} loading="lazy" /></a>}
+                  <div class="entity-copy">
                     <h3>{item.role}</h3>
                     <p class="org-line"><a href={item.orgUrl} target="_blank" rel="noreferrer">{item.org}</a> · {item.location}{item.mode ? ` · ${item.mode}` : ''}</p>
                     <ul>{item.bullets.map((bullet) => <li>{bullet}</li>)}</ul>
                   </div>
                 </article>
-              ))}
+              ); })}
             </div>
           </div>
 
           <div class="content-block" id="education">
             <h2>{copy.education}</h2>
             <div class="education-list">
-              {educationData.map((item) => (
-                <article class="education-item">
+              {educationData.map((item) => { const visual = educationVisual(item); return (
+                <article class={`education-item ${visual ? '' : 'no-thumb'}`}>
                   <div class="date-col">{item.dates}</div>
-                  <div>
+                  {visual && <a class="entity-thumb education-thumb" href={visual.href} target="_blank" rel="noreferrer"><img src={visual.image} alt={visual.alt} loading="lazy" /></a>}
+                  <div class="entity-copy">
                     <h3>{item.degree}</h3>
-                    <p class="org-line">{item.institution} · {item.location}</p>
+                    <p class="org-line">{visual ? <a href={visual.href} target="_blank" rel="noreferrer">{item.institution}</a> : item.institution} · {item.location}</p>
                     <p>{[item.credits, item.focus].filter(Boolean).join(' · ')}</p>
                     {item.details && <p>{item.details}</p>}
                   </div>
                 </article>
-              ))}
+              ); })}
             </div>
           </div>
         </div>
@@ -251,11 +286,14 @@ const languageText = profile.languages.map((item) => `${isEs ? item.nameEs : ite
                   <h3>{year}</h3>
                   <ol>
                     {publicationsData.filter((publication) => publication.year === year).map((publication) => (
-                      <li>
-                        <h4>{publication.title}</h4>
-                        <p>{publication.authors.join('; ')}</p>
-                        <p><em>{publication.venue}</em></p>
-                        {publication.links.length > 0 && <div class="link-row">{publication.links.map((link) => <a href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>)}</div>}
+                      <li class="publication-item">
+                        {publicationImages[publication.title] && <a class="publication-thumb" href={publicationPrimaryHref(publication)} target="_blank" rel="noreferrer"><img src={publicationImages[publication.title]} alt={publication.title} loading="lazy" /></a>}
+                        <div>
+                          <h4>{publication.title}</h4>
+                          <p>{publication.authors.join('; ')}</p>
+                          <p><em>{publication.venue}</em></p>
+                          {publication.links.length > 0 && <div class="link-row">{publication.links.map((link) => <a href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>)}</div>}
+                        </div>
                       </li>
                     ))}
                   </ol>
@@ -268,12 +306,15 @@ const languageText = profile.languages.map((item) => `${isEs ? item.nameEs : ite
             <h2>{copy.otherProjects}</h2>
             <div class="plain-project-list">
               {otherProjects.map((project) => (
-                <article>
-                  <div class="meta-line"><span>{projectCategory(project)}</span><span>{project.years}</span></div>
-                  <h3>{projectTitle(project)}</h3>
-                  <p>{projectDescription(project)}</p>
-                  <p class="tag-line">{project.tags.join(' · ')}</p>
-                  {project.links.length > 0 && <div class="link-row">{project.links.map((link) => <a href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>)}</div>}
+                <article class="plain-project-item">
+                  <a class="project-thumb" href={projectPrimaryHref(project)} target="_blank" rel="noreferrer"><img src={project.image} alt={projectTitle(project)} loading="lazy" /></a>
+                  <div>
+                    <div class="meta-line"><span>{projectCategory(project)}</span><span>{project.years}</span></div>
+                    <h3>{projectTitle(project)}</h3>
+                    <p>{projectDescription(project)}</p>
+                    <p class="tag-line">{project.tags.join(' · ')}</p>
+                    {project.links.length > 0 && <div class="link-row">{project.links.map((link) => <a href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>)}</div>}
+                  </div>
                 </article>
               ))}
             </div>
@@ -309,14 +350,16 @@ const languageText = profile.languages.map((item) => `${isEs ? item.nameEs : ite
 
           <div class="content-block contact-block" id="contact">
             <h2>{copy.contact}</h2>
-            <p>{availability}</p>
-            <div class="link-row contact-links">
-              <a href={`mailto:${profile.email}`}>{profile.email}</a>
-              <a href={profile.links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-              <a href={profile.links.github} target="_blank" rel="noreferrer">GitHub</a>
-              <a href={profile.links.scholar} target="_blank" rel="noreferrer">Scholar</a>
-              <a href={profile.links.orcid} target="_blank" rel="noreferrer">ORCID</a>
-              <a href={cvHref}>CV</a>
+            <div>
+              <p>{availability}</p>
+              <div class="link-row contact-links">
+                <a href={`mailto:${profile.email}`}>{profile.email}</a>
+                <a href={profile.links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+                <a href={profile.links.github} target="_blank" rel="noreferrer">GitHub</a>
+                <a href={profile.links.scholar} target="_blank" rel="noreferrer">Google Scholar</a>
+                <a href={profile.links.orcid} target="_blank" rel="noreferrer">ORCID</a>
+                <a href={cvHref}>CV</a>
+              </div>
             </div>
           </div>
         </div>
@@ -324,12 +367,9 @@ const languageText = profile.languages.map((item) => `${isEs ? item.nameEs : ite
     </main>
 
     <ProfileAssistantV2 client:load lang={isEs ? 'es' : 'en'} />
-    <script is:inline>
-      document.addEventListener('click', (event) => {
-        const target = event.target;
-        if (target instanceof HTMLElement && target.closest('[data-open-assistant]')) {
-          window.dispatchEvent(new Event('open-profile-assistant'));
-        }
+    <script>
+      document.querySelectorAll('[data-open-assistant]').forEach((button) => {
+        button.addEventListener('click', () => window.dispatchEvent(new CustomEvent('open-profile-assistant')));
       });
     </script>
   </body>
