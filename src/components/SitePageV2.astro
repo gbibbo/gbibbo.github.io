@@ -1,0 +1,378 @@
+---
+import '../styles/editorial-v2.css';
+import { education, experience, mainProjects, profile, publications, secondaryProjects } from '../data/siteData';
+
+const { lang = 'en' } = Astro.props;
+const isEs = lang === 'es';
+const siteUrl = 'https://gbibbo-site.pages.dev';
+
+const copy = isEs
+  ? {
+      nav: [
+        ['Trabajo', '#work'],
+        ['Publicaciones', '#publications'],
+        ['Preguntas', '#questions'],
+        ['Trayectoria', '#background'],
+      ],
+      kicker: 'Investigación en audio · ingeniería · música',
+      thesis: 'Construyo sistemas que escuchan: modelos de audio, herramientas musicales y software que tiene que funcionar fuera del notebook.',
+      intro:
+        'Mi trabajo cruza machine listening, DSP e ingeniería de software. Me interesan especialmente los modelos robustos de audio, la privacidad en datos acústicos, los sistemas en tiempo real y las herramientas de análisis musical que pueden usarse de verdad.',
+      location: 'Montevideo, Uruguay',
+      workLabel: 'Trabajo seleccionado',
+      workTitle: 'Investigación y sistemas que representan mejor lo que hago.',
+      workLede:
+        'Una selección corta, no un inventario. Priorizo trabajo donde la pregunta de investigación, la implementación y la evaluación están conectadas.',
+      publicationsLabel: 'Publicaciones',
+      publicationsTitle: 'Una selección de trabajos revisados por pares.',
+      publicationsLede: 'La lista completa está disponible en Google Scholar y ORCID.',
+      questionsLabel: 'Preguntas de trabajo',
+      questionsTitle: 'Las preguntas que conectan mis proyectos.',
+      questions: [
+        {
+          title: '¿Qué significa realmente que un modelo de audio sea robusto?',
+          body: 'No sólo que funcione en un benchmark limpio. Me interesa medir qué ocurre cuando el audio es corto, reverberante, filtrado, ruidoso o llega desde hardware real.',
+        },
+        {
+          title: '¿Cuánta información acústica podemos conservar sin conservar habla?',
+          body: 'Trabajo en métodos y datasets donde la privacidad no se añade al final, sino que forma parte del diseño experimental y del flujo de publicación.',
+        },
+        {
+          title: '¿Cómo hacemos que machine listening sea útil para músicos?',
+          body: 'Desde mezcla armónica hasta organización de bibliotecas y análisis en tiempo real, me interesan herramientas donde el modelo está subordinado a una tarea musical concreta.',
+        },
+      ],
+      backgroundLabel: 'Trayectoria',
+      backgroundTitle: 'Investigación, producto y audio embebido.',
+      backgroundLede:
+        'Mi recorrido combina investigación académica en audio con experiencia previa construyendo software y firmware orientado a producto.',
+      educationLabel: 'Formación',
+      contactTitle: 'Contacto',
+      contactBody: 'Para investigación, ingeniería de audio, colaboraciones o proyectos relacionados con machine listening y tecnología musical.',
+      selected: 'Seleccionado',
+      allPublications: 'Google Scholar',
+      code: 'GitHub',
+      email: 'Email',
+      linkedin: 'LinkedIn',
+      orcid: 'ORCID',
+      home: 'Inicio',
+      metaDescription: 'Gabriel Bibbó, investigador e ingeniero de Audio AI, machine listening, DSP y tecnología musical.',
+    }
+  : {
+      nav: [
+        ['Work', '#work'],
+        ['Publications', '#publications'],
+        ['Questions', '#questions'],
+        ['Background', '#background'],
+      ],
+      kicker: 'Audio research · engineering · music',
+      thesis: 'I build systems that listen: audio models, music tools, and software that has to work outside the notebook.',
+      intro:
+        'My work sits across machine listening, DSP, and software engineering. I am particularly interested in robust audio models, privacy in acoustic data, real-time systems, and music analysis tools that people can actually use.',
+      location: 'Montevideo, Uruguay',
+      workLabel: 'Selected work',
+      workTitle: 'Research and systems that best represent what I do.',
+      workLede:
+        'A short selection rather than an inventory. I prioritise work where the research question, implementation, and evaluation are tightly connected.',
+      publicationsLabel: 'Publications',
+      publicationsTitle: 'A selection of peer-reviewed work.',
+      publicationsLede: 'The complete publication record is available through Google Scholar and ORCID.',
+      questionsLabel: 'Working questions',
+      questionsTitle: 'The questions connecting my projects.',
+      questions: [
+        {
+          title: 'What does it really mean for an audio model to be robust?',
+          body: 'Not only that it works on a clean benchmark. I care about what happens when audio is short, reverberant, filtered, noisy, or arrives through real hardware.',
+        },
+        {
+          title: 'How much useful acoustic information can we retain without retaining speech?',
+          body: 'I work on methods and datasets where privacy is part of the experimental design and release pipeline, rather than something added at the end.',
+        },
+        {
+          title: 'How do we make machine listening useful to musicians?',
+          body: 'From harmonic mixing to library organisation and real-time analysis, I am interested in tools where the model is subordinate to a concrete musical task.',
+        },
+      ],
+      backgroundLabel: 'Background',
+      backgroundTitle: 'Research, product engineering, and embedded audio.',
+      backgroundLede:
+        'My trajectory combines academic audio research with earlier experience building product-facing software and firmware.',
+      educationLabel: 'Education',
+      contactTitle: 'Contact',
+      contactBody: 'For research, audio engineering, collaborations, or projects around machine listening and music technology.',
+      selected: 'Selected',
+      allPublications: 'Google Scholar',
+      code: 'GitHub',
+      email: 'Email',
+      linkedin: 'LinkedIn',
+      orcid: 'ORCID',
+      home: 'Home',
+      metaDescription: 'Gabriel Bibbó, Audio AI researcher and engineer working on machine listening, DSP, and music technology.',
+    };
+
+const allProjects = [...mainProjects, ...secondaryProjects];
+const selectedProjectTitles = [
+  'Audio-Language Models for Voice Activity Detection',
+  'Sounds of Home Dataset',
+  'Speech Removal Framework',
+  'Harmonic EDM Mixing Compatibility',
+];
+
+const projectOverrides = isEs
+  ? {
+      'Audio-Language Models for Voice Activity Detection': {
+        title: 'Modelos audio-lenguaje para detección de actividad de voz',
+        eyebrow: 'Audio AI · evaluación de modelos',
+        description:
+          'Evalúo hasta dónde los modelos audio-lenguaje siguen detectando habla cuando el audio se vuelve corto, ruidoso, reverberante o filtrado. El trabajo compara modelos Qwen, adaptación con LoRA, optimización de prompts y un VAD especializado sobre el mismo banco de degradaciones.',
+      },
+      'Sounds of Home Dataset': {
+        title: 'Sounds of Home',
+        eyebrow: 'Dataset · privacidad · audio doméstico',
+        description:
+          'Dataset residencial para detección de eventos sonoros, construido a partir de grabaciones reales en hogares. La publicación incorpora eliminación de habla antes de liberar el audio y anotaciones automáticas para facilitar investigación reproducible.',
+      },
+      'Speech Removal Framework': {
+        title: 'Framework para eliminación de habla',
+        eyebrow: 'Privacidad · procesamiento de audio',
+        description:
+          'Un flujo para retirar habla de grabaciones antes de compartirlas o publicarlas, preservando información acústica no verbal útil para investigación en sound event detection.',
+      },
+      'Harmonic EDM Mixing Compatibility': {
+        title: 'Compatibilidad armónica para mezcla de EDM',
+        eyebrow: 'MIR · música electrónica',
+        description:
+          'Un sistema que estima cuán compatibles son armónicamente dos pistas y propone transposiciones que pueden mejorar una mezcla. Comenzó como tesis de máster y luego se publicó como trabajo de investigación.',
+      },
+    }
+  : {};
+
+const selectedProjects = selectedProjectTitles
+  .map((title) => allProjects.find((project) => project.title === title))
+  .filter(Boolean)
+  .map((project) => ({ ...project, ...(projectOverrides[project.title] ?? {}) }));
+
+const selectedPublicationTitles = [
+  'Speech Removal Framework for Privacy-preserving Audio Recordings',
+  'Room Acoustics and Microphone Characteristics Show Systematic Impact on Sound Event Recognition',
+  'Environmental sound classification on an embedded hardware platform',
+  'The Sounds of Home: A Speech-Removed Residential Audio Dataset for Sound Event Detection',
+  'Recognise and Notify Sound Events Using a Raspberry PI Based Standalone Device [Demo]',
+  'A New Compatibility Measure for Harmonic EDM Mixing',
+];
+
+const selectedPublications = selectedPublicationTitles
+  .map((title) => publications.find((publication) => publication.title === title))
+  .filter(Boolean);
+
+const selectedExperience = experience.slice(0, 4);
+const selectedEducation = education.slice(0, 2);
+
+const linkLabel = (label) => {
+  if (!isEs) return label;
+  const labels = {
+    Code: 'Código',
+    Paper: 'Artículo',
+    DOI: 'DOI',
+    Demo: 'Demo',
+    Video: 'Video',
+    'Official site': 'Sitio',
+    'Dataset site': 'Dataset',
+    Identifier: 'Registro',
+    Link: 'Enlace',
+  };
+  return labels[label] ?? label;
+};
+
+const canonical = isEs ? `${siteUrl}/es/` : `${siteUrl}/`;
+---
+
+<!doctype html>
+<html lang={isEs ? 'es' : 'en'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={copy.metaDescription} />
+    <meta name="theme-color" content="#f5f6f2" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/homepage_files/favicon.png" />
+    <title>{profile.name} · Audio research and engineering</title>
+  </head>
+  <body>
+    <header class="v2-header">
+      <div class="v2-shell v2-nav">
+        <a class="v2-wordmark" href={isEs ? '/es/' : '/'}>{profile.name}</a>
+        <nav class="v2-nav-links" aria-label="Primary navigation">
+          {copy.nav.map(([label, href]) => <a href={href}>{label}</a>)}
+        </nav>
+        <div class="v2-lang" aria-label="Language selector">
+          <a href="/" class={!isEs ? 'is-active' : ''}>EN</a>
+          <span aria-hidden="true">/</span>
+          <a href="/es/" class={isEs ? 'is-active' : ''}>ES</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="v2-hero" id="home">
+        <div class="v2-shell v2-hero-grid">
+          <div>
+            <p class="v2-kicker">{copy.kicker}</p>
+            <h1 class="v2-name">{profile.name}</h1>
+            <p class="v2-thesis">{copy.thesis}</p>
+            <p class="v2-intro">{copy.intro}</p>
+            <div class="v2-meta-links">
+              <span>{copy.location}</span>
+              <a href={`mailto:${profile.email}`}>{copy.email}</a>
+              <a href={profile.links.github} target="_blank" rel="noreferrer">{copy.code}</a>
+              <a href={profile.links.scholar} target="_blank" rel="noreferrer">{copy.allPublications}</a>
+              <a href={profile.links.linkedin} target="_blank" rel="noreferrer">{copy.linkedin}</a>
+            </div>
+          </div>
+
+          <figure class="v2-profile-figure">
+            <img src="/homepage_files/profile.jpg" alt="Gabriel Bibbó" />
+            <figcaption>{copy.location}</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="v2-section" id="work">
+        <div class="v2-shell v2-section-grid">
+          <p class="v2-section-label">{copy.workLabel}</p>
+          <div>
+            <h2 class="v2-section-title">{copy.workTitle}</h2>
+            <p class="v2-section-lede">{copy.workLede}</p>
+
+            <div class="v2-work-list">
+              {selectedProjects.map((project) => (
+                <article class="v2-work">
+                  <div class:list={['v2-work-media', project.imageFit === 'contain' && 'is-contain']}>
+                    <img src={project.image} alt="" loading="lazy" />
+                  </div>
+                  <div>
+                    <div class="v2-work-meta">
+                      <strong>{project.eyebrow}</strong>
+                      <span>{project.year}</span>
+                    </div>
+                    <h3 class="v2-work-title">{project.title}</h3>
+                    <p class="v2-work-copy">{project.description}</p>
+                    {project.links?.length > 0 && (
+                      <div class="v2-inline-links">
+                        {project.links.map((link) => (
+                          <a href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="v2-section" id="publications">
+        <div class="v2-shell v2-section-grid">
+          <p class="v2-section-label">{copy.publicationsLabel}</p>
+          <div>
+            <h2 class="v2-section-title">{copy.publicationsTitle}</h2>
+            <p class="v2-section-lede">
+              {copy.publicationsLede}
+              {' '}
+              <a class="v2-text-link" href={profile.links.scholar} target="_blank" rel="noreferrer">Google Scholar</a>.
+            </p>
+            <ol class="v2-pub-list">
+              {selectedPublications.map((publication) => (
+                <li class="v2-pub">
+                  <div class="v2-pub-year">{publication.year}</div>
+                  <div>
+                    <h3 class="v2-pub-title">{publication.title}</h3>
+                    <p class="v2-pub-authors">{publication.authors}</p>
+                    <p class="v2-pub-venue"><em>{publication.venue}</em></p>
+                    {publication.links?.length > 0 && (
+                      <div class="v2-inline-links">
+                        {publication.links.map((link) => (
+                          <a href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="v2-section" id="questions">
+        <div class="v2-shell v2-section-grid">
+          <p class="v2-section-label">{copy.questionsLabel}</p>
+          <div>
+            <h2 class="v2-section-title">{copy.questionsTitle}</h2>
+            <div class="v2-now">
+              {copy.questions.map((question) => (
+                <article class="v2-now-item">
+                  <h3>{question.title}</h3>
+                  <p>{question.body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="v2-section" id="background">
+        <div class="v2-shell v2-section-grid">
+          <p class="v2-section-label">{copy.backgroundLabel}</p>
+          <div>
+            <h2 class="v2-section-title">{copy.backgroundTitle}</h2>
+            <p class="v2-section-lede">{copy.backgroundLede}</p>
+
+            <div class="v2-background-list">
+              {selectedExperience.map((item) => (
+                <article class="v2-background-item">
+                  <div class="v2-background-date">{item.period}</div>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.org}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <p class="v2-section-label" style="margin-top: 44px;">{copy.educationLabel}</p>
+            <div class="v2-background-list">
+              {selectedEducation.map((item) => (
+                <article class="v2-background-item">
+                  <div class="v2-background-date">{item.period}</div>
+                  <div>
+                    <h3>{item.degree}</h3>
+                    <p>{item.institution}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="v2-footer" id="contact">
+      <div class="v2-shell v2-footer-grid">
+        <div>
+          <p class="v2-section-label">{copy.contactTitle}</p>
+          <h2>{profile.email}</h2>
+          <p>{copy.contactBody}</p>
+        </div>
+        <div class="v2-footer-links">
+          <a href={`mailto:${profile.email}`}>{copy.email}</a>
+          <a href={profile.links.github} target="_blank" rel="noreferrer">GitHub</a>
+          <a href={profile.links.scholar} target="_blank" rel="noreferrer">Scholar</a>
+          <a href={profile.links.orcid} target="_blank" rel="noreferrer">{copy.orcid}</a>
+          <a href={profile.links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
