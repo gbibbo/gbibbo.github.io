@@ -59,7 +59,8 @@
     "venue": "IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP 2025), Hyderabad, India, April 2025",
     "featured": false,
     "links": [
-      { "label": "DOI", "href": "https://zenodo.org/records/15498188" }
+      { "label": "DOI", "href": "https://zenodo.org/records/15498188" },
+      { "label": "Program", "href": "https://2025.ieeeicassp.org/show-tell-sessions-schedule/#1740032529376-8a1b5645-ce3c" }
     ]
   },
   {
@@ -121,6 +122,7 @@
     "venue": "Master thesis, Universitat Pompeu Fabra, Barcelona, Spain, 2021. Supervisor: Ángel Faraldo.",
     "featured": false,
     "links": [
+      { "label": "DOI", "href": "http://dx.doi.org/10.5281/zenodo.5554688" },
       { "label": "Repository", "href": "https://github.com/MTG/essentia-research/tree/master/harmonic-mixing" }
     ]
   },
