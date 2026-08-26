@@ -1,29 +1,40 @@
 ---
 import '../styles/editorial-v2.css';
 import ProfileAssistantV2 from './ProfileAssistantV2';
-import { education, experience, mainProjects, profile, publications, secondaryProjects, stackGroups } from '../data/siteData';
+import {
+  coursesData,
+  educationData,
+  experienceData,
+  featuredProjects,
+  featuredPublications,
+  otherProjects,
+  otherPublications,
+  profile,
+  publicationsData,
+  stackGroups,
+} from '../data/profileData';
 
 const { lang = 'en' } = Astro.props;
 const isEs = lang === 'es';
-const siteUrl = 'https://gbibbo-site.pages.dev';
+const siteUrl = profile.links.web.replace(/\/$/, '');
 const updatedDate = isEs ? '26 ago 2026' : '26 Aug 2026';
 
 const copy = isEs
   ? {
-      nav: [['Preguntas', '#questions'], ['Trabajo', '#work'], ['Experiencia', '#experience'], ['Publicaciones', '#publications'], ['CV completo', '#full-cv']],
+      nav: [
+        ['Preguntas', '#questions'],
+        ['Trabajo', '#work'],
+        ['Experiencia', '#experience'],
+        ['Publicaciones', '#publications'],
+        ['Más', '#more'],
+        ['Contacto', '#contact'],
+      ],
       role: 'Investigador e ingeniero de Audio ML. Machine listening, DSP y sistemas en tiempo real.',
       intro: 'Construyo y evalúo sistemas de machine learning y procesamiento de audio que tienen que funcionar fuera del notebook: desde modelos audio-lenguaje y privacidad acústica hasta software de audio en tiempo real y herramientas para músicos.',
-      location: 'Montevideo, Uruguay',
-      email: 'Contacto',
+      contact: 'Contacto',
       ask: 'Preguntá a mi perfil',
       cv: 'CV / guardar PDF',
-      updated: 'Perfil actualizado',
-      facts: [
-        ['3+ años', 'investigación en audio'],
-        [`${publications.length}`, 'publicaciones y trabajos'],
-        ['UE', 'autorización laboral'],
-        ['MSc + BSc', 'audio e ingeniería'],
-      ],
+      updated: 'Actualizado',
       questionsTitle: 'Preguntas de trabajo',
       questionsLede: 'Las preguntas que conectan mis proyectos y definen mi agenda de investigación.',
       questions: [
@@ -32,45 +43,38 @@ const copy = isEs
         ['¿Cómo hacemos que machine listening sea útil para músicos?', 'Desde mezcla armónica hasta organización de bibliotecas y análisis en tiempo real, me interesan herramientas donde el modelo está subordinado a una tarea musical concreta.'],
       ],
       workTitle: 'Trabajo seleccionado',
-      workLede: 'Cuatro proyectos que condensan mejor mi trabajo en robustez, privacidad, machine listening y tecnología musical.',
+      workLede: 'Robustez en machine listening, privacidad acústica, sistemas de audio en tiempo real y tecnología musical.',
       experienceTitle: 'Experiencia',
-      experienceLede: 'Lectura rápida arriba, detalle completo al desplegar cada entrada.',
-      details: 'Ver detalle completo',
+      experienceLede: 'Investigación en audio, ingeniería de producto, software enterprise y sistemas embebidos.',
       publicationsTitle: 'Publicaciones',
-      publicationsLede: `Selección principal. El perfil contiene ${publications.length} publicaciones y trabajos en total.`,
-      allPublications: 'Ver lista completa por año',
-      fullCvTitle: 'CV completo',
-      fullCvLede: 'El resto del perfil está disponible aquí mismo, sin navegar a otra página. Los bloques cerrados siguen presentes en el documento y son indexables.',
+      publicationsLede: `${publicationsData.length} publicaciones y trabajos de investigación en audio, machine learning y tecnología musical.`,
+      morePublications: `Más publicaciones (${otherPublications.length})`,
+      moreTitle: 'Más',
       educationTitle: 'Educación y formación',
-      educationSummary: 'MSc Sound and Music Computing, Ingeniería Eléctrica y formación musical.',
-      projectsTitle: 'Todos los proyectos',
-      projectsSummary: `${mainProjects.length + secondaryProjects.length} proyectos de investigación, software, audio, IoT y producto.`,
+      projectsTitle: 'Más proyectos',
+      coursesTitle: 'Cursos y certificaciones',
       stackTitle: 'Stack técnico',
-      stackSummary: 'Python, C/C++, PyTorch, audio ML, backend, edge deployment y tooling científico.',
       additionalTitle: 'Idiomas, membresías y grants',
-      additionalSummary: 'Idiomas de trabajo, IEEE Signal Processing Society y participación en EPSRC AI for Sound.',
       contactTitle: 'Contacto',
-      contactBody: 'Disponible para colaboración académica, consultoría, contract research y oportunidades remotas seleccionadas en audio ML, machine listening, DSP y tecnología musical. Base en Montevideo, con ciudadanía italiana y autorización laboral en la Unión Europea.',
+      contactBody: 'Disponible para colaboración académica, consultoría, contract research y oportunidades remotas seleccionadas en audio ML, machine listening, DSP y tecnología musical.',
       pageTitle: 'Gabriel Bibbó · Audio ML research and engineering',
       metaDescription: 'Gabriel Bibbó, investigador e ingeniero de Audio ML especializado en machine listening, DSP, privacidad acústica, sistemas en tiempo real y tecnología musical.',
-      projectArchive: 'Abrir proyecto',
-      period: 'Período',
     }
   : {
-      nav: [['Questions', '#questions'], ['Work', '#work'], ['Experience', '#experience'], ['Publications', '#publications'], ['Full CV', '#full-cv']],
+      nav: [
+        ['Questions', '#questions'],
+        ['Work', '#work'],
+        ['Experience', '#experience'],
+        ['Publications', '#publications'],
+        ['More', '#more'],
+        ['Contact', '#contact'],
+      ],
       role: 'Audio ML researcher and engineer. Machine listening, DSP, and real-time systems.',
-      intro: 'I build and evaluate machine-learning and audio-processing systems that have to work outside the notebook, from audio-language models and acoustic privacy to real-time audio software and tools for musicians.',
-      location: 'Montevideo, Uruguay',
-      email: 'Contact',
+      intro: profile.summary,
+      contact: 'Contact',
       ask: 'Ask my profile',
       cv: 'CV / save PDF',
-      updated: 'Profile updated',
-      facts: [
-        ['3+ years', 'audio research'],
-        [`${publications.length}`, 'publications & works'],
-        ['EU', 'work authorization'],
-        ['MSc + BSc', 'audio & engineering'],
-      ],
+      updated: 'Updated',
       questionsTitle: 'Working questions',
       questionsLede: 'The questions connecting my projects and defining my research agenda.',
       questions: [
@@ -79,84 +83,41 @@ const copy = isEs
         ['How do we make machine listening useful to musicians?', 'From harmonic mixing to library organisation and real-time analysis, I am interested in tools where the model is subordinate to a concrete musical task.'],
       ],
       workTitle: 'Selected work',
-      workLede: 'Four projects that best represent my work across robustness, privacy, machine listening, and music technology.',
+      workLede: 'Robust machine listening, acoustic privacy, real-time audio systems, and music technology.',
       experienceTitle: 'Experience',
-      experienceLede: 'A compact first read, with the complete evidence available inside every expandable entry.',
-      details: 'View full detail',
+      experienceLede: 'Audio research, product engineering, enterprise software, and embedded systems.',
       publicationsTitle: 'Publications',
-      publicationsLede: `A selected first read. The full profile contains ${publications.length} publications and research outputs.`,
-      allPublications: 'View complete list by year',
-      fullCvTitle: 'Full CV',
-      fullCvLede: 'The rest of the profile is available in place, without navigating to another page. Closed sections remain in the document and indexable.',
+      publicationsLede: `${publicationsData.length} publications and research outputs across audio, machine learning, and music technology.`,
+      morePublications: `More publications (${otherPublications.length})`,
+      moreTitle: 'More',
       educationTitle: 'Education and training',
-      educationSummary: 'MSc Sound and Music Computing, Electrical Engineering, and formal musical training.',
-      projectsTitle: 'All projects',
-      projectsSummary: `${mainProjects.length + secondaryProjects.length} research, software, audio, IoT, and product projects.`,
+      projectsTitle: 'More projects',
+      coursesTitle: 'Courses and certifications',
       stackTitle: 'Technical stack',
-      stackSummary: 'Python, C/C++, PyTorch, audio ML, backend systems, edge deployment, and scientific tooling.',
       additionalTitle: 'Languages, memberships & grants',
-      additionalSummary: 'Working languages, IEEE Signal Processing Society, and participation in EPSRC AI for Sound.',
       contactTitle: 'Contact',
-      contactBody: 'Available for academic collaboration, consulting, contract research, and selected remote opportunities in audio ML, machine listening, DSP, and music technology. Based in Montevideo, with Italian citizenship and European Union work authorization.',
+      contactBody: profile.availability,
       pageTitle: 'Gabriel Bibbó · Audio ML research and engineering',
       metaDescription: 'Gabriel Bibbó, Audio ML researcher and engineer working on machine listening, DSP, acoustic privacy, real-time systems, and music technology.',
-      projectArchive: 'Open project',
-      period: 'Period',
     };
-
-const allProjects = [...mainProjects, ...secondaryProjects];
-const selectedProjectTitles = [
-  'Audio-Language Models for Voice Activity Detection',
-  'Sounds of Home Dataset',
-  'Speech Removal Framework',
-  'Harmonic EDM Mixing Compatibility',
-];
-
-const projectOverrides = isEs
-  ? {
-      'Audio-Language Models for Voice Activity Detection': {
-        title: 'Modelos audio-lenguaje para detección de actividad de voz',
-        description: 'Evalúo hasta dónde los modelos audio-lenguaje siguen detectando habla cuando el audio se vuelve corto, ruidoso, reverberante o filtrado. El trabajo compara modelos Qwen, adaptación con LoRA, optimización de prompts y un VAD especializado sobre el mismo banco de degradaciones.',
-      },
-      'Sounds of Home Dataset': {
-        title: 'Sounds of Home',
-        description: 'Dataset residencial para detección de eventos sonoros construido a partir de grabaciones reales en hogares. La publicación incorpora eliminación de habla antes de liberar el audio y anotaciones automáticas para facilitar investigación reproducible.',
-      },
-      'Speech Removal Framework': {
-        title: 'Framework para eliminación de habla',
-        description: 'Flujo para retirar habla de grabaciones antes de compartirlas o publicarlas, preservando información acústica no verbal útil para investigación en detección de eventos sonoros.',
-      },
-      'Harmonic EDM Mixing Compatibility': {
-        title: 'Compatibilidad armónica para mezcla de EDM',
-        description: 'Sistema que estima cuán compatibles son armónicamente dos pistas y propone transposiciones que pueden mejorar una mezcla. Comenzó como tesis de máster y luego se publicó como trabajo de investigación.',
-      },
-    }
-  : {};
-
-const selectedProjects = selectedProjectTitles
-  .map((title) => allProjects.find((project) => project.title === title))
-  .filter(Boolean)
-  .map((project) => ({ ...project, ...(projectOverrides[project.title] ?? {}) }));
-
-const selectedPublicationTitles = [
-  'Speech Removal Framework for Privacy-preserving Audio Recordings',
-  'Room Acoustics and Microphone Characteristics Show Systematic Impact on Sound Event Recognition',
-  'Environmental sound classification on an embedded hardware platform',
-  'The Sounds of Home: A Speech-Removed Residential Audio Dataset for Sound Event Detection',
-  'Recognise and Notify Sound Events Using a Raspberry PI Based Standalone Device [Demo]',
-  'A New Compatibility Measure for Harmonic EDM Mixing',
-];
-const selectedPublications = selectedPublicationTitles.map((title) => publications.find((publication) => publication.title === title)).filter(Boolean);
-const publicationYears = [...new Set(publications.map((publication) => publication.year))];
 
 const linkLabel = (label) => {
   if (!isEs) return label;
-  return ({ Code: 'Código', Paper: 'Artículo', DOI: 'DOI', Demo: 'Demo', Video: 'Video', 'Official site': 'Sitio', 'Dataset site': 'Dataset', Identifier: 'Registro', Link: 'Enlace', Repository: 'Repositorio', Publication: 'Publicación', Preprint: 'Preprint', ISBN: 'ISBN', 'Open research': 'Open research', 'AES program': 'Programa AES' }[label] ?? label);
+  return ({
+    Code: 'Código', Paper: 'Artículo', DOI: 'DOI', Demo: 'Demo', Video: 'Video',
+    'Official site': 'Sitio', 'Dataset site': 'Dataset', Identifier: 'Registro', Link: 'Enlace',
+    Repository: 'Repositorio', Publication: 'Publicación', Preprint: 'Preprint', ISBN: 'ISBN',
+    'Open research': 'Open research', 'AES program': 'Programa AES',
+  }[label] ?? label);
 };
 
-const categoryFor = (project) => project.eyebrow ?? project.tags?.slice(0, 3).join(' · ') ?? '';
+const projectTitle = (project) => isEs ? project.titleEs : project.title;
+const projectCategory = (project) => isEs ? project.categoryEs : project.category;
+const projectDescription = (project) => isEs ? project.descriptionEs : project.description;
+const publicationYears = [...new Set(otherPublications.map((publication) => publication.year))];
 const canonical = isEs ? `${siteUrl}/es/` : `${siteUrl}/`;
 const socialImage = `${siteUrl}/homepage_files/profile.jpg`;
+const cvHref = isEs ? '/es/cv/' : '/cv/';
 ---
 
 <!doctype html>
@@ -180,13 +141,15 @@ const socialImage = `${siteUrl}/homepage_files/profile.jpg`;
     <title>{copy.pageTitle}</title>
   </head>
   <body>
-    <header class="v2-header no-print">
+    <header class="v2-header">
       <div class="v2-shell v2-nav">
         <a class="v2-wordmark" href={isEs ? '/es/' : '/'}>{profile.name}</a>
         <nav class="v2-nav-links" aria-label="Primary navigation">
           {copy.nav.map(([label, href]) => <a href={href}>{label}</a>)}
         </nav>
-        <div class="v2-lang" aria-label="Language selector"><a href="/" class={!isEs ? 'is-active' : ''}>EN</a><span>/</span><a href="/es/" class={isEs ? 'is-active' : ''}>ES</a></div>
+        <div class="v2-lang" aria-label="Language selector">
+          <a href="/" class={!isEs ? 'is-active' : ''}>EN</a><span>/</span><a href="/es/" class={isEs ? 'is-active' : ''}>ES</a>
+        </div>
       </div>
     </header>
 
@@ -197,13 +160,13 @@ const socialImage = `${siteUrl}/homepage_files/profile.jpg`;
             <h1 class="v2-name">{profile.name}</h1>
             <p class="v2-role">{copy.role}</p>
             <p class="v2-intro">{copy.intro}</p>
-            <div class="v2-hero-actions no-print">
-              <button type="button" data-print-cv>{copy.cv}</button>
-              <a href={`mailto:${profile.email}`}>{copy.email}</a>
+            <div class="v2-hero-actions">
+              <a href={cvHref}>{copy.cv}</a>
+              <a href={`mailto:${profile.email}`}>{copy.contact}</a>
               <button type="button" data-open-assistant>{copy.ask}</button>
             </div>
             <div class="v2-meta-links">
-              <span>{copy.location}</span>
+              <span>{profile.location}</span>
               <a href={profile.links.github} target="_blank" rel="noreferrer">GitHub</a>
               <a href={profile.links.scholar} target="_blank" rel="noreferrer">Google Scholar</a>
               <a href={profile.links.orcid} target="_blank" rel="noreferrer">ORCID</a>
@@ -217,7 +180,7 @@ const socialImage = `${siteUrl}/homepage_files/profile.jpg`;
 
       <section class="v2-facts" aria-label="Profile facts">
         <div class="v2-shell v2-fact-grid">
-          {copy.facts.map(([value, label]) => <div class="v2-fact"><strong>{value}</strong><span>{label}</span></div>)}
+          {profile.stats.map((fact) => <div class="v2-fact"><strong>{fact.value}</strong><span>{isEs ? fact.labelEs : fact.labelEn}</span></div>)}
         </div>
       </section>
 
@@ -234,14 +197,15 @@ const socialImage = `${siteUrl}/homepage_files/profile.jpg`;
           <div>
             <p class="v2-section-lede">{copy.workLede}</p>
             <div class="v2-work-list">
-              {selectedProjects.map((project) => (
+              {featuredProjects.map((project) => (
                 <article class="v2-work">
-                  <div class:list={['v2-work-media', project.imageFit === 'contain' && 'is-contain']}><img src={project.image} alt="" loading="lazy" /></div>
+                  <div class="v2-work-media is-contain"><img src={project.image} alt="" loading="lazy" /></div>
                   <div>
-                    <div class="v2-work-meta"><strong>{categoryFor(project)}</strong><span>{project.year}</span></div>
-                    <h3 class="v2-work-title">{project.title}</h3>
-                    <p class="v2-work-copy">{project.description}</p>
-                    {project.links?.length > 0 && <div class="v2-inline-links">{project.links.map((link) => <a href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>)}</div>}
+                    <div class="v2-work-meta"><strong>{projectCategory(project)}</strong><span>{project.years}</span></div>
+                    <h3 class="v2-work-title">{projectTitle(project)}</h3>
+                    <p class="v2-work-copy">{projectDescription(project)}</p>
+                    <p class="v2-project-tags">{project.tags.join(' · ')}</p>
+                    {project.links.length > 0 && <div class="v2-inline-links">{project.links.map((link) => <a href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>)}</div>}
                   </div>
                 </article>
               ))}
@@ -256,14 +220,19 @@ const socialImage = `${siteUrl}/homepage_files/profile.jpg`;
           <div>
             <p class="v2-section-lede">{copy.experienceLede}</p>
             <div class="v2-experience-list">
-              {experience.map((item) => (
+              {experienceData.map((item) => (
                 <details class="v2-experience">
                   <summary>
-                    <span class="v2-background-date">{item.period}</span>
-                    <span class="v2-experience-main"><strong>{item.title}</strong><span>{item.org}</span><small>{item.bullets[0]}</small></span>
-                    <span class="v2-detail-label">{copy.details}</span>
+                    <span class="v2-background-date">{item.dates}</span>
+                    <span class="v2-experience-main">
+                      <strong>{item.role}</strong>
+                      <a href={item.orgUrl} target="_blank" rel="noreferrer">{item.org}</a>
+                      <span>{item.location}{item.mode ? ` · ${item.mode}` : ''}</span>
+                      <small>{item.summary}</small>
+                    </span>
+                    <span class="v2-detail-label" aria-hidden="true">+</span>
                   </summary>
-                  <div class="v2-detail-body"><ul>{item.bullets.map((bullet) => <li>{bullet}</li>)}</ul>{item.companyUrl && <a href={item.companyUrl} target="_blank" rel="noreferrer">{item.org.split(',')[0]}</a>}</div>
+                  <div class="v2-detail-body"><ul>{item.bullets.map((bullet) => <li>{bullet}</li>)}</ul></div>
                 </details>
               ))}
             </div>
@@ -277,56 +246,58 @@ const socialImage = `${siteUrl}/homepage_files/profile.jpg`;
           <div>
             <p class="v2-section-lede">{copy.publicationsLede}</p>
             <ol class="v2-pub-list">
-              {selectedPublications.map((publication) => (
-                <li class="v2-pub"><div class="v2-pub-year">{publication.year}</div><div><h3 class="v2-pub-title">{publication.title}</h3><p class="v2-pub-authors">{publication.authors}</p><p class="v2-pub-venue"><em>{publication.venue}</em></p>{publication.links?.length > 0 && <div class="v2-inline-links">{publication.links.map((link) => <a href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>)}</div>}</div></li>
+              {featuredPublications.map((publication) => (
+                <li class="v2-pub"><div class="v2-pub-year">{publication.year}</div><div><h3 class="v2-pub-title">{publication.title}</h3><p class="v2-pub-authors">{publication.authors.join('; ')}</p><p class="v2-pub-venue"><em>{publication.venue}</em></p>{publication.links.length > 0 && <div class="v2-inline-links">{publication.links.map((link) => <a href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>)}</div>}</div></li>
               ))}
             </ol>
             <details class="v2-master-disclosure">
-              <summary><strong>{copy.allPublications}</strong><span>{publications.length}</span></summary>
+              <summary><strong>{copy.morePublications}</strong><span>+</span></summary>
               <div class="v2-master-body">
-                {publicationYears.map((year) => <section class="v2-year-group"><h3>{year}</h3><ol class="v2-pub-list is-full">{publications.filter((publication) => publication.year === year).map((publication) => <li class="v2-pub"><div><h4 class="v2-pub-title">{publication.title}</h4><p class="v2-pub-authors">{publication.authors}</p><p class="v2-pub-venue"><em>{publication.venue}</em></p>{publication.links?.length > 0 && <div class="v2-inline-links">{publication.links.map((link) => <a href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>)}</div>}</div></li>)}</ol></section>)}
+                {publicationYears.map((year) => <section class="v2-year-group"><h3>{year}</h3><ol class="v2-pub-list is-full">{otherPublications.filter((publication) => publication.year === year).map((publication) => <li class="v2-pub"><div><h4 class="v2-pub-title">{publication.title}</h4><p class="v2-pub-authors">{publication.authors.join('; ')}</p><p class="v2-pub-venue"><em>{publication.venue}</em></p>{publication.links.length > 0 && <div class="v2-inline-links">{publication.links.map((link) => <a href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>)}</div>}</div></li>)}</ol></section>)}
               </div>
             </details>
           </div>
         </div>
       </section>
 
-      <section class="v2-section" id="full-cv">
+      <section class="v2-section" id="more">
         <div class="v2-shell v2-section-grid">
-          <h2 class="v2-section-title">{copy.fullCvTitle}</h2>
-          <div>
-            <p class="v2-section-lede">{copy.fullCvLede}</p>
-            <div class="v2-master-list">
-              <details class="v2-master-disclosure">
-                <summary><span><strong>{copy.educationTitle}</strong><small>{copy.educationSummary}</small></span><span>+</span></summary>
-                <div class="v2-master-body v2-education-list">
-                  {education.map((item) => <article><span>{item.period}</span><div><h3>{item.degree}</h3><p>{item.institution}</p><p>{item.details}</p></div></article>)}
-                  <article><span>2002-2005</span><div><h3>{isEs ? 'Formación musical formal' : 'Formal musical training'}</h3><p>School Nº265 “Virgilio Scarabelli Alberti”, Montevideo, Uruguay</p><p>{isEs ? 'Lenguaje musical, canto coral, guitarra, ensambles instrumentales y danza.' : 'Musical language, choral singing, guitar, instrumental ensembles, and dance.'}</p></div></article>
-                </div>
-              </details>
+          <h2 class="v2-section-title">{copy.moreTitle}</h2>
+          <div class="v2-master-list">
+            <details class="v2-master-disclosure">
+              <summary><strong>{copy.educationTitle}</strong><span>+</span></summary>
+              <div class="v2-master-body v2-education-list">
+                {educationData.map((item) => <article><span>{item.dates}</span><div><h3>{item.degree}</h3><p>{item.institution} · {item.location}</p>{item.credits && <p>{item.credits}</p>}<p>{item.focus}</p>{item.details && <p>{item.details}</p>}</div></article>)}
+              </div>
+            </details>
 
-              <details class="v2-master-disclosure">
-                <summary><span><strong>{copy.projectsTitle}</strong><small>{copy.projectsSummary}</small></span><span>+</span></summary>
-                <div class="v2-master-body v2-project-archive">
-                  {allProjects.map((project) => <article><div><span>{project.year}</span><strong>{categoryFor(project)}</strong></div><h3>{project.title}</h3><p>{project.description}</p>{project.tags?.length > 0 && <p class="v2-project-tags">{project.tags.join(' · ')}</p>}{project.links?.length > 0 && <div class="v2-inline-links">{project.links.map((link) => <a href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>)}</div>}</article>)}
-                </div>
-              </details>
+            <details class="v2-master-disclosure">
+              <summary><strong>{copy.projectsTitle} ({otherProjects.length})</strong><span>+</span></summary>
+              <div class="v2-master-body v2-project-archive">
+                {otherProjects.map((project) => <article><div><span>{project.years}</span><strong>{projectCategory(project)}</strong></div><h3>{projectTitle(project)}</h3><p>{projectDescription(project)}</p><p class="v2-project-tags">{project.tags.join(' · ')}</p>{project.links.length > 0 && <div class="v2-inline-links">{project.links.map((link) => <a href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>)}</div>}</article>)}
+              </div>
+            </details>
 
-              <details class="v2-master-disclosure">
-                <summary><span><strong>{copy.stackTitle}</strong><small>{copy.stackSummary}</small></span><span>+</span></summary>
-                <div class="v2-master-body v2-stack-grid">{stackGroups.map((group) => <section><h3>{group.name}</h3><p>{group.items.join(' · ')}</p></section>)}</div>
-              </details>
+            <details class="v2-master-disclosure">
+              <summary><strong>{copy.coursesTitle}</strong><span>+</span></summary>
+              <div class="v2-master-body v2-education-list">
+                {coursesData.map((item) => <article><span>{item.year}</span><div><h3>{item.title}</h3>{item.provider && <p>{item.provider}</p>}{item.status && <p>{item.status}</p>}{item.details && <p>{item.details}</p>}</div></article>)}
+              </div>
+            </details>
 
-              <details class="v2-master-disclosure">
-                <summary><span><strong>{copy.additionalTitle}</strong><small>{copy.additionalSummary}</small></span><span>+</span></summary>
-                <div class="v2-master-body v2-additional-grid">
-                  <section><h3>{isEs ? 'Idiomas' : 'Languages'}</h3><p>{isEs ? 'Español · Inglés C1 · Portugués A2' : 'Spanish · English C1 · Portuguese A2'}</p></section>
-                  <section><h3>{isEs ? 'Membresía' : 'Membership'}</h3><p>IEEE Signal Processing Society · 2025</p></section>
-                  <section><h3>{isEs ? 'Grant / proyecto financiado' : 'Funded research programme'}</h3><p>EPSRC AI for Sound · University of Surrey</p></section>
-                  <section><h3>{isEs ? 'Disponibilidad profesional' : 'Professional availability'}</h3><p>{profile.availability}</p></section>
-                </div>
-              </details>
-            </div>
+            <details class="v2-master-disclosure">
+              <summary><strong>{copy.stackTitle}</strong><span>+</span></summary>
+              <div class="v2-master-body v2-stack-grid">{stackGroups.map((group) => <section><h3>{group.name}</h3><p>{group.items.join(' · ')}</p></section>)}</div>
+            </details>
+
+            <details class="v2-master-disclosure">
+              <summary><strong>{copy.additionalTitle}</strong><span>+</span></summary>
+              <div class="v2-master-body v2-additional-grid">
+                <section><h3>{isEs ? 'Idiomas' : 'Languages'}</h3><p>{profile.languages.map((item) => `${isEs ? item.nameEs : item.nameEn}: ${isEs ? item.levelEs : item.levelEn}`).join(' · ')}</p></section>
+                <section><h3>{isEs ? 'Membresías' : 'Memberships'}</h3><p>{profile.memberships.map((item) => `${item.name} · ${item.period}`).join(' · ')}</p></section>
+                <section><h3>{isEs ? 'Investigación financiada' : 'Funded research'}</h3><p>{profile.fundedResearch.map((item) => `${item.name} · ${item.context}`).join(' · ')}</p></section>
+              </div>
+            </details>
           </div>
         </div>
       </section>
@@ -334,7 +305,7 @@ const socialImage = `${siteUrl}/homepage_files/profile.jpg`;
 
     <footer class="v2-footer" id="contact">
       <div class="v2-shell v2-footer-grid">
-        <div><h2>{copy.contactTitle}</h2><p>{copy.contactBody}</p><p class="v2-updated">{copy.updated}: {updatedDate}</p></div>
+        <div><h2>{copy.contactTitle}</h2><p>{copy.contactBody}</p></div>
         <div class="v2-footer-links"><a href={`mailto:${profile.email}`}>{profile.email}</a><a href={profile.links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a><a href={profile.links.github} target="_blank" rel="noreferrer">GitHub</a><a href={profile.links.scholar} target="_blank" rel="noreferrer">Scholar</a><a href={profile.links.orcid} target="_blank" rel="noreferrer">ORCID</a></div>
       </div>
     </footer>
@@ -344,7 +315,6 @@ const socialImage = `${siteUrl}/homepage_files/profile.jpg`;
       document.addEventListener('click', (event) => {
         const target = event.target;
         if (!(target instanceof Element)) return;
-        if (target.closest('[data-print-cv]')) window.print();
         if (target.closest('[data-open-assistant]')) window.dispatchEvent(new Event('open-profile-assistant'));
       });
     </script>
