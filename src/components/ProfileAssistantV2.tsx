@@ -103,12 +103,13 @@ export default function ProfileAssistantV2({ lang: initialLang = 'en' }: Props) 
   return (
     <>
       <style>{`
-        .pa2-launcher{position:fixed;right:18px;bottom:18px;z-index:80;border:1px solid #1b332d;background:#173f35;color:#fff;padding:10px 14px;font:700 13px/1.2 Arial,sans-serif;cursor:pointer;border-radius:4px;box-shadow:0 8px 26px rgba(17,20,15,.14)}
-        .pa2-panel{position:fixed;right:18px;bottom:66px;z-index:90;width:min(92vw,610px);height:min(78vh,690px);display:flex;flex-direction:column;background:#f5f6f2;color:#11140f;border:1px solid #aeb6aa;box-shadow:0 22px 65px rgba(17,20,15,.18);font-family:Arial,sans-serif}
-        .pa2-head{display:flex;justify-content:space-between;gap:20px;padding:18px 20px;border-bottom:1px solid #c9cec4}.pa2-title{font-family:Georgia,serif;font-size:22px}.pa2-sub{margin-top:3px;color:#61665d;font-size:12px}.pa2-actions{display:flex;gap:8px;align-items:flex-start}.pa2-actions button,.pa2-send{border:1px solid #9aa398;background:transparent;color:#11140f;padding:7px 10px;cursor:pointer;font-weight:700}.pa2-close{width:34px}
-        .pa2-messages{flex:1;overflow:auto;padding:18px 20px;display:flex;flex-direction:column;gap:10px}.pa2-msg{max-width:90%;padding:10px 12px;line-height:1.5;font-size:14px;border:1px solid #d4d8d0}.pa2-msg.assistant{align-self:flex-start;background:#fff}.pa2-msg.user{align-self:flex-end;background:#dce8e2;border-color:#a9c6ba}
-        .pa2-suggestions{display:flex;flex-wrap:wrap;gap:8px;padding:0 20px 14px}.pa2-suggestions button{border:1px solid #a9b4aa;background:#fff;color:#173f35;padding:8px 10px;font-size:12px;cursor:pointer;text-align:left}.pa2-input{padding:14px 20px 18px;border-top:1px solid #c9cec4}.pa2-input textarea{width:100%;min-height:72px;resize:vertical;border:1px solid #aeb6aa;background:#fff;color:#11140f;padding:10px;font:14px/1.45 Arial,sans-serif}.pa2-input-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:8px}.pa2-note{color:#70766e;font-size:11px}.pa2-send{background:#173f35;color:#fff;border-color:#173f35}.pa2-send:disabled{opacity:.5;cursor:not-allowed}
-        @media(max-width:640px){.pa2-panel{left:10px;right:10px;bottom:58px;width:auto;height:78vh}.pa2-launcher{right:10px;bottom:10px}.pa2-head,.pa2-messages,.pa2-input{padding-left:14px;padding-right:14px}.pa2-suggestions{padding-left:14px;padding-right:14px}}
+        .pa2-launcher{position:fixed;right:20px;bottom:20px;z-index:80;display:flex;align-items:center;gap:9px;border:1px solid #aeb3ad;background:#1c1f24;color:#f5f6f2;padding:14px 18px;font:800 14px/1.2 Arial,sans-serif;cursor:pointer;border-radius:7px;box-shadow:0 10px 30px rgba(17,20,15,.24)}
+        .pa2-launcher:hover{background:#343a3b}.pa2-robot{font-size:18px;line-height:1}
+        .pa2-panel{position:fixed;right:20px;bottom:78px;z-index:90;width:min(92vw,610px);height:min(78vh,690px);display:flex;flex-direction:column;background:#f5f6f2;color:#11140f;border:1px solid #aeb3ad;box-shadow:0 22px 65px rgba(17,20,15,.22);font-family:Arial,sans-serif}
+        .pa2-head{display:flex;justify-content:space-between;gap:20px;padding:18px 20px;border-bottom:1px solid #aeb3ad}.pa2-title{font-family:Georgia,serif;font-size:22px}.pa2-sub{margin-top:3px;color:#59605d;font-size:12px}.pa2-actions{display:flex;gap:8px;align-items:flex-start}.pa2-actions button,.pa2-send{border:1px solid #aeb3ad;background:transparent;color:#11140f;padding:7px 10px;cursor:pointer;font-weight:700}.pa2-close{width:34px}
+        .pa2-messages{flex:1;overflow:auto;padding:18px 20px;display:flex;flex-direction:column;gap:10px}.pa2-msg{max-width:90%;padding:10px 12px;line-height:1.5;font-size:14px;border:1px solid #d2d5cf}.pa2-msg.assistant{align-self:flex-start;background:#fff}.pa2-msg.user{align-self:flex-end;background:#dde0da;border-color:#aeb3ad}
+        .pa2-suggestions{display:flex;flex-wrap:wrap;gap:8px;padding:0 20px 14px}.pa2-suggestions button{border:1px solid #aeb3ad;background:#fff;color:#1c1f24;padding:8px 10px;font-size:12px;cursor:pointer;text-align:left}.pa2-suggestions button:hover{background:#eceee9}.pa2-input{padding:14px 20px 18px;border-top:1px solid #aeb3ad}.pa2-input textarea{width:100%;min-height:72px;resize:vertical;border:1px solid #aeb3ad;background:#fff;color:#11140f;padding:10px;font:14px/1.45 Arial,sans-serif}.pa2-input-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:8px}.pa2-note{color:#717672;font-size:11px}.pa2-send{background:#1c1f24;color:#f5f6f2;border-color:#1c1f24}.pa2-send:hover{background:#343a3b}.pa2-send:disabled{opacity:.5;cursor:not-allowed}
+        @media(max-width:640px){.pa2-panel{left:10px;right:10px;bottom:72px;width:auto;height:78vh}.pa2-launcher{right:10px;bottom:10px;padding:13px 16px}.pa2-head,.pa2-messages,.pa2-input{padding-left:14px;padding-right:14px}.pa2-suggestions{padding-left:14px;padding-right:14px}}
         @media print{.pa2-launcher,.pa2-panel{display:none!important}}
       `}</style>
 
@@ -137,7 +138,7 @@ export default function ProfileAssistantV2({ lang: initialLang = 'en' }: Props) 
           </div>
         </section>
       )}
-      <button type="button" className="pa2-launcher" onClick={() => setOpen((value) => !value)} aria-expanded={open}>{copy.launcher}</button>
+      <button type="button" className="pa2-launcher" onClick={() => setOpen((value) => !value)} aria-expanded={open}><span className="pa2-robot" aria-hidden="true">🤖</span><span>{copy.launcher}</span></button>
     </>
   );
 }
