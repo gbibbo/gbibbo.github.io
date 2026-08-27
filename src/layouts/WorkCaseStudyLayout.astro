@@ -3,7 +3,7 @@ import { profile } from '../data/profileData';
 
 const {
   canonical,
-  externalUrl,
+  externalUrl = null,
   externalLabel = 'Source',
   socialImage,
   pageTitle,
@@ -43,7 +43,7 @@ const {
   <body>
     <header class="hero">
       <div class="shell">
-        <div class="topline"><a href="/">Gabriel Bibbó</a><a href={externalUrl} target="_blank" rel="noreferrer">{externalLabel}</a></div>
+        <div class="topline"><a href="/">Gabriel Bibbó</a>{externalUrl && <a href={externalUrl} target="_blank" rel="noreferrer">{externalLabel}</a>}</div>
         <div class="eyebrow">{eyebrow}</div>
         <h1>{heading}</h1>
         <p>{intro}</p>
