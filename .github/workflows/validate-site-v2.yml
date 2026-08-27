@@ -26,15 +26,25 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Verify P0 discovery and analytics outputs
+      - name: Verify discovery, identity, and analytics outputs
         run: |
           grep -Fxq 'google-site-verification: google7901b35217a9c314.html' dist/google7901b35217a9c314.html
           grep -Fxq 'google-site-verification: google14b127158d0ab073.html' dist/google14b127158d0ab073.html
           grep -Fq '<loc>https://gbibbo.github.io/</loc>' dist/sitemap.xml
           grep -Fq '<loc>https://gbibbo.github.io/es/</loc>' dist/sitemap.xml
           grep -Fq 'https://gbibbo.github.io/' dist/index.html
+          grep -Fq '"@type":"ProfilePage"' dist/index.html
+          grep -Fq '"@id":"https://gbibbo.github.io/#person"' dist/index.html
+          grep -Fq 'rel="alternate" type="application/json" href="/resume.json"' dist/index.html
+          grep -Fq 'rel="alternate" type="application/json" href="/resume.json"' dist/cv/index.html
+          grep -Fq 'Gabriel Bibbó CV · Audio ML, DSP and machine listening' dist/cv/index.html
+          grep -Fq 'id="publications"' dist/cv/index.html
+          test -s dist/resume.json
+          grep -Fq '"name": "Gabriel Bibbó"' dist/resume.json
+          grep -Fq '"network": "ORCID"' dist/resume.json
+          grep -Fq '"name": "Edge Audio Labs"' dist/resume.json
+          grep -Fq '"name": "Speech Removal Framework for Privacy-preserving Audio Recordings"' dist/resume.json
           grep -Fq '3be599b0fe114d2c8821c689fbb50d80' dist/index.html
-          grep -Fq 'gbibbo.github.io' dist/index.html
           grep -Fq 'static.cloudflareinsights.com/beacon.min.js' dist/index.html
           if grep -Fq 'static.cloudflareinsights.com/beacon.min.js' dist/google7901b35217a9c314.html; then
             echo 'Analytics beacon must not modify legacy Google verification HTML.'
