@@ -13,6 +13,8 @@ const surrey = experience.find((item) => item.org === 'University of Surrey');
 
 const caseStudies = [
   { name: 'Robust VAD with Audio-Language Models', route: '/work/audio-language-vad/' },
+  { name: 'ASR Enhancement Platform', route: '/work/asr-enhancement/' },
+  { name: 'Traktor ML', route: '/work/traktor-ml/' },
   { name: 'Sounds of Home Dataset', route: '/work/sounds-of-home/' },
   { name: 'Speech Removal Framework', route: '/work/speech-removal/' },
   { name: 'Harmonic EDM Mixing Compatibility', route: '/work/harmonic-edm-mixing/' },
