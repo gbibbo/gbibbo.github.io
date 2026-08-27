@@ -9,24 +9,67 @@ const MODEL_CANDIDATES = [
 const MAX_MESSAGES = 10;
 const MAX_USER_CHARS = 1000;
 const MAX_REPLY_CHARS = 1800;
+const CANONICAL_ORIGIN = 'https://gbibbo.github.io';
+const CLOUDFLARE_ORIGIN = 'https://gbibbo-site.pages.dev';
 
 type ChatMessage = {
   role: 'user' | 'assistant';
   content: string;
 };
 
-function jsonResponse(body: unknown, status = 200) {
+type InteractionLog = {
+  sessionId: string;
+  language: string;
+  pagePath: string;
+  question: string;
+  answer: string;
+  source: string;
+  model: string;
+  success: boolean;
+  latencyMs: number;
+  error: string;
+};
+
+function allowedOrigin(request: Request) {
+  const origin = request.headers.get('origin') || '';
+  if (!origin) return '';
+  if (origin === CANONICAL_ORIGIN || origin === CLOUDFLARE_ORIGIN) return origin;
+  if (/^https:\/\/[a-z0-9-]+\.gbibbo-site\.pages\.dev$/i.test(origin)) return origin;
+  if (/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(origin)) return origin;
+  return '';
+}
+
+function corsHeaders(request?: Request) {
+  if (!request) return {};
+  const origin = allowedOrigin(request);
+  return origin
+    ? {
+        'access-control-allow-origin': origin,
+        'access-control-allow-methods': 'GET,POST,OPTIONS',
+        'access-control-allow-headers': 'content-type',
+        'access-control-max-age': '86400',
+        vary: 'Origin',
+      }
+    : {};
+}
+
+function jsonResponse(body: unknown, status = 200, request?: Request) {
   return new Response(JSON.stringify(body), {
     status,
     headers: {
       'content-type': 'application/json; charset=utf-8',
       'cache-control': 'no-store',
+      ...corsHeaders(request),
     },
   });
 }
 
 function normalizeText(text: string) {
   return text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+function safeString(value: unknown, maxLength: number) {
+  return typeof value === 'string' ? value.trim().slice(0, maxLength) : '';
 }
 
 function cleanMessage(message: unknown): ChatMessage | null {
@@ -113,14 +156,63 @@ async function runModel(env: any, messages: ChatMessage[]) {
   throw new Error(lastError || 'All Workers AI model calls failed.');
 }
 
+async function writeInteraction(env: any, entry: InteractionLog) {
+  if (!env?.ANALYTICS_DB?.prepare) return;
+  try {
+    await env.ANALYTICS_DB.prepare(`
+      INSERT INTO bot_questions (
+        session_id, language, page_path, question, answer, source, model, success, latency_ms, error
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).bind(
+      entry.sessionId,
+      entry.language,
+      entry.pagePath,
+      entry.question,
+      entry.answer,
+      entry.source,
+      entry.model,
+      entry.success ? 1 : 0,
+      entry.latencyMs,
+      entry.error,
+    ).run();
+  } catch (error: any) {
+    console.error('Profile assistant analytics write failed', typeof error?.message === 'string' ? error.message : error);
+  }
+}
+
+function queueInteraction(context: any, entry: InteractionLog) {
+  const write = writeInteraction(context.env, entry);
+  if (typeof context.waitUntil === 'function') context.waitUntil(write);
+}
+
+function baseLog(payload: any, question: string): Omit<InteractionLog, 'answer' | 'source' | 'model' | 'success' | 'latencyMs' | 'error'> {
+  return {
+    sessionId: safeString(payload?.sessionId, 100),
+    language: safeString(payload?.language, 8) || (wantsSpanish(question) ? 'es' : 'en'),
+    pagePath: safeString(payload?.pagePath, 240) || '/',
+    question,
+  };
+}
+
+export async function onRequestOptions(context: any) {
+  const { request } = context;
+  if (!allowedOrigin(request)) return new Response(null, { status: 403 });
+  return new Response(null, { status: 204, headers: corsHeaders(request) });
+}
+
 export async function onRequestPost(context: any) {
   const { request, env } = context;
+  const startedAt = Date.now();
+
+  if (request.headers.get('origin') && !allowedOrigin(request)) {
+    return jsonResponse({ error: 'Origin not allowed.' }, 403, request);
+  }
 
   let payload: any;
   try {
     payload = await request.json();
   } catch {
-    return jsonResponse({ error: 'Invalid JSON payload.' }, 400);
+    return jsonResponse({ error: 'Invalid JSON payload.' }, 400, request);
   }
 
   const cleaned = Array.isArray(payload?.messages)
@@ -131,42 +223,79 @@ export async function onRequestPost(context: any) {
   const messages = firstUser >= 0 ? cleaned.slice(firstUser) : [];
 
   if (!messages.length || messages[messages.length - 1].role !== 'user') {
-    return jsonResponse({ error: 'Expected the last message to be from the user.' }, 400);
+    return jsonResponse({ error: 'Expected the last message to be from the user.' }, 400, request);
   }
 
   const question = messages[messages.length - 1].content;
+  const logBase = baseLog(payload, question);
   const guarded = privacyGuard(question);
-  if (guarded) return jsonResponse({ answer: guarded, source: 'privacy-guard' });
+  if (guarded) {
+    queueInteraction(context, {
+      ...logBase,
+      answer: guarded,
+      source: 'privacy-guard',
+      model: '',
+      success: true,
+      latencyMs: Date.now() - startedAt,
+      error: '',
+    });
+    return jsonResponse({ answer: guarded, source: 'privacy-guard' }, 200, request);
+  }
 
   if (!env?.AI?.run) {
-    return jsonResponse({
-      answer: wantsSpanish(question)
-        ? 'El asistente de perfil no está disponible temporalmente.'
-        : 'The profile assistant is temporarily unavailable.',
+    const answer = wantsSpanish(question)
+      ? 'El asistente de perfil no está disponible temporalmente.'
+      : 'The profile assistant is temporarily unavailable.';
+    const warning = 'Workers AI binding AI is unavailable in this environment.';
+    queueInteraction(context, {
+      ...logBase,
+      answer,
       source: 'model-error',
-      warning: 'Workers AI binding AI is unavailable in this environment.',
-    }, 503);
+      model: '',
+      success: false,
+      latencyMs: Date.now() - startedAt,
+      error: warning,
+    });
+    return jsonResponse({ answer, source: 'model-error', warning }, 503, request);
   }
 
   try {
     const result = await runModel(env, messages);
-    return jsonResponse({ answer: result.answer, source: 'workers-ai', model: result.model });
+    queueInteraction(context, {
+      ...logBase,
+      answer: result.answer,
+      source: 'workers-ai',
+      model: result.model,
+      success: true,
+      latencyMs: Date.now() - startedAt,
+      error: '',
+    });
+    return jsonResponse({ answer: result.answer, source: 'workers-ai', model: result.model }, 200, request);
   } catch (error: any) {
-    return jsonResponse({
-      answer: wantsSpanish(question)
-        ? 'El modelo no pudo responder en este momento. Probá nuevamente en unos segundos.'
-        : 'The model could not answer right now. Please try again in a few seconds.',
+    const answer = wantsSpanish(question)
+      ? 'El modelo no pudo responder en este momento. Probá nuevamente en unos segundos.'
+      : 'The model could not answer right now. Please try again in a few seconds.';
+    const warning = typeof error?.message === 'string' ? error.message : 'Workers AI model call failed.';
+    queueInteraction(context, {
+      ...logBase,
+      answer,
       source: 'model-error',
-      warning: typeof error?.message === 'string' ? error.message : 'Workers AI model call failed.',
-    }, 503);
+      model: '',
+      success: false,
+      latencyMs: Date.now() - startedAt,
+      error: warning,
+    });
+    return jsonResponse({ answer, source: 'model-error', warning }, 503, request);
   }
 }
 
 export async function onRequestGet(context: any) {
+  const { request } = context;
   return jsonResponse({
     ok: true,
     endpoint: 'profile-assistant-chat',
     aiBinding: Boolean(context?.env?.AI?.run),
+    analyticsBinding: Boolean(context?.env?.ANALYTICS_DB?.prepare),
     models: MODEL_CANDIDATES,
-  });
+  }, 200, request);
 }
