@@ -14,6 +14,14 @@ const { lang = 'en' } = Astro.props;
 const isEs = lang === 'es';
 const siteUrl = profile.links.web.replace(/\/$/, '');
 const canonical = isEs ? `${siteUrl}/es/cv/` : `${siteUrl}/cv/`;
+const alternate = isEs ? `${siteUrl}/cv/` : `${siteUrl}/es/cv/`;
+const socialImage = `${siteUrl}/homepage_files/profile.jpg`;
+const pageTitle = isEs
+  ? 'CV de Gabriel Bibbó · Audio ML, DSP y machine listening'
+  : 'Gabriel Bibbó CV · Audio ML, DSP and machine listening';
+const metaDescription = isEs
+  ? 'CV profesional de Gabriel Bibbó: experiencia en Audio ML, DSP, machine listening, privacidad acústica, audio en tiempo real, publicaciones, proyectos y formación.'
+  : 'Professional CV of Gabriel Bibbó: Audio ML, DSP, machine listening, privacy-preserving audio, real-time audio, publications, projects, and education.';
 const [updatedYear, updatedMonth, updatedDay] = profile.updated.split('-');
 const monthsEn = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const monthsEs = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
@@ -59,8 +67,22 @@ const langText = profile.languages.map((item) => `${isEs ? item.nameEs : item.na
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="index,follow" />
+    <meta name="author" content={profile.name} />
+    <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonical} />
-    <title>Gabriel_Bibbo_CV</title>
+    <link rel="alternate" hreflang="en" href={`${siteUrl}/cv/`} />
+    <link rel="alternate" hreflang="es" href={`${siteUrl}/es/cv/`} />
+    <link rel="alternate" hreflang="x-default" href={`${siteUrl}/cv/`} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:type" content="profile" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={socialImage} />
+    <title>{pageTitle}</title>
   </head>
   <body>
     <div class="cv-toolbar no-print">
@@ -86,7 +108,7 @@ const langText = profile.languages.map((item) => `${isEs ? item.nameEs : item.na
       <p class="cv-summary">{isEs ? profile.summaryEs : profile.summary}</p>
       <p class="cv-updated">{copy.updated}: {updated}</p>
 
-      <section class="cv-section">
+      <section class="cv-section" id="education">
         <h2>{copy.education}</h2>
         {educationData.map((item) => (
           <div class="cv-entry">
@@ -101,7 +123,7 @@ const langText = profile.languages.map((item) => `${isEs ? item.nameEs : item.na
         ))}
       </section>
 
-      <section class="cv-section">
+      <section class="cv-section" id="experience">
         <h2>{copy.employment}</h2>
         {experienceData.map((item) => (
           <div class="cv-entry cv-entry-break">
@@ -115,7 +137,7 @@ const langText = profile.languages.map((item) => `${isEs ? item.nameEs : item.na
         ))}
       </section>
 
-      <section class="cv-section">
+      <section class="cv-section" id="publications">
         <h2>{copy.publications}</h2>
         {publicationsData.map((item) => (
           <div class="cv-entry cv-entry-break">
@@ -130,7 +152,7 @@ const langText = profile.languages.map((item) => `${isEs ? item.nameEs : item.na
         ))}
       </section>
 
-      <section class="cv-section">
+      <section class="cv-section" id="projects">
         <h2>{copy.projects}</h2>
         {projectsData.map((item) => (
           <div class="cv-entry cv-entry-break">
@@ -146,7 +168,7 @@ const langText = profile.languages.map((item) => `${isEs ? item.nameEs : item.na
         ))}
       </section>
 
-      <section class="cv-section">
+      <section class="cv-section" id="courses">
         <h2>{copy.courses}</h2>
         {coursesData.map((item) => (
           <div class="cv-entry cv-entry-break">
@@ -161,12 +183,12 @@ const langText = profile.languages.map((item) => `${isEs ? item.nameEs : item.na
         ))}
       </section>
 
-      <section class="cv-section">
+      <section class="cv-section" id="languages">
         <h2>{copy.languages}</h2>
         <div class="cv-entry"><div class="cv-date"></div><div class="cv-content"><p>{langText}</p></div></div>
       </section>
 
-      <section class="cv-section">
+      <section class="cv-section" id="skills">
         <h2>{copy.skills}</h2>
         {stackGroups.map((group) => (
           <div class="cv-entry cv-skills-row">
@@ -176,7 +198,7 @@ const langText = profile.languages.map((item) => `${isEs ? item.nameEs : item.na
         ))}
       </section>
 
-      <section class="cv-section cv-last-section">
+      <section class="cv-section cv-last-section" id="memberships">
         <h2>{copy.memberships}</h2>
         <div class="cv-entry"><div class="cv-date">2025</div><div class="cv-content"><p>{profile.memberships.map((item) => item.name).join(' · ')}</p></div></div>
         <div class="cv-entry"><div class="cv-date"></div><div class="cv-content"><p>{profile.fundedResearch.map((item) => `${item.name} · ${item.context}`).join(' · ')}</p></div></div>
