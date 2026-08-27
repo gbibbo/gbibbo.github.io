@@ -32,6 +32,7 @@ jobs:
           grep -Fxq 'google-site-verification: google14b127158d0ab073.html' dist/google14b127158d0ab073.html
           grep -Fq '<loc>https://gbibbo.github.io/</loc>' dist/sitemap.xml
           grep -Fq '<loc>https://gbibbo.github.io/es/</loc>' dist/sitemap.xml
+          grep -Fq '<loc>https://gbibbo.github.io/work/audio-language-vad/</loc>' dist/sitemap.xml
           grep -Fq '<lastmod>2026-08-26</lastmod>' dist/sitemap.xml
           grep -Fq 'hreflang="en" href="https://gbibbo.github.io/"' dist/sitemap.xml
           grep -Fq 'hreflang="es" href="https://gbibbo.github.io/es/"' dist/sitemap.xml
@@ -39,6 +40,7 @@ jobs:
           grep -Fq 'https://gbibbo.github.io/' dist/index.html
           grep -Fq '"@type":"ProfilePage"' dist/index.html
           grep -Fq '"@id":"https://gbibbo.github.io/#person"' dist/index.html
+          grep -Fq 'https://gbibbo.github.io/work/audio-language-vad/' dist/index.html
           grep -Fq 'rel="alternate" type="application/json" href="/resume.json"' dist/index.html
           grep -Fq 'rel="alternate" type="application/json" href="/resume.json"' dist/cv/index.html
           grep -Fq 'Gabriel Bibbó CV · Audio ML, DSP and machine listening' dist/cv/index.html
@@ -48,6 +50,12 @@ jobs:
           grep -Fq '"network": "ORCID"' dist/resume.json
           grep -Fq '"name": "Edge Audio Labs"' dist/resume.json
           grep -Fq '"name": "Speech Removal Framework for Privacy-preserving Audio Recordings"' dist/resume.json
+          test -s dist/work/audio-language-vad/index.html
+          grep -Fq 'Robust voice activity detection with audio-language models' dist/work/audio-language-vad/index.html
+          grep -Fq '93.3%' dist/work/audio-language-vad/index.html
+          grep -Fq '21,340' dist/work/audio-language-vad/index.html
+          grep -Fq 'DT90 = 96 ms' dist/work/audio-language-vad/index.html
+          grep -Fq 'github.com/gbibbo/qwen-vad-lora' dist/work/audio-language-vad/index.html
           grep -Fq '3be599b0fe114d2c8821c689fbb50d80' dist/index.html
           grep -Fq 'static.cloudflareinsights.com/beacon.min.js' dist/index.html
           if grep -Fq 'static.cloudflareinsights.com/beacon.min.js' dist/google7901b35217a9c314.html; then
