@@ -15,13 +15,12 @@ Implemented and verified in source control:
 - Cloudflare Pages backend with versioned Workers AI and D1 bindings
 - anonymous bot-question logging to D1
 - bot endpoint CORS for the future GitHub Pages frontend
-- optional Cloudflare Web Analytics beacon injection
+- Cloudflare Web Analytics loader scoped to the canonical public hostname
 
 Still to activate externally:
 
-1. Create a Cloudflare Web Analytics site for `gbibbo.github.io` and expose its beacon token to the GitHub Pages build.
-2. Deploy V2 to `master` only after the remaining production checks.
-3. Verify the new production site and submit `https://gbibbo.github.io/sitemap.xml` in Google Search Console.
+1. Deploy V2 to `master` only after the remaining production checks.
+2. Verify the new production site and submit `https://gbibbo.github.io/sitemap.xml` in Google Search Console.
 
 ## Safety backup
 
@@ -65,19 +64,19 @@ GitHub repository Settings > Pages is configured to use GitHub Actions as the bu
 
 ## Cloudflare Web Analytics
 
-The build can inject Cloudflare's privacy-oriented analytics beacon without cookies.
+Cloudflare Web Analytics site:
 
-Create a Web Analytics site for `gbibbo.github.io` in Cloudflare and copy its beacon token.
+`gbibbo.github.io`
 
-In GitHub, create the repository Actions variable:
+Beacon token:
 
-`CLOUDFLARE_WEB_ANALYTICS_TOKEN`
+`3be599b0fe114d2c8821c689fbb50d80`
 
-The deployment workflow exposes it to the Astro build as:
+The beacon token is public by design and is versioned in `scripts/inject-cloudflare-analytics.mjs`.
 
-`PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN`
+The build injects a small loader into generated site pages. The loader only downloads Cloudflare's analytics beacon when `location.hostname === 'gbibbo.github.io'`, so Cloudflare preview deployments and localhost testing do not contaminate production visitor metrics.
 
-`scripts/inject-cloudflare-analytics.mjs` injects the beacon into generated page HTML only when that variable is present. Verification HTML without a `</body>` is deliberately left untouched.
+Google verification HTML without a `</body>` is deliberately left untouched.
 
 ## Profile assistant backend
 
