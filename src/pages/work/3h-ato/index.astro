@@ -9,9 +9,9 @@ const siteUrl = profile.links.web.replace(/\/$/, '');
 const canonical = `${siteUrl}/work/3h-ato/`;
 const facebookUrl = 'https://www.facebook.com/3havoidtouchingobjets';
 const videoUrl = project.links.find((link) => link.label === 'Video')?.href ?? 'https://www.youtube.com/watch?v=aQVo0i5OLWU';
-const socialImage = `${siteUrl}${project.image}`;
-const pageTitle = '3H-ATO · Mechanical no-touch tool · Gabriel Bibbó';
-const description = 'Expanded project page for 3H-ATO, a compact two-part mechanical tool created during the COVID-19 pandemic to handle shared surfaces without direct hand contact.';
+const socialImage = `${siteUrl}/homepage_files/case_study_3h_functions.webp`;
+const pageTitle = '3H-ATO · Mechanical product design and validation · Gabriel Bibbó';
+const description = 'Expanded project page for 3H-ATO, a compact mechanical no-touch tool developed during the COVID-19 pandemic and submitted to ANII for business-idea validation in 2020.';
 
 const schema = {
   '@context': 'https://schema.org',
@@ -28,63 +28,96 @@ const schema = {
     name: '3H-ATO (Third Hand - Avoid Touching Objects)',
     description,
     creator: { '@id': `${siteUrl}/#person` },
-    keywords: ['Mechanical design', 'Product design', 'Prototyping', 'COVID-19', 'No-touch tool'],
+    keywords: ['Mechanical design', 'Product design', 'Prototyping', 'Business validation', 'COVID-19', 'No-touch tool'],
     url: canonical,
     sameAs: [facebookUrl, videoUrl],
   },
 };
+
+const gallery = [
+  {
+    src: '/homepage_files/case_study_3h_functions.webp',
+    alt: '3H-ATO product diagram showing uses for buttons, touchscreens, shopping carts, public transport rails and doors',
+    caption: 'Product concept and intended interactions: buttons and touchscreens, shopping carts, public-transport rails and doors.',
+  },
+  {
+    src: '/homepage_files/case_study_3h_transit.webp',
+    alt: '3H-ATO campaign material about contact with public transport surfaces',
+    caption: 'Campaign material framing shared public-transport surfaces as a high-contact use case.',
+  },
+  {
+    src: '/homepage_files/case_study_3h_preorder.webp',
+    alt: '3H-ATO pre-sale campaign graphic',
+    caption: 'Pre-sale campaign material produced after the initial product and validation work.',
+  },
+];
 ---
 
 <WorkCaseStudyLayout
   canonical={canonical}
   externalUrl={facebookUrl}
-  externalLabel="Project page on Facebook"
+  externalLabel="Project archive on Facebook"
   socialImage={socialImage}
   pageTitle={pageTitle}
   description={description}
   schema={schema}
-  eyebrow="Product design · Mechanical prototyping · 2020-2022"
+  eyebrow="Product design · Mechanical prototyping · Validation · 2020-2022"
   heading="3H-ATO: a mechanical third hand for shared surfaces"
-  intro="Created during the COVID-19 pandemic, 3H-ATO was designed as a small mechanical tool that takes contact with shared surfaces instead of the user's hand."
+  intro="3H-ATO was conceived as a small mechanical tool that takes contact with shared surfaces instead of the user's hand. The project moved from mechanical design and prototyping into a structured 2020 ANII business-validation application before its later pre-sale campaign."
   facts={[
-    { value: '2', label: 'moving mechanical parts' },
-    { value: '2020', label: 'project started' },
-    { value: 'Washable', label: 'soap-and-water sanitisation' },
-    { value: 'Multi-use', label: 'rails, doors, buttons and small objects' },
+    { value: '45 g', label: 'target product weight' },
+    { value: '15 × 20 × 3 cm', label: 'documented product envelope' },
+    { value: '20 users', label: 'planned validation sample' },
+    { value: '5 months', label: 'ANII validation proposal' },
   ]}
 >
   <section class="section">
     <div class="shell">
-      <h2>Design problem</h2>
-      <p>The project explored a deliberately simple alternative to touching high-contact public surfaces directly. The intended use cases included public-transport handrails, door handles, buttons, small objects and shopping trolleys.</p>
+      <h2>Product concept</h2>
+      <p>The device was designed as a portable, purely mechanical interface between the user and high-contact public surfaces. The documented use cases included public-transport handrails, doors, shopping carts, elevator and ATM buttons, doorbells, touchscreens and small objects.</p>
       <div class="grid">
-        <article><h3>Purely mechanical</h3><p>No electronics, batteries or connectivity were required. The interaction was embodied in the geometry and movement of the tool itself.</p></article>
-        <article><h3>Portable</h3><p>The product was designed to remain small and lightweight enough to accompany a user outside the home.</p></article>
-        <article><h3>Two moving parts</h3><p>The mechanism used two moving pieces shaped to cover several grasping, pulling and pushing interactions with one compact object.</p></article>
-        <article><h3>Sanitisable</h3><p>The tool could be cleaned with soap and water after use, keeping the contaminated contact surface separate from the user's hand.</p></article>
+        <article><h3>Simple mechanism</h3><p>The proposed construction used two main pieces plus a spring and rubber elements, using plastic, rubber and steel rather than electronics or batteries.</p></article>
+        <article><h3>Portable and washable</h3><p>The design target was a compact L-shaped object weighing about 45 grams, intended to be cleaned after use and carried outside the home.</p></article>
+        <article><h3>Multi-interaction geometry</h3><p>One object was intended to support grasping, pulling and pushing interactions across different public surfaces instead of requiring a dedicated tool for each task.</p></article>
+        <article><h3>Gabriel's role</h3><p>The 2020 proposal identifies Gabriel as the originator of the idea and responsible for product development and improvements, production-process work, supplier management, project management and logistics.</p></article>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="shell">
-      <h2>Project image</h2>
-      <figure class="figure">
-        <a class="figure-frame" href={project.image} target="_blank" rel="noreferrer" aria-label="Open the full-size 3H-ATO project image">
-          <img src={project.image} alt="3H-ATO mechanical no-touch tool" loading="lazy" />
-        </a>
-        <figcaption>The current archived project image is shown complete, without cropping. Select it to open the original file.</figcaption>
-      </figure>
+      <h2>ANII validation proposal</h2>
+      <p>In 2020 the project was submitted as <strong>Third Hand</strong> to ANII's <strong>Validación de Idea de Negocio</strong> programme, with Cámara de Industrias del Uruguay as sponsoring institution. The application described a five-month validation project with a proposed budget of UYU 155,000. This is evidence of the application and validation plan, not a claim that funding was awarded.</p>
+      <div class="evidence"><div class="label">Prototype test</div><div>The plan called for manufacturing 10 units with 3D printing and rotating them through at least 20 users in relevant everyday contexts.</div></div>
+      <div class="evidence"><div class="label">User research</div><div>Participants would use the prototype for several days, complete a survey and provide feedback on usefulness, acceptance and possible design improvements.</div></div>
+      <div class="evidence"><div class="label">Market test</div><div>The proposal used online pre-sale as a way to identify early adopters and characterise the initial customer segments. The plan defined 500 pre-sold units as a validation target, not as an achieved result.</div></div>
+      <div class="evidence"><div class="label">Scale-up</div><div>A further objective was to compare local and regional production costs and scales before committing to a manufacturing model.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Design and campaign material</h2>
+      <div class="visual-grid">
+        {gallery.map((image) => (
+          <figure class="figure">
+            <a class="figure-frame" href={image.src} target="_blank" rel="noreferrer" aria-label={`Open full-size image: ${image.alt}`}>
+              <img src={image.src} alt={image.alt} loading="lazy" />
+            </a>
+            <figcaption>{image.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
     </div>
   </section>
 
   <section class="section">
     <div class="shell">
       <h2>Project material</h2>
-      <div class="evidence"><div class="label">Facebook archive</div><div><a href={facebookUrl} target="_blank" rel="noreferrer">3H - Avoid Touching Objects</a>, the original public project page supplied for this portfolio update.</div></div>
+      <div class="evidence"><div class="label">Facebook archive</div><div><a href={facebookUrl} target="_blank" rel="noreferrer">3H - Avoid Touching Objects</a>, the original public project page.</div></div>
       <div class="evidence"><div class="label">Video</div><div><a href={videoUrl} target="_blank" rel="noreferrer">Promotional project video</a>.</div></div>
-      <div class="evidence"><div class="label">Portfolio role</div><div>Product conception, mechanical design and prototyping.</div></div>
-      <div class="tags">{project.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
+      <div class="evidence"><div class="label">Archived proposal</div><div>2020 ANII business-idea validation application retained as supporting project documentation. The public portfolio deliberately does not expose the original administrative PDF because it contains personal data.</div></div>
+      <div class="tags">{project.tags.map((tag) => <span class="tag">{tag}</span>)}<span class="tag">Business validation</span><span class="tag">3D prototyping</span></div>
     </div>
   </section>
 </WorkCaseStudyLayout>
