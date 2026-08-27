@@ -9,7 +9,7 @@ const siteUrl = profile.links.web.replace(/\/$/, '');
 const canonical = `${siteUrl}/work/iot-soap-dispenser/`;
 const socialImage = `${siteUrl}${project.image}`;
 const pageTitle = 'Automatic IoT Soap Dispenser · Embedded IoT and remote monitoring · Gabriel Bibbó';
-const description = 'Expanded project page for an industrial IoT handwashing system combining automatic dispensing, employee identification, cloud connectivity and remote compliance monitoring.';
+const description = 'An industrial IoT handwashing system that combines automatic soap dispensing, employee identification, cloud connectivity and remote compliance monitoring.';
 
 const schema = {
   '@context': 'https://schema.org',
@@ -24,9 +24,9 @@ const schema = {
   mainEntity: {
     '@type': 'CreativeWork',
     name: project.title,
-    description: project.description,
+    description,
     creator: { '@id': `${siteUrl}/#person` },
-    keywords: project.tags,
+    keywords: [...project.tags, 'Remote monitoring', 'Employee identification', 'Handwashing compliance'],
     url: canonical,
   },
 };
@@ -40,62 +40,107 @@ const schema = {
   schema={schema}
   eyebrow="IoT · Embedded systems · Industrial hygiene · 2020-2021"
   heading="An IoT handwashing system with remote compliance monitoring"
-  intro="This project combined an automatic soap-dispensing device with employee identification and a web application for remotely monitoring handwashing records in industrial environments."
+  intro="The system combines an automatic soap dispenser, employee identification and a web application that turns each handwashing event into remotely inspectable operational data. It is designed for workplaces where hygiene procedures need both contactless interaction and traceability."
   facts={[
     { value: 'WiFi', label: 'cloud-connected device' },
     { value: 'IR / RFID', label: 'sensing and identification' },
-    { value: '3 L', label: 'documented soap tank capacity' },
-    { value: 'Web dashboard', label: 'remote records and administration' },
+    { value: '3 L', label: 'soap tank capacity' },
+    { value: 'Web dashboard', label: 'remote monitoring and administration' },
   ]}
 >
   <section class="section">
     <div class="shell">
       <h2>Embedded device</h2>
-      <p>The physical system was designed for industrial hygiene workflows. The archived project description documents a stainless-steel enclosure, WiFi connectivity, IR/RFID sensing, cloud connectivity and a three-litre soap reservoir.</p>
+      <p>The dispenser uses a stainless-steel enclosure, infrared sensing, RFID identification, WiFi connectivity and a three-litre soap reservoir. A wash can therefore be detected, associated with a person and sent to the monitoring system without requiring manual data entry.</p>
       <div class="grid">
-        <article><h3>Automatic interaction</h3><p>The dispensing workflow was designed around non-contact sensing while keeping the device suitable for repeated use in a shared workplace.</p></article>
-        <article><h3>Identification</h3><p>RFID/card associations linked physical interactions to employees so that wash events could be recorded against individual users rather than only counted globally.</p></article>
-        <article><h3>Connected records</h3><p>WiFi and cloud connectivity moved the project beyond a standalone dispenser, enabling wash events to become remotely inspectable operational data.</p></article>
-        <article><h3>Industrial context</h3><p>The system was conceived as a complete device-and-software workflow rather than a consumer soap dispenser, with administration and compliance visibility built into the concept.</p></article>
+        <article><h3>Contactless dispensing</h3><p>Infrared sensing triggers the dispensing workflow without requiring the user to touch a shared control.</p></article>
+        <article><h3>Employee identification</h3><p>RFID cards associate a physical interaction with a registered employee so the system records who washed rather than only incrementing a global counter.</p></article>
+        <article><h3>Connected records</h3><p>WiFi connectivity sends handwashing events to the application, where they become searchable and auditable records.</p></article>
+        <article><h3>Industrial operation</h3><p>The device and software operate as one system for hygiene management, combining hardware, identification, connectivity and administration.</p></article>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="shell">
-      <h2>Remote management interface</h2>
-      <p>The archived web application supported more than a simple event list. Its administration screens covered employees, identification cards, company sections, application users and system logs, with data export available from the maintenance views.</p>
-      <div class="evidence"><div class="label">Employees</div><div>Create, modify and remove employee records, with safeguards when an employee already has associated wash data.</div></div>
-      <div class="evidence"><div class="label">Cards and sections</div><div>Maintain employee cards and organisational sections, supporting a workplace-level deployment rather than an anonymous counter.</div></div>
-      <div class="evidence"><div class="label">Wash history</div><div>Inspect recorded washes with employee, date, time and card information.</div></div>
-      <div class="evidence"><div class="label">Missed washes</div><div>For a selected day, the interface could show employees for whom no handwashing event had been recorded.</div></div>
+      <h2>System schematic</h2>
+      <p>The sensing, identification and monitoring path links the physical dispenser directly to the remote management application.</p>
+      <figure class="figure">
+        <div class="figure-frame" role="img" aria-label="System schematic for the IoT soap dispenser showing infrared sensing, RFID identification, controller, soap pump, WiFi, cloud records and web dashboard">
+          <svg viewBox="0 0 1000 520" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor" />
+              </marker>
+            </defs>
+            <style>
+              .box{fill:#fff;stroke:#7d8580;stroke-width:2}.core{fill:#eef0eb;stroke:#444b47;stroke-width:2.5}.t{font:600 25px Arial,sans-serif;fill:#171a1c}.s{font:20px Arial,sans-serif;fill:#535b56}.line{stroke:#444b47;stroke-width:3;fill:none;marker-end:url(#arrow)}
+            </style>
+            <rect class="box" x="55" y="65" width="210" height="110" rx="10" />
+            <text class="t" x="160" y="112" text-anchor="middle">IR sensor</text>
+            <text class="s" x="160" y="145" text-anchor="middle">hands present</text>
+
+            <rect class="box" x="55" y="335" width="210" height="110" rx="10" />
+            <text class="t" x="160" y="382" text-anchor="middle">RFID card</text>
+            <text class="s" x="160" y="415" text-anchor="middle">employee identity</text>
+
+            <rect class="core" x="365" y="190" width="245" height="140" rx="12" />
+            <text class="t" x="487" y="245" text-anchor="middle">Embedded controller</text>
+            <text class="s" x="487" y="282" text-anchor="middle">event logic + WiFi</text>
+
+            <rect class="box" x="715" y="55" width="220" height="110" rx="10" />
+            <text class="t" x="825" y="102" text-anchor="middle">Soap pump</text>
+            <text class="s" x="825" y="135" text-anchor="middle">3 L reservoir</text>
+
+            <rect class="box" x="715" y="205" width="220" height="110" rx="10" />
+            <text class="t" x="825" y="252" text-anchor="middle">Cloud records</text>
+            <text class="s" x="825" y="285" text-anchor="middle">wash events</text>
+
+            <rect class="box" x="715" y="355" width="220" height="110" rx="10" />
+            <text class="t" x="825" y="402" text-anchor="middle">Web dashboard</text>
+            <text class="s" x="825" y="435" text-anchor="middle">monitor + manage</text>
+
+            <path class="line" d="M265 120 C320 120 325 215 365 235" />
+            <path class="line" d="M265 390 C320 390 325 305 365 285" />
+            <path class="line" d="M610 230 C660 200 670 120 715 110" />
+            <path class="line" d="M610 260 L715 260" />
+            <path class="line" d="M825 315 L825 355" />
+          </svg>
+        </div>
+        <figcaption>Functional architecture of the dispenser, from sensing and identification to dispensing and remote monitoring.</figcaption>
+      </figure>
     </div>
   </section>
 
   <section class="section">
     <div class="shell">
-      <h2>Device and monitoring evidence</h2>
+      <h2>Remote management</h2>
+      <p>The web application manages the people, cards and organisational structure behind the device while also exposing the handwashing record itself.</p>
+      <div class="evidence"><div class="label">Employees</div><div>Create, modify and remove employee records, with safeguards when an employee already has associated wash data.</div></div>
+      <div class="evidence"><div class="label">Cards and sections</div><div>Maintain identification cards and company sections so deployments can follow the real organisational structure of a workplace.</div></div>
+      <div class="evidence"><div class="label">Wash history</div><div>Inspect recorded washes by employee, date, time and identification card.</div></div>
+      <div class="evidence"><div class="label">Missing washes</div><div>Select a day and identify employees for whom the system has no handwashing event recorded.</div></div>
+      <div class="evidence"><div class="label">Administration</div><div>Manage application users, logs and data export from the same web interface.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Device and interface</h2>
       <div class="visual-grid">
         <figure class="figure">
-          <a class="figure-frame" href={project.image} target="_blank" rel="noreferrer" aria-label="Open the full-size IoT soap dispenser project image">
-            <img src={project.image} alt="Automatic IoT soap dispenser project" loading="lazy" />
+          <a class="figure-frame" href={project.image} target="_blank" rel="noreferrer" aria-label="Open the full-size IoT soap dispenser image">
+            <img src={project.image} alt="Automatic IoT soap dispenser" loading="lazy" />
           </a>
-          <figcaption>Archived portfolio image of the physical IoT soap-dispenser project.</figcaption>
+          <figcaption>The physical dispenser combines the enclosure, sensor area and soap reservoir in a single workplace device.</figcaption>
         </figure>
         <figure class="figure">
-          <a class="figure-frame" href="/homepage_files/case_study_iot_washes.webp" target="_blank" rel="noreferrer" aria-label="Open the archived handwashing dashboard image">
-            <img src="/homepage_files/case_study_iot_washes.webp" alt="Archived IoT soap dispenser dashboard showing recorded handwashing events" loading="lazy" />
+          <a class="figure-frame" href="/homepage_files/case_study_iot_washes.webp" target="_blank" rel="noreferrer" aria-label="Open the handwashing dashboard image">
+            <img src="/homepage_files/case_study_iot_washes.webp" alt="IoT soap dispenser dashboard showing recorded handwashing events" loading="lazy" />
           </a>
-          <figcaption>Archived monitoring interface showing timestamped handwashing records associated with employees and cards.</figcaption>
+          <figcaption>The monitoring interface links timestamped handwashing events to employees and identification cards.</figcaption>
         </figure>
       </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="shell">
-      <h2>Project scope</h2>
-      <p>The surviving material documents both the embedded device concept and its management software. It supports the project as an IoT systems effort spanning sensing, identification, connectivity and operational tooling; it does not establish a later production deployment, so no production-scale claim is made here.</p>
       <div class="tags">{project.tags.map((tag) => <span class="tag">{tag}</span>)}<span class="tag">Remote monitoring</span><span class="tag">Web administration</span></div>
     </div>
   </section>
