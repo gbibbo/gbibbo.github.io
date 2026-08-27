@@ -29,6 +29,7 @@ jobs:
       - name: Verify P0 discovery and analytics outputs
         run: |
           grep -Fxq 'google-site-verification: google7901b35217a9c314.html' dist/google7901b35217a9c314.html
+          grep -Fxq 'google-site-verification: google14b127158d0ab073.html' dist/google14b127158d0ab073.html
           grep -Fq '<loc>https://gbibbo.github.io/</loc>' dist/sitemap.xml
           grep -Fq '<loc>https://gbibbo.github.io/es/</loc>' dist/sitemap.xml
           grep -Fq 'https://gbibbo.github.io/' dist/index.html
@@ -36,7 +37,11 @@ jobs:
           grep -Fq 'gbibbo.github.io' dist/index.html
           grep -Fq 'static.cloudflareinsights.com/beacon.min.js' dist/index.html
           if grep -Fq 'static.cloudflareinsights.com/beacon.min.js' dist/google7901b35217a9c314.html; then
-            echo 'Analytics beacon must not modify Google verification HTML.'
+            echo 'Analytics beacon must not modify legacy Google verification HTML.'
+            exit 1
+          fi
+          if grep -Fq 'static.cloudflareinsights.com/beacon.min.js' dist/google14b127158d0ab073.html; then
+            echo 'Analytics beacon must not modify current Google verification HTML.'
             exit 1
           fi
 
