@@ -31,8 +31,6 @@ jobs:
         run: npm install
 
       - name: Build Astro site
-        env:
-          PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN: ${{ vars.CLOUDFLARE_WEB_ANALYTICS_TOKEN }}
         run: npm run build
 
       - name: Configure Pages
