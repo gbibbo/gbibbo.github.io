@@ -1,0 +1,249 @@
+/* Media composition pass: larger, consistent visual anchors without dedicating full text columns. */
+
+/* Selected work: large visual anchor floated into the row so text can wrap beneath it. */
+.selected-item {
+  display: flow-root;
+  padding: 34px 0;
+}
+.selected-media {
+  float: right;
+  width: clamp(300px, 38%, 370px);
+  height: auto;
+  aspect-ratio: 16 / 10;
+  margin: 0 0 18px 34px;
+  overflow: hidden;
+}
+.selected-media img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+}
+.selected-media-cover img { object-fit: cover; }
+.selected-media-contain img { object-fit: contain; }
+
+/* Experience + education: date and logo share one left rail. Text keeps the full right column. */
+.experience-item,
+.education-item,
+.education-item.no-thumb {
+  display: grid;
+  grid-template-columns: 156px minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  column-gap: 28px;
+  row-gap: 0;
+  align-items: start;
+  min-height: 164px;
+  padding: 30px 0;
+}
+.date-col {
+  position: static;
+  grid-column: 1;
+  grid-row: 1;
+  width: auto;
+  margin: 0;
+}
+.entity-copy {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  min-width: 0;
+  margin-left: 0;
+}
+.entity-thumb {
+  float: none;
+  grid-column: 1;
+  grid-row: 2;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  margin: 14px 0 0;
+  padding: 10px;
+  background: rgba(245, 246, 242, .22);
+  border: 0;
+  border-radius: 9px;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+.entity-thumb img,
+.education-thumb img,
+.experience-thumb img[src*='surrey'],
+.experience-thumb img[src*='google-official'],
+.experience-thumb img[src*='kpmg-official'],
+.experience-thumb img[src*='ikatu-official'] {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* White-backed raster marks visually knock out into the section rather than forming white rectangles. */
+.experience-thumb img[src*='surrey'],
+.education-thumb img[src*='UPFMTG'],
+.education-thumb img[src*='FING'] {
+  mix-blend-mode: multiply;
+}
+
+/* Edge Audio Labs is a 4:1 artwork. Crop a square around the actual logo inside the artwork. */
+.entity-thumb:has(img[src*='edge-audio-labs']) {
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  background: transparent;
+  border-radius: 9px;
+}
+.entity-thumb:has(img[src*='edge-audio-labs']) img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  object-position: 56% center;
+  transform: none;
+  mix-blend-mode: normal;
+}
+
+/* Small per-brand tuning inside the shared 4:3 visual field. */
+.experience-thumb img[src*='surrey'] { transform: scale(.9); }
+.experience-thumb img[src*='google-official'] { transform: scale(.94); }
+.experience-thumb img[src*='kpmg-official'] { transform: scale(.94); }
+.experience-thumb img[src*='ikatu-official'] { transform: scale(.96); }
+.education-thumb img { transform: scale(.94); }
+
+/* Publications: one consistent 4:3 crop, floated right. The copy regains the full width below the image. */
+.publication-item {
+  display: flow-root;
+  min-height: 176px;
+  padding: 24px 0;
+}
+.publication-thumb {
+  float: right;
+  width: 230px;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  margin: 0 0 16px 30px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  overflow: hidden;
+}
+.publication-thumb img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Other projects: large 16:10 media at the right of a full-width row. */
+.plain-project-list {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+.plain-project-item {
+  display: flow-root;
+  min-height: 180px;
+  padding: 26px 0;
+}
+.project-thumb {
+  float: right;
+  width: 250px;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  margin: 0 0 16px 32px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  overflow: hidden;
+}
+.project-thumb img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-position: center;
+}
+.project-thumb-cover img { object-fit: cover; }
+.project-thumb-contain img { object-fit: contain; }
+
+/* Medium desktop / tablet: keep the date rail useful without stealing too much copy width. */
+@media (max-width: 1040px) {
+  .selected-media { width: min(40%, 320px); }
+  .experience-item,
+  .education-item,
+  .education-item.no-thumb { grid-template-columns: 144px minmax(0, 1fr); column-gap: 24px; }
+  .publication-thumb { width: 205px; }
+  .project-thumb { width: 220px; }
+}
+
+@media (max-width: 820px) {
+  .selected-media { width: min(44%, 300px); margin-left: 26px; }
+  .experience-item,
+  .education-item,
+  .education-item.no-thumb { grid-template-columns: 130px minmax(0, 1fr); column-gap: 20px; }
+  .entity-thumb { margin-top: 12px; padding: 8px; }
+  .entity-thumb:has(img[src*='edge-audio-labs']) { padding: 0; }
+  .publication-thumb { width: 190px; margin-left: 24px; }
+  .project-thumb { width: 205px; margin-left: 24px; }
+}
+
+/* Mobile: keep date + logo as a useful left rail while there is enough horizontal room. */
+@media (max-width: 680px) {
+  .selected-item,
+  .publication-item,
+  .plain-project-item {
+    display: flow-root;
+    min-height: 0;
+  }
+
+  .selected-media,
+  .publication-thumb,
+  .project-thumb {
+    float: none;
+    width: min(100%, 430px);
+    margin: 0 0 20px 0;
+  }
+  .selected-media { aspect-ratio: 16 / 10; }
+  .publication-thumb { aspect-ratio: 4 / 3; }
+  .project-thumb { aspect-ratio: 16 / 10; }
+
+  .experience-item,
+  .education-item,
+  .education-item.no-thumb {
+    grid-template-columns: 118px minmax(0, 1fr);
+    column-gap: 18px;
+    min-height: 0;
+    padding: 26px 0;
+  }
+  .entity-thumb { margin-top: 11px; padding: 7px; border-radius: 8px; }
+  .entity-thumb:has(img[src*='edge-audio-labs']) { padding: 0; }
+}
+
+/* Narrow phones: stack the left rail before the copy so neither logo nor text becomes tiny. */
+@media (max-width: 500px) {
+  .experience-item,
+  .education-item,
+  .education-item.no-thumb {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    row-gap: 0;
+  }
+  .date-col { grid-column: 1; grid-row: 1; }
+  .entity-thumb {
+    grid-column: 1;
+    grid-row: 2;
+    width: min(48vw, 158px);
+    margin: 12px 0 18px;
+  }
+  .entity-copy {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .selected-media,
+  .publication-thumb,
+  .project-thumb {
+    width: 100%;
+  }
+}

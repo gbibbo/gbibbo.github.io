@@ -1,0 +1,106 @@
+/* Fine tuning from rendered screenshots. Loaded after media-v4.css. */
+
+/* Keep institutional/company marks readable at all times. */
+.entity-thumb {
+  background: #fff !important;
+  border: 1px solid rgba(17, 20, 15, .10) !important;
+  box-shadow: 0 3px 12px rgba(17, 20, 15, .07);
+  opacity: 1 !important;
+}
+.entity-thumb:hover,
+.entity-thumb:focus-visible,
+.entity-thumb:hover img,
+.entity-thumb:focus-visible img {
+  opacity: 1 !important;
+  filter: none !important;
+}
+.entity-thumb img,
+.experience-thumb img,
+.education-thumb img {
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+}
+
+/*
+  Edge source artwork is 480x120. A square `cover` crop exposes 120px of
+  source width. In the rendered 156px square, the white lockup begins around
+  x=63 and is clipped at x=155. Allowing for the missing right half of the
+  stacked wordmark means shifting the source window roughly 32-36px right.
+  That maps from the previous 39% position to about 48-49%.
+*/
+.entity-thumb:has(img[src*='edge-audio-labs']) {
+  aspect-ratio: 1 / 1 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+.entity-thumb:has(img[src*='edge-audio-labs']) img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: 49% center !important;
+  transform: none !important;
+}
+
+/* University identities are horizontal wordmarks, not 4:3 illustrations. */
+.experience-thumb:has(img[src*='surrey']),
+.education-thumb {
+  aspect-ratio: 2 / 1 !important;
+  padding: 6px 8px !important;
+  background: #fff !important;
+  border: 1px solid rgba(17, 20, 15, .10) !important;
+  border-radius: 9px !important;
+  box-shadow: 0 3px 12px rgba(17, 20, 15, .07);
+  overflow: hidden;
+}
+.experience-thumb:has(img[src*='surrey']) img,
+.education-thumb img[src*='UPFMTG'],
+.education-thumb img[src*='FING'] {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  transform: none !important;
+  mix-blend-mode: normal !important;
+}
+
+/* Give the left rail enough width for the university logos to be legible. */
+@media (min-width: 821px) {
+  .experience-item,
+  .education-item,
+  .education-item.no-thumb {
+    grid-template-columns: 176px minmax(0, 1fr) !important;
+    column-gap: 28px !important;
+  }
+}
+
+@media (max-width: 820px) and (min-width: 681px) {
+  .experience-item,
+  .education-item,
+  .education-item.no-thumb {
+    grid-template-columns: 148px minmax(0, 1fr) !important;
+    column-gap: 20px !important;
+  }
+}
+
+@media (max-width: 680px) and (min-width: 501px) {
+  .experience-item,
+  .education-item,
+  .education-item.no-thumb {
+    grid-template-columns: 132px minmax(0, 1fr) !important;
+    column-gap: 18px !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .experience-thumb:has(img[src*='surrey']),
+  .education-thumb {
+    width: min(72vw, 230px) !important;
+    aspect-ratio: 2 / 1 !important;
+  }
+  .entity-thumb:has(img[src*='edge-audio-labs']) {
+    width: min(52vw, 170px) !important;
+    aspect-ratio: 1 / 1 !important;
+  }
+}

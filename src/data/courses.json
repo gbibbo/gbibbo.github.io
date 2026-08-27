@@ -1,0 +1,37 @@
+[
+  {
+    "year": "2024",
+    "title": "PRINCE2 Foundation in Project Management",
+    "provider": "",
+    "status": "Certificate GR656321771GB · Expires 03/2027",
+    "details": "Project management techniques, risk mitigation, resource allocation, project planning, and monitoring."
+  },
+  {
+    "year": "2023",
+    "title": "Deep Learning",
+    "provider": "DeepLearning.AI · Coursera",
+    "status": "Completed",
+    "details": "CNNs, RNNs, transformers, TensorFlow, inductive transfer, and optimisation."
+  },
+  {
+    "year": "2020",
+    "title": "Machine Learning",
+    "provider": "Stanford University · Coursera",
+    "status": "Completed",
+    "details": "Supervised and unsupervised learning and best practices in machine learning."
+  },
+  {
+    "year": "2018",
+    "title": "Electronic Music Production",
+    "provider": "AURA · Montevideo, Uruguay",
+    "status": "Graduated",
+    "details": "Ableton and analogue instruments."
+  },
+  {
+    "year": "2006-2008",
+    "title": "Private Guitar Lessons",
+    "provider": "Montevideo, Uruguay",
+    "status": "",
+    "details": ""
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "name": "gbibbo-site",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2026-08-27",
+  "ai": {
+    "binding": "AI"
+  },
+  "d1_databases": [
+    {
+      "binding": "ANALYTICS_DB",
+      "database_name": "profile-analytics",
+      "database_id": "0defae3f-9408-4514-b78d-5db529e451f9"
+    }
+  ]
+}

@@ -1,0 +1,194 @@
+---
+import '../styles/cv.css';
+import {
+  coursesData,
+  educationData,
+  experienceData,
+  profile,
+  projectsData,
+  publicationsData,
+  stackGroups,
+} from '../data/profileData';
+
+const { lang = 'en' } = Astro.props;
+const isEs = lang === 'es';
+const siteUrl = profile.links.web.replace(/\/$/, '');
+const canonical = isEs ? `${siteUrl}/es/cv/` : `${siteUrl}/cv/`;
+const [updatedYear, updatedMonth, updatedDay] = profile.updated.split('-');
+const monthsEn = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const monthsEs = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+const updated = `${Number(updatedDay)} ${isEs ? monthsEs[Number(updatedMonth) - 1] : monthsEn[Number(updatedMonth) - 1]} ${updatedYear}`;
+
+const copy = isEs
+  ? {
+      back: 'Volver al perfil',
+      print: 'Guardar / imprimir PDF',
+      updated: 'Actualizado',
+      education: 'Educación',
+      employment: 'Experiencia profesional',
+      publications: 'Publicaciones',
+      projects: 'Proyectos',
+      courses: 'Cursos y certificaciones',
+      languages: 'Idiomas',
+      skills: 'Habilidades técnicas',
+      memberships: 'Membresías e investigación financiada',
+    }
+  : {
+      back: 'Back to profile',
+      print: 'Save / print PDF',
+      updated: 'Updated',
+      education: 'Education',
+      employment: 'Employment Experience',
+      publications: 'Publications',
+      projects: 'Projects',
+      courses: 'Courses',
+      languages: 'Languages',
+      skills: 'Technical Skills',
+      memberships: 'Memberships & Funded Research',
+    };
+
+const displayProjectTitle = (project) => isEs ? project.titleEs : project.title;
+const displayProjectCategory = (project) => isEs ? project.categoryEs : project.category;
+const displayProjectDescription = (project) => isEs ? project.descriptionEs : project.description;
+const langText = profile.languages.map((item) => `${isEs ? item.nameEs : item.nameEn}: ${isEs ? item.levelEs : item.levelEn}`).join(' · ');
+---
+
+<!doctype html>
+<html lang={isEs ? 'es' : 'en'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href={canonical} />
+    <title>Gabriel_Bibbo_CV</title>
+  </head>
+  <body>
+    <div class="cv-toolbar no-print">
+      <a href={isEs ? '/es/' : '/'}>{copy.back}</a>
+      <button type="button" data-print>{copy.print}</button>
+    </div>
+
+    <article class="cv-sheet">
+      <header class="cv-header">
+        <div>
+          <h1>{profile.name}</h1>
+          <p class="cv-role">{isEs ? profile.roleEs : profile.role}</p>
+        </div>
+        <div class="cv-links">
+          <a href={profile.links.web}>Web</a>
+          <a href={profile.links.github}>GitHub</a>
+          <a href={profile.links.orcid}>ORCID</a>
+          <a href={profile.links.scholar}>Scholar</a>
+          <a href={`mailto:${profile.email}`}>{profile.email}</a>
+        </div>
+      </header>
+
+      <p class="cv-summary">{isEs ? profile.summaryEs : profile.summary}</p>
+      <p class="cv-updated">{copy.updated}: {updated}</p>
+
+      <section class="cv-section">
+        <h2>{copy.education}</h2>
+        {educationData.map((item) => (
+          <div class="cv-entry">
+            <div class="cv-date">{item.dates}</div>
+            <div class="cv-content">
+              <h3>{item.degree}</h3>
+              <p><strong>{item.institution}</strong>, {item.location}</p>
+              <p>{[item.credits, item.focus].filter(Boolean).join(' · ')}</p>
+              {item.details && <p>{item.details}</p>}
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <section class="cv-section">
+        <h2>{copy.employment}</h2>
+        {experienceData.map((item) => (
+          <div class="cv-entry cv-entry-break">
+            <div class="cv-date">{item.dates}</div>
+            <div class="cv-content">
+              <h3>{item.role}</h3>
+              <p><a href={item.orgUrl}><strong>{item.org}</strong></a>, {item.location}{item.mode ? ` · ${item.mode}` : ''}</p>
+              <ul>{item.bullets.map((bullet) => <li>{bullet}</li>)}</ul>
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <section class="cv-section">
+        <h2>{copy.publications}</h2>
+        {publicationsData.map((item) => (
+          <div class="cv-entry cv-entry-break">
+            <div class="cv-date">{item.year}</div>
+            <div class="cv-content cv-publication">
+              <h3>{item.title}</h3>
+              <p>{item.venue}</p>
+              <p><em>{item.authors.join(', ')}</em></p>
+              {item.links.length > 0 && <p class="cv-small-links">{item.links.map((link, index) => <><a href={link.href}>{link.label}</a>{index < item.links.length - 1 && ' · '}</>)}</p>}
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <section class="cv-section">
+        <h2>{copy.projects}</h2>
+        {projectsData.map((item) => (
+          <div class="cv-entry cv-entry-break">
+            <div class="cv-date">{item.years}</div>
+            <div class="cv-content">
+              <h3>{displayProjectTitle(item)}</h3>
+              <p><strong>{displayProjectCategory(item)}</strong></p>
+              <p>{displayProjectDescription(item)}</p>
+              <p class="cv-tags">{item.tags.join(' · ')}</p>
+              {item.links.length > 0 && <p class="cv-small-links">{item.links.map((link, index) => <><a href={link.href}>{link.label}</a>{index < item.links.length - 1 && ' · '}</>)}</p>}
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <section class="cv-section">
+        <h2>{copy.courses}</h2>
+        {coursesData.map((item) => (
+          <div class="cv-entry cv-entry-break">
+            <div class="cv-date">{item.year}</div>
+            <div class="cv-content">
+              <h3>{item.title}</h3>
+              {item.provider && <p>{item.provider}</p>}
+              {item.status && <p>{item.status}</p>}
+              {item.details && <p>{item.details}</p>}
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <section class="cv-section">
+        <h2>{copy.languages}</h2>
+        <div class="cv-entry"><div class="cv-date"></div><div class="cv-content"><p>{langText}</p></div></div>
+      </section>
+
+      <section class="cv-section">
+        <h2>{copy.skills}</h2>
+        {stackGroups.map((group) => (
+          <div class="cv-entry cv-skills-row">
+            <div class="cv-date">{group.name}</div>
+            <div class="cv-content"><p>{group.items.join(' · ')}</p></div>
+          </div>
+        ))}
+      </section>
+
+      <section class="cv-section cv-last-section">
+        <h2>{copy.memberships}</h2>
+        <div class="cv-entry"><div class="cv-date">2025</div><div class="cv-content"><p>{profile.memberships.map((item) => item.name).join(' · ')}</p></div></div>
+        <div class="cv-entry"><div class="cv-date"></div><div class="cv-content"><p>{profile.fundedResearch.map((item) => `${item.name} · ${item.context}`).join(' · ')}</p></div></div>
+      </section>
+    </article>
+
+    <script is:inline>
+      const printNow = () => window.print();
+      document.querySelector('[data-print]')?.addEventListener('click', printNow);
+      if (new URLSearchParams(window.location.search).get('print') === '1') {
+        window.addEventListener('load', () => window.setTimeout(printNow, 150));
+      }
+    </script>
+  </body>
+</html>

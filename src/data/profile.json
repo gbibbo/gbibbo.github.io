@@ -1,0 +1,38 @@
+{
+  "name": "Gabriel Bibbó",
+  "role": "Audio ML researcher and engineer",
+  "roleEs": "Investigador e ingeniero de Audio ML",
+  "headline": "Audio ML researcher and engineer working on machine listening, DSP, real-time audio, privacy-preserving audio, and music technology.",
+  "headlineEs": "Investigador e ingeniero de Audio ML especializado en machine listening, DSP, audio en tiempo real, privacidad acústica y tecnología musical.",
+  "summary": "I build and evaluate machine-learning and audio-processing systems that have to work outside the notebook, from audio-language models and acoustic privacy to real-time audio software and tools for musicians.",
+  "summaryEs": "Construyo y evalúo sistemas de machine learning y procesamiento de audio que tienen que funcionar fuera del notebook: desde modelos audio-lenguaje y privacidad acústica hasta software de audio en tiempo real y herramientas para músicos.",
+  "location": "Montevideo, Uruguay",
+  "email": "gabobibbo@gmail.com",
+  "availability": "Available for academic collaboration, consulting, contract research, and selected remote opportunities in audio ML, machine listening, DSP, and music technology.",
+  "availabilityEs": "Disponible para colaboración académica, consultoría, contract research y oportunidades remotas seleccionadas en audio ML, machine listening, DSP y tecnología musical.",
+  "updated": "2026-08-26",
+  "links": {
+    "web": "https://gbibbo.github.io/",
+    "linkedin": "https://www.linkedin.com/in/gabriel-bibbo/",
+    "github": "https://github.com/gbibbo",
+    "scholar": "https://scholar.google.com/citations?user=KEwHUaMAAAAJ&hl=es&oi=ao",
+    "orcid": "https://orcid.org/0009-0003-2493-7412"
+  },
+  "stats": [
+    { "key": "engineeringSince", "value": "2016", "labelEn": "engineering since", "labelEs": "ingeniería desde" },
+    { "key": "audioResearchSince", "value": "2022", "labelEn": "audio research since", "labelEs": "investigación en audio desde" },
+    { "key": "publications", "value": "", "labelEn": "publications & works", "labelEs": "publicaciones y trabajos" },
+    { "key": "euWork", "value": "EU", "labelEn": "work authorization", "labelEs": "autorización laboral" }
+  ],
+  "languages": [
+    { "nameEn": "Spanish", "nameEs": "Español", "levelEn": "Native", "levelEs": "Nativo" },
+    { "nameEn": "English", "nameEs": "Inglés", "levelEn": "C1 (CEFR)", "levelEs": "C1 (CEFR)" },
+    { "nameEn": "Portuguese", "nameEs": "Portugués", "levelEn": "A2 (CEFR)", "levelEs": "A2 (CEFR)" }
+  ],
+  "memberships": [
+    { "name": "IEEE Signal Processing Society", "period": "2025" }
+  ],
+  "fundedResearch": [
+    { "name": "EPSRC AI for Sound", "context": "University of Surrey" }
+  ]
+}
