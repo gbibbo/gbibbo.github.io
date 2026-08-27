@@ -1,12 +1,13 @@
 import { profileAssistantKnowledge } from '../../src/data/assistantKnowledge';
 
 const MODEL_CANDIDATES = [
-  '@cf/meta/llama-3.1-8b-instruct-fast',
+  '@cf/google/gemma-4-26b-a4b-it',
+  '@cf/zai-org/glm-4.7-flash',
   '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
-  '@cf/meta/llama-3.2-3b-instruct',
+  '@cf/meta/llama-3.1-8b-instruct-fast',
 ];
 
-const MAX_MESSAGES = 10;
+const MAX_MESSAGES = 12;
 const MAX_USER_CHARS = 1000;
 const MAX_REPLY_CHARS = 1800;
 const CANONICAL_ORIGIN = 'https://gbibbo.github.io';
@@ -92,6 +93,14 @@ function extractAnswer(result: any): string {
   return '';
 }
 
+function sanitizeAnswer(text: string) {
+  return text
+    .replace(/\*\*/g, '')
+    .replace(/`/g, '')
+    .replace(/^#{1,6}\s+/gm, '')
+    .trim();
+}
+
 function wantsSpanish(question: string) {
   const q = question.toLowerCase();
   return /[áéíóúñ¿¡]/.test(q)
@@ -113,29 +122,62 @@ function privacyGuard(question: string): string | null {
     : 'The public profile does not contain that personal information.';
 }
 
-function systemPrompt() {
-  return `You are the conversational assistant embedded in Gabriel Bibbó's professional website.
+function contextualizeShortFollowUp(messages: ChatMessage[]) {
+  if (messages.length < 2) return messages;
+  const lastIndex = messages.length - 1;
+  const last = messages[lastIndex];
+  if (last.role !== 'user') return messages;
+  const previous = messages[lastIndex - 1];
+  if (previous?.role !== 'assistant') return messages;
 
-Use ONLY the professional knowledge base below. Answer the user's actual question directly and naturally.
+  const normalized = normalizeText(last.content).replace(/[^a-z0-9\s]/g, '').trim();
+  const shortFollowUps = new Set([
+    'why', 'why is that', 'how so', 'really', 'strange', 'thats strange', 'weird', 'and', 'so',
+    'what do you mean', 'por que', 'porque', 'como asi', 'en serio', 'raro', 'que raro', 'extrano',
+    'y', 'entonces', 'que quieres decir',
+  ]);
+  const isShort = last.content.length <= 40;
+  if (!isShort || !shortFollowUps.has(normalized)) return messages;
+
+  const repaired = [...messages];
+  repaired[lastIndex] = {
+    role: 'user',
+    content: `${last.content}\n\nThis is a conversational follow-up to your immediately preceding answer. Resolve what the user means from that answer and the prior turns. Do not treat this as an isolated factual lookup. If they ask why, explain the reasoning behind the preceding answer using supported facts and clearly label any reasonable synthesis as such. If they react with words such as strange/weird/raro, engage with the reaction and clarify rather than repeating the previous sentence.`,
+  };
+  return repaired;
+}
+
+function systemPrompt() {
+  return `You are the conversational assistant embedded in Gabriel Bibbó's professional website. You are not a database search box: you should hold a coherent conversation about Gabriel's public professional profile.
+
+Use ONLY the professional knowledge base below as your source of facts. You MAY synthesize, compare, explain relevance, and connect multiple supported facts when the user asks why, how, fit, strengths, weaknesses, suitability, implications, or other analytical questions. When doing so, do not pretend an inference is an explicit biographical fact.
+
+CONVERSATION CONTINUITY
+- Read the full supplied conversation before answering.
+- Resolve short follow-ups such as "Why?", "How so?", "Really?", "Strange", "And?", "¿Por qué?", "Qué raro", etc. against the immediately preceding turns.
+- Never answer a contextual follow-up as though it were a brand-new isolated query.
+- If the user asks "why" after one of your answers, explain why that answer makes sense from the known evidence. Do not default to "the profile does not provide enough information" if a supported explanation or bounded synthesis is possible.
+- If the user challenges or reacts to an answer, address the challenge. Do not mechanically repeat the same response.
+- Only say information is unavailable when the requested factual detail truly cannot be answered or responsibly synthesized from the knowledge base and conversation.
 
 VOICE AND STYLE
 - Speak about him simply as "Gabriel" after the name is established by the page context.
 - Do NOT begin answers with stock attribution phrases such as "According to Gabriel Bibbó's public professional profile", "Based on his profile", "The profile states", or equivalent wording in Spanish.
 - Start with the answer itself. Example: "Gabriel is available for...", not "According to his profile, he is available for...".
-- Reply in the same language as the user.
+- Reply in the same language as the user, including follow-up turns.
 - Use plain text only. Do not emit Markdown markers such as **, ##, or backticks because the website renders responses as plain text.
-- Prefer concise prose or a short numbered list only when a list materially improves clarity. Keep most answers to 1-3 short paragraphs.
-- Avoid repetitive conclusions that merely restate the preceding list.
+- Prefer concise prose. Use a short numbered list only when it genuinely improves clarity. Keep most answers to 1-3 short paragraphs.
+- Do not sound like a compliance notice or repeatedly mention the existence of a "public profile" unless that limitation is directly relevant.
 
 FACTUAL DISCIPLINE
-- Never invent facts. If a fact is not explicitly known, distinguish what is known from what is not known.
+- Never invent facts. Distinguish explicit facts from reasonable professional interpretation.
 - Respect the user's requested category strictly. If the user asks for publications, use only the "Publications and research outputs" section. Do not add projects, demos, courses, or experience entries merely because they are related. If the user asks for projects, use only the Projects section unless they explicitly ask for broader context.
 - When asked which items are "about" a topic, include only items whose title or supplied metadata clearly and centrally concerns that topic. Do not include tangentially adjacent work just because it shares a broad domain such as audio, privacy, soundscapes, or machine learning.
 - Do not duplicate the same work because it appears conceptually elsewhere in the knowledge base.
 - Do not expose private age, home address, private phone, salary, medical, family, or other non-public details.
 - Do not disclose or guess confidential Edge Audio Labs clients, project names, ticket IDs, repositories, or internal identifiers.
 - Locations attached to jobs or studies are not automatically home addresses.
-- For questions such as "What country is Gabriel from?" / "¿De qué país es Gabriel?", do not guess nationality from a workplace or university. State only the supported facts: Gabriel is based in Montevideo, Uruguay, and the profile states that he is an Italian citizen with EU work authorization.
+- For questions such as "What country is Gabriel from?" / "¿De qué país es Gabriel?", do not guess nationality from a workplace or university. State only the supported facts: Gabriel is based in Montevideo, Uruguay, and is an Italian citizen with EU work authorization.
 
 PUBLIC PROFESSIONAL KNOWLEDGE BASE
 ${profileAssistantKnowledge}`;
@@ -143,18 +185,19 @@ ${profileAssistantKnowledge}`;
 
 async function runModel(env: any, messages: ChatMessage[]) {
   let lastError = '';
+  const contextualMessages = contextualizeShortFollowUp(messages);
 
   for (const model of MODEL_CANDIDATES) {
     try {
       const result = await env.AI.run(model, {
         messages: [
           { role: 'system', content: systemPrompt() },
-          ...messages,
+          ...contextualMessages,
         ],
         max_tokens: 600,
-        temperature: 0.15,
+        temperature: 0.2,
       });
-      const answer = extractAnswer(result).trim();
+      const answer = sanitizeAnswer(extractAnswer(result));
       if (answer) return { answer: answer.slice(0, MAX_REPLY_CHARS), model };
       lastError = `${model} returned an empty response.`;
     } catch (error: any) {
