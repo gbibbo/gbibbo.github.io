@@ -1,0 +1,90 @@
+---
+import WorkCaseStudyLayout from '../../../layouts/WorkCaseStudyLayout.astro';
+import { profile, projectsData } from '../../../data/profileData';
+
+const project = projectsData.find((item) => item.title === '3H-ATO');
+if (!project) throw new Error('3H-ATO project not found');
+
+const siteUrl = profile.links.web.replace(/\/$/, '');
+const canonical = `${siteUrl}/work/3h-ato/`;
+const facebookUrl = 'https://www.facebook.com/3havoidtouchingobjets';
+const videoUrl = project.links.find((link) => link.label === 'Video')?.href ?? 'https://www.youtube.com/watch?v=aQVo0i5OLWU';
+const socialImage = `${siteUrl}${project.image}`;
+const pageTitle = '3H-ATO · Mechanical no-touch tool · Gabriel Bibbó';
+const description = 'Expanded project page for 3H-ATO, a compact two-part mechanical tool created during the COVID-19 pandemic to handle shared surfaces without direct hand contact.';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${canonical}#webpage`,
+  url: canonical,
+  name: pageTitle,
+  description,
+  inLanguage: 'en',
+  dateModified: profile.updated,
+  author: { '@type': 'Person', '@id': `${siteUrl}/#person`, name: profile.name, url: `${siteUrl}/` },
+  mainEntity: {
+    '@type': 'CreativeWork',
+    name: '3H-ATO (Third Hand - Avoid Touching Objects)',
+    description,
+    creator: { '@id': `${siteUrl}/#person` },
+    keywords: ['Mechanical design', 'Product design', 'Prototyping', 'COVID-19', 'No-touch tool'],
+    url: canonical,
+    sameAs: [facebookUrl, videoUrl],
+  },
+};
+---
+
+<WorkCaseStudyLayout
+  canonical={canonical}
+  externalUrl={facebookUrl}
+  externalLabel="Project page on Facebook"
+  socialImage={socialImage}
+  pageTitle={pageTitle}
+  description={description}
+  schema={schema}
+  eyebrow="Product design · Mechanical prototyping · 2020-2022"
+  heading="3H-ATO: a mechanical third hand for shared surfaces"
+  intro="Created during the COVID-19 pandemic, 3H-ATO was designed as a small mechanical tool that takes contact with shared surfaces instead of the user's hand."
+  facts={[
+    { value: '2', label: 'moving mechanical parts' },
+    { value: '2020', label: 'project started' },
+    { value: 'Washable', label: 'soap-and-water sanitisation' },
+    { value: 'Multi-use', label: 'rails, doors, buttons and small objects' },
+  ]}
+>
+  <section class="section">
+    <div class="shell">
+      <h2>Design problem</h2>
+      <p>The project explored a deliberately simple alternative to touching high-contact public surfaces directly. The intended use cases included public-transport handrails, door handles, buttons, small objects and shopping trolleys.</p>
+      <div class="grid">
+        <article><h3>Purely mechanical</h3><p>No electronics, batteries or connectivity were required. The interaction was embodied in the geometry and movement of the tool itself.</p></article>
+        <article><h3>Portable</h3><p>The product was designed to remain small and lightweight enough to accompany a user outside the home.</p></article>
+        <article><h3>Two moving parts</h3><p>The mechanism used two moving pieces shaped to cover several grasping, pulling and pushing interactions with one compact object.</p></article>
+        <article><h3>Sanitisable</h3><p>The tool could be cleaned with soap and water after use, keeping the contaminated contact surface separate from the user's hand.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Project image</h2>
+      <figure class="figure">
+        <a class="figure-frame" href={project.image} target="_blank" rel="noreferrer" aria-label="Open the full-size 3H-ATO project image">
+          <img src={project.image} alt="3H-ATO mechanical no-touch tool" loading="lazy" />
+        </a>
+        <figcaption>The current archived project image is shown complete, without cropping. Select it to open the original file.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Project material</h2>
+      <div class="evidence"><div class="label">Facebook archive</div><div><a href={facebookUrl} target="_blank" rel="noreferrer">3H - Avoid Touching Objects</a>, the original public project page supplied for this portfolio update.</div></div>
+      <div class="evidence"><div class="label">Video</div><div><a href={videoUrl} target="_blank" rel="noreferrer">Promotional project video</a>.</div></div>
+      <div class="evidence"><div class="label">Portfolio role</div><div>Product conception, mechanical design and prototyping.</div></div>
+      <div class="tags">{project.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
+    </div>
+  </section>
+</WorkCaseStudyLayout>
