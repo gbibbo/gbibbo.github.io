@@ -3,6 +3,8 @@ import path from 'node:path';
 
 const routes = [
   '/work/audio-language-vad/',
+  '/work/asr-enhancement/',
+  '/work/traktor-ml/',
   '/work/sounds-of-home/',
   '/work/speech-removal/',
   '/work/harmonic-edm-mixing/',
@@ -13,6 +15,8 @@ const routes = [
 ];
 
 const imageRoutes = [
+  { image: '/homepage_files/asr-raspberry.jpg', route: '/work/asr-enhancement/' },
+  { image: '/homepage_files/traktor_interface.svg', route: '/work/traktor-ml/' },
   { image: '/homepage_files/project_3hato.png', route: '/work/3h-ato/' },
   { image: '/homepage_files/project_iot_soap_dispenser.png', route: '/work/iot-soap-dispenser/' },
   { image: '/homepage_files/uyvoy.png', route: '/work/uyvoy/' },
