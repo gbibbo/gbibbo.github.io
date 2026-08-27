@@ -32,7 +32,7 @@ jobs:
           grep -Fxq 'google-site-verification: google14b127158d0ab073.html' dist/google14b127158d0ab073.html
           grep -Fq '<loc>https://gbibbo.github.io/</loc>' dist/sitemap.xml
           grep -Fq '<loc>https://gbibbo.github.io/es/</loc>' dist/sitemap.xml
-          for route in audio-language-vad sounds-of-home speech-removal harmonic-edm-mixing raspberry-pi-sed 3h-ato; do
+          for route in audio-language-vad sounds-of-home speech-removal harmonic-edm-mixing raspberry-pi-sed 3h-ato iot-soap-dispenser uyvoy; do
             grep -Fq "<loc>https://gbibbo.github.io/work/$route/</loc>" dist/sitemap.xml
             test -s "dist/work/$route/index.html"
             grep -Fq "rel=\"related\" href=\"/work/$route/\"" dist/index.html
@@ -45,6 +45,8 @@ jobs:
           grep -Fq '"@id":"https://gbibbo.github.io/#person"' dist/index.html
           grep -Fq 'https://gbibbo.github.io/work/sounds-of-home/' dist/index.html
           grep -Fq 'https://gbibbo.github.io/work/3h-ato/' dist/index.html
+          grep -Fq 'https://gbibbo.github.io/work/iot-soap-dispenser/' dist/index.html
+          grep -Fq 'https://gbibbo.github.io/work/uyvoy/' dist/index.html
           grep -Fq 'rel="alternate" type="application/json" href="/resume.json"' dist/index.html
           grep -Fq 'rel="alternate" type="application/json" href="/resume.json"' dist/cv/index.html
           grep -Fq 'Gabriel Bibbó CV · Audio ML, DSP and machine listening' dist/cv/index.html
@@ -71,11 +73,20 @@ jobs:
           grep -Fq 'WASPAA 2025' dist/work/speech-removal/index.html
           grep -Fq 'Tonal Interval Vector' dist/work/harmonic-edm-mixing/index.html
           grep -Fq 'PiSoundSensing' dist/work/raspberry-pi-sed/index.html
-          grep -Fq 'two moving pieces' dist/work/3h-ato/index.html
+          grep -Fq 'ANII validation proposal' dist/work/3h-ato/index.html
+          grep -Fq 'Automatic IoT Soap Dispenser' dist/work/iot-soap-dispenser/index.html
+          grep -Fq 'remote compliance monitoring' dist/work/iot-soap-dispenser/index.html
+          grep -Fq 'case_study_iot_washes.webp' dist/work/iot-soap-dispenser/index.html
+          grep -Fq 'HackCovid19UY' dist/work/uyvoy/index.html
+          grep -Fq 'Product owner' dist/work/uyvoy/index.html
+          grep -Fq 'case_study_uyvoy_hackcovid.webp' dist/work/uyvoy/index.html
+          grep -Fq 'case_study_uyvoy_logo_proposals.webp' dist/work/uyvoy/index.html
           grep -Fq 'object-fit:contain' src/layouts/WorkCaseStudyLayout.astro
           grep -Fq 'data-publication-preview' dist/index.html
           grep -Fq 'publication-title-link' dist/index.html
           grep -Fq 'href="/work/3h-ato/"' dist/index.html
+          grep -Fq 'href="/work/iot-soap-dispenser/"' dist/index.html
+          grep -Fq 'href="/work/uyvoy/"' dist/index.html
           grep -Fq 'https://www.cvssp.org/data/ai4s/sounds_of_home/' dist/index.html
           grep -Fq 'https://huggingface.co/spaces/gbibbo/vad_demo' dist/index.html
           grep -Fq 'https://github.com/gbibbo/harmonic_mix' dist/index.html
