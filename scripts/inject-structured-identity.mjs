@@ -11,6 +11,11 @@ const imageUrl = `${siteUrl}/homepage_files/profile.jpg`;
 const currentEmployer = experience.find((item) => item.org === 'Edge Audio Labs');
 const surrey = experience.find((item) => item.org === 'University of Surrey');
 
+const caseStudies = [
+  { name: 'Robust VAD with Audio-Language Models', route: '/work/audio-language-vad/' },
+  { name: '3H-ATO mechanical no-touch tool', route: '/work/3h-ato/' },
+];
+
 const person = {
   '@type': 'Person',
   '@id': personId,
@@ -57,13 +62,11 @@ const person = {
     'Music information retrieval',
   ],
   knowsLanguage: ['Spanish', 'English', 'Portuguese'],
-  subjectOf: [
-    {
-      '@type': 'WebPage',
-      name: 'Robust VAD with Audio-Language Models',
-      url: `${siteUrl}/work/audio-language-vad/`,
-    },
-  ],
+  subjectOf: caseStudies.map((item) => ({
+    '@type': 'WebPage',
+    name: item.name,
+    url: `${siteUrl}${item.route}`,
+  })),
 };
 
 const pages = [
