@@ -14,13 +14,30 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
       - name: Install dependencies
         run: npm install
+
       - name: Build
+        env:
+          PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN: ci-test-token
         run: npm run build
 
-# Preview trigger: 2026-08-26
+      - name: Verify P0 discovery and analytics outputs
+        run: |
+          grep -Fxq 'google-site-verification: google7901b35217a9c314.html' dist/google7901b35217a9c314.html
+          grep -Fq '<loc>https://gbibbo.github.io/</loc>' dist/sitemap.xml
+          grep -Fq '<loc>https://gbibbo.github.io/es/</loc>' dist/sitemap.xml
+          grep -Fq 'https://gbibbo.github.io/' dist/index.html
+          grep -Fq 'static.cloudflareinsights.com/beacon.min.js' dist/index.html
+          if grep -Fq 'static.cloudflareinsights.com/beacon.min.js' dist/google7901b35217a9c314.html; then
+            echo 'Analytics beacon must not modify Google verification HTML.'
+            exit 1
+          fi
+
+# Preview trigger: 2026-08-27
