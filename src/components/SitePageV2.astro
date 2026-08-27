@@ -1,6 +1,7 @@
 ---
 import '../styles/editorial-v2.css';
 import ProfileAssistantV2 from './ProfileAssistantV2';
+import PublicationThumbnail from './PublicationThumbnail.astro';
 import {
   coursesData,
   educationData,
@@ -108,9 +109,18 @@ const projectDescription = (project) => isEs ? project.descriptionEs : project.d
 const projectCaseStudyRoutes = {
   'Audio-Language Models for Voice Activity Detection': '/work/audio-language-vad/',
 };
+const preserveProjectImageDestination = new Set([
+  'Sounds of Home Dataset',
+  'Speech Removal Framework',
+  'Harmonic EDM Mixing Compatibility',
+  'Raspberry Pi Sound Event Recognition Demo',
+]);
 const projectPrimaryHref = (project) => project.links?.[0]?.href ?? project.image;
-const projectImageHref = (project) => projectCaseStudyRoutes[project.title] ?? projectPrimaryHref(project);
-const projectImageIsExternal = (project) => !projectCaseStudyRoutes[project.title];
+const projectImageHref = (project) => {
+  if (preserveProjectImageDestination.has(project.title)) return projectPrimaryHref(project);
+  return projectCaseStudyRoutes[project.title] ?? projectPrimaryHref(project);
+};
+const projectImageIsExternal = (project) => preserveProjectImageDestination.has(project.title) || !projectCaseStudyRoutes[project.title];
 const publicationPrimaryHref = (publication) => publication.links?.[0]?.href ?? '#';
 const availability = isEs ? profile.availabilityEs : profile.availability;
 const languageText = profile.languages.map((item) => `${isEs ? item.nameEs : item.nameEn} ${isEs ? item.levelEs : item.levelEn}`).join(' · ');
@@ -287,9 +297,9 @@ const publicationImages = {
                   <ol>
                     {publicationsData.filter((publication) => publication.year === year).map((publication) => (
                       <li class="publication-item">
-                        {publicationImages[publication.title] && <a class="publication-thumb" href={publicationPrimaryHref(publication)} target="_blank" rel="noreferrer"><img src={publicationImages[publication.title]} alt={publication.title} loading="lazy" /></a>}
+                        {publicationImages[publication.title] && <PublicationThumbnail src={publicationImages[publication.title]} title={publication.title} />}
                         <div>
-                          <h4>{publication.title}</h4>
+                          <h4><a class="publication-title-link" href={publicationPrimaryHref(publication)} target="_blank" rel="noreferrer">{publication.title}</a></h4>
                           <p>{publication.authors.join('; ')}</p>
                           <p><em>{publication.venue}</em></p>
                           {publication.links.length > 0 && <div class="link-row">{publication.links.map((link) => <a href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>)}</div>}
