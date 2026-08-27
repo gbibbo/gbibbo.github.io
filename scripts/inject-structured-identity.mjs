@@ -13,6 +13,10 @@ const surrey = experience.find((item) => item.org === 'University of Surrey');
 
 const caseStudies = [
   { name: 'Robust VAD with Audio-Language Models', route: '/work/audio-language-vad/' },
+  { name: 'Sounds of Home Dataset', route: '/work/sounds-of-home/' },
+  { name: 'Speech Removal Framework', route: '/work/speech-removal/' },
+  { name: 'Harmonic EDM Mixing Compatibility', route: '/work/harmonic-edm-mixing/' },
+  { name: 'Raspberry Pi Sound Event Recognition Demo', route: '/work/raspberry-pi-sed/' },
   { name: '3H-ATO mechanical no-touch tool', route: '/work/3h-ato/' },
 ];
 
