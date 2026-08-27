@@ -18,6 +18,8 @@ const caseStudies = [
   { name: 'Harmonic EDM Mixing Compatibility', route: '/work/harmonic-edm-mixing/' },
   { name: 'Raspberry Pi Sound Event Recognition Demo', route: '/work/raspberry-pi-sed/' },
   { name: '3H-ATO mechanical no-touch tool', route: '/work/3h-ato/' },
+  { name: 'Automatic IoT Soap Dispenser', route: '/work/iot-soap-dispenser/' },
+  { name: 'UyVoy Mobile App', route: '/work/uyvoy/' },
 ];
 
 const person = {
