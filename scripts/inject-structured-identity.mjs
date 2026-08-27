@@ -57,6 +57,13 @@ const person = {
     'Music information retrieval',
   ],
   knowsLanguage: ['Spanish', 'English', 'Portuguese'],
+  subjectOf: [
+    {
+      '@type': 'WebPage',
+      name: 'Robust VAD with Audio-Language Models',
+      url: `${siteUrl}/work/audio-language-vad/`,
+    },
+  ],
 };
 
 const pages = [
