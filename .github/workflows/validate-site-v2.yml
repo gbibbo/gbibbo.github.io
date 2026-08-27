@@ -32,6 +32,10 @@ jobs:
           grep -Fxq 'google-site-verification: google14b127158d0ab073.html' dist/google14b127158d0ab073.html
           grep -Fq '<loc>https://gbibbo.github.io/</loc>' dist/sitemap.xml
           grep -Fq '<loc>https://gbibbo.github.io/es/</loc>' dist/sitemap.xml
+          grep -Fq '<lastmod>2026-08-26</lastmod>' dist/sitemap.xml
+          grep -Fq 'hreflang="en" href="https://gbibbo.github.io/"' dist/sitemap.xml
+          grep -Fq 'hreflang="es" href="https://gbibbo.github.io/es/"' dist/sitemap.xml
+          grep -Fq 'hreflang="x-default" href="https://gbibbo.github.io/"' dist/sitemap.xml
           grep -Fq 'https://gbibbo.github.io/' dist/index.html
           grep -Fq '"@type":"ProfilePage"' dist/index.html
           grep -Fq '"@id":"https://gbibbo.github.io/#person"' dist/index.html
