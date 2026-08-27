@@ -26,21 +26,25 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Verify discovery, identity, and analytics outputs
+      - name: Verify discovery, identity, work pages, and analytics outputs
         run: |
           grep -Fxq 'google-site-verification: google7901b35217a9c314.html' dist/google7901b35217a9c314.html
           grep -Fxq 'google-site-verification: google14b127158d0ab073.html' dist/google14b127158d0ab073.html
           grep -Fq '<loc>https://gbibbo.github.io/</loc>' dist/sitemap.xml
           grep -Fq '<loc>https://gbibbo.github.io/es/</loc>' dist/sitemap.xml
-          grep -Fq '<loc>https://gbibbo.github.io/work/audio-language-vad/</loc>' dist/sitemap.xml
+          for route in audio-language-vad sounds-of-home speech-removal harmonic-edm-mixing raspberry-pi-sed 3h-ato; do
+            grep -Fq "<loc>https://gbibbo.github.io/work/$route/</loc>" dist/sitemap.xml
+            test -s "dist/work/$route/index.html"
+            grep -Fq "rel=\"related\" href=\"/work/$route/\"" dist/index.html
+          done
           grep -Fq '<lastmod>2026-08-26</lastmod>' dist/sitemap.xml
           grep -Fq 'hreflang="en" href="https://gbibbo.github.io/"' dist/sitemap.xml
           grep -Fq 'hreflang="es" href="https://gbibbo.github.io/es/"' dist/sitemap.xml
           grep -Fq 'hreflang="x-default" href="https://gbibbo.github.io/"' dist/sitemap.xml
-          grep -Fq 'https://gbibbo.github.io/' dist/index.html
           grep -Fq '"@type":"ProfilePage"' dist/index.html
           grep -Fq '"@id":"https://gbibbo.github.io/#person"' dist/index.html
-          grep -Fq 'https://gbibbo.github.io/work/audio-language-vad/' dist/index.html
+          grep -Fq 'https://gbibbo.github.io/work/sounds-of-home/' dist/index.html
+          grep -Fq 'https://gbibbo.github.io/work/3h-ato/' dist/index.html
           grep -Fq 'rel="alternate" type="application/json" href="/resume.json"' dist/index.html
           grep -Fq 'rel="alternate" type="application/json" href="/resume.json"' dist/cv/index.html
           grep -Fq 'Gabriel Bibbó CV · Audio ML, DSP and machine listening' dist/cv/index.html
@@ -58,15 +62,24 @@ jobs:
           grep -Fq '"network": "ORCID"' dist/resume.json
           grep -Fq '"name": "Edge Audio Labs"' dist/resume.json
           grep -Fq '"name": "Speech Removal Framework for Privacy-preserving Audio Recordings"' dist/resume.json
-          test -s dist/work/audio-language-vad/index.html
           grep -Fq 'Robust voice activity detection with audio-language models' dist/work/audio-language-vad/index.html
           grep -Fq '93.3%' dist/work/audio-language-vad/index.html
           grep -Fq '21,340' dist/work/audio-language-vad/index.html
           grep -Fq 'DT90 = 96 ms' dist/work/audio-language-vad/index.html
           grep -Fq 'github.com/gbibbo/qwen-vad-lora' dist/work/audio-language-vad/index.html
-          grep -Fq 'figure-frame' dist/work/audio-language-vad/index.html
-          grep -Fq '/work/audio-language-vad/' src/components/SitePageV2.astro
-          grep -Fq 'object-fit:contain' src/pages/work/audio-language-vad/index.astro
+          grep -Fq '1,344' dist/work/sounds-of-home/index.html
+          grep -Fq 'WASPAA 2025' dist/work/speech-removal/index.html
+          grep -Fq 'Tonal Interval Vector' dist/work/harmonic-edm-mixing/index.html
+          grep -Fq 'PiSoundSensing' dist/work/raspberry-pi-sed/index.html
+          grep -Fq 'two moving pieces' dist/work/3h-ato/index.html
+          grep -Fq 'object-fit:contain' src/layouts/WorkCaseStudyLayout.astro
+          grep -Fq 'data-publication-preview' dist/index.html
+          grep -Fq 'publication-title-link' dist/index.html
+          grep -Fq 'href="/work/3h-ato/"' dist/index.html
+          grep -Fq 'https://www.cvssp.org/data/ai4s/sounds_of_home/' dist/index.html
+          grep -Fq 'https://huggingface.co/spaces/gbibbo/vad_demo' dist/index.html
+          grep -Fq 'https://github.com/gbibbo/harmonic_mix' dist/index.html
+          grep -Fq 'https://github.com/gbibbo/pisoundsensing' dist/index.html
           grep -Fq '3be599b0fe114d2c8821c689fbb50d80' dist/index.html
           grep -Fq 'static.cloudflareinsights.com/beacon.min.js' dist/index.html
           if grep -Fq 'static.cloudflareinsights.com/beacon.min.js' dist/google7901b35217a9c314.html; then
