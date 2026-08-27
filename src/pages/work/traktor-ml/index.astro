@@ -1,0 +1,105 @@
+---
+import WorkCaseStudyLayout from '../../../layouts/WorkCaseStudyLayout.astro';
+import { profile, projectsData } from '../../../data/profileData';
+
+const project = projectsData.find((item) => item.title === 'Traktor ML');
+if (!project) throw new Error('Traktor ML project not found');
+
+const siteUrl = profile.links.web.replace(/\/$/, '');
+const canonical = `${siteUrl}/work/traktor-ml/`;
+const repoUrl = project.links.find((link) => link.label === 'Code')?.href ?? 'https://github.com/gbibbo/traktor';
+const socialImage = `${siteUrl}${project.image}`;
+const pageTitle = 'Traktor ML · Audio ML for DJ library organisation · Gabriel Bibbó';
+const description = 'An Audio ML pipeline that turns a local Techno and Tech House collection into Traktor-ready playlists using MERT embeddings, Demucs stems, Essentia metadata, clustering and transition-aware ordering.';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${canonical}#webpage`,
+  url: canonical,
+  name: pageTitle,
+  description,
+  inLanguage: 'en',
+  dateModified: profile.updated,
+  author: { '@type': 'Person', '@id': `${siteUrl}/#person`, name: profile.name, url: `${siteUrl}/` },
+  mainEntity: {
+    '@type': 'SoftwareSourceCode',
+    name: project.title,
+    description,
+    creator: { '@id': `${siteUrl}/#person` },
+    keywords: project.tags,
+    codeRepository: repoUrl,
+    programmingLanguage: 'Python',
+    url: canonical,
+  },
+};
+---
+
+<WorkCaseStudyLayout
+  canonical={canonical}
+  externalUrl={repoUrl}
+  externalLabel="Source code"
+  socialImage={socialImage}
+  pageTitle={pageTitle}
+  description={description}
+  schema={schema}
+  eyebrow="Music information retrieval · Audio ML · DJ workflow · 2026"
+  heading="Audio ML that turns a DJ library into playable Traktor playlists"
+  intro="Traktor ML organises a local Techno and Tech House collection by how the tracks actually sound. It extracts learned audio representations and musical metadata, clusters related tracks, orders them for smoother transitions and exports versioned M3U playlists that can be loaded directly into Traktor."
+  facts={[
+    { value: '239', label: 'tracks in the validated V4 run' },
+    { value: '1024-D', label: 'MERT audio embeddings' },
+    { value: '8', label: 'first-level clusters' },
+    { value: '14', label: 'exported M3U playlists' },
+  ]}
+>
+  <section class="section">
+    <div class="shell">
+      <h2>From audio folder to DJ playlists</h2>
+      <div class="grid">
+        <article><h3>Audio representation</h3><p>MERT provides learned embeddings for both the full mix and percussion-focused audio, while Demucs separates stems so groove and timbral structure can be analysed from more than one view of each track.</p></article>
+        <article><h3>Musical metadata</h3><p>Essentia extracts BPM, beat confidence and musical key so learned similarity can be combined with information that matters directly during a DJ transition.</p></article>
+        <article><h3>Clustering</h3><p>PCA reduces the embedding space before HDBSCAN groups related tracks. UMAP provides a two-dimensional view for inspecting the result rather than treating clustering as a black box.</p></article>
+        <article><h3>Transition-aware ordering</h3><p>Tracks inside each group are ordered using embedding distance, BPM distance and Camelot key compatibility, then exported as UTF-8 M3U playlists with paths ready for Traktor.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Pipeline</h2>
+      <div class="evidence"><div class="label">0 · Ingest</div><div>Scan the collection, validate paths and create stable track identifiers.</div></div>
+      <div class="evidence"><div class="label">1 · Features</div><div>Extract Demucs stems, MERT embeddings and Essentia BPM/key features.</div></div>
+      <div class="evidence"><div class="label">2 · Cluster</div><div>Apply PCA, HDBSCAN and UMAP to organise the collection by acoustic similarity.</div></div>
+      <div class="evidence"><div class="label">3 · Name</div><div>Assign readable names to the resulting groups for practical browsing.</div></div>
+      <div class="evidence"><div class="label">4 · Order</div><div>Sequence tracks using acoustic similarity, tempo and harmonic compatibility.</div></div>
+      <div class="evidence"><div class="label">5 · Export</div><div>Write versioned M3U playlists and review or re-export them from the Streamlit interface.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Validated V4 run</h2>
+      <p>The current run starts from 243 files and produces a canonical set of 239 tracks after feature extraction. Both MERT representations have shape 239 × 1024, the collection spans 86 to 167 BPM, and the latest export places all 239 processed tracks into 14 playlists.</p>
+      <div class="evidence"><div class="label">GPU extraction</div><div>239 tracks in 1 h 03 m for the full feature-extraction run.</div></div>
+      <div class="evidence"><div class="label">Median tempo</div><div>123.9 BPM across the validated collection.</div></div>
+      <div class="evidence"><div class="label">Coverage</div><div>239 of 239 processed tracks appear in the latest playlist export.</div></div>
+      <div class="evidence"><div class="label">Transition score</div><div>0.797 in the validation tracker for the latest V4 workflow.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Interactive review</h2>
+      <p>The Streamlit and Plotly interface shows the UMAP projection, supports cluster filtering, exposes BPM and key metadata and lets playlist versions be reviewed and re-exported after parameter changes. The clustering is a decision aid for DJ workflow, not a replacement for listening and musical judgement.</p>
+      <figure class="figure">
+        <a class="figure-frame" href={project.image} target="_blank" rel="noreferrer" aria-label="Open the full-size Traktor ML interface image">
+          <img src={project.image} alt="Traktor ML Streamlit clustering interface" loading="lazy" />
+        </a>
+        <figcaption>The interface turns the clustering artifacts into an inspectable workflow for listening, filtering and playlist iteration.</figcaption>
+      </figure>
+      <div class="evidence"><div class="label">Repository</div><div><a href={repoUrl} target="_blank" rel="noreferrer">github.com/gbibbo/traktor</a></div></div>
+      <div class="tags">{project.tags.map((tag) => <span class="tag">{tag}</span>)}<span class="tag">PCA</span><span class="tag">Plotly</span><span class="tag">Slurm</span><span class="tag">Apptainer</span></div>
+    </div>
+  </section>
+</WorkCaseStudyLayout>
