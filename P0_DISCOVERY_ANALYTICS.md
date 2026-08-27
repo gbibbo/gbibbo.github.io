@@ -2,6 +2,27 @@
 
 This file records the infrastructure behind the public profile so the setup is reproducible.
 
+## Current status
+
+Implemented and verified in source control:
+
+- recoverable backup of the legacy GitHub Pages site
+- canonical hostname `gbibbo.github.io`
+- automatic sitemap generation
+- `robots.txt`
+- preserved Google Search Console verification file
+- GitHub Pages deployment workflow
+- Cloudflare Pages backend with versioned Workers AI and D1 bindings
+- anonymous bot-question logging to D1
+- bot endpoint CORS for the future GitHub Pages frontend
+- optional Cloudflare Web Analytics beacon injection
+
+Still to activate externally:
+
+1. Create a Cloudflare Web Analytics site for `gbibbo.github.io` and expose its beacon token to the GitHub Pages build.
+2. Deploy V2 to `master` only after the remaining production checks.
+3. Verify the new production site and submit `https://gbibbo.github.io/sitemap.xml` in Google Search Console.
+
 ## Safety backup
 
 The legacy GitHub Pages site was frozen before changing the canonical URL:
@@ -29,7 +50,7 @@ After deployment, verify that this URL returns the verification text, then submi
 
 `https://gbibbo.github.io/sitemap.xml`
 
-The sitemap currently contains:
+The sitemap is generated automatically from built pages and currently contains:
 
 - `/`
 - `/es/`
@@ -40,7 +61,7 @@ The sitemap currently contains:
 
 `.github/workflows/deploy-github-pages.yml` builds Astro and deploys `dist/` when `master` changes.
 
-Before the first production deployment, GitHub repository Settings > Pages must use GitHub Actions as the build source.
+GitHub repository Settings > Pages is configured to use GitHub Actions as the build source.
 
 ## Cloudflare Web Analytics
 
@@ -56,7 +77,7 @@ The deployment workflow exposes it to the Astro build as:
 
 `PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN`
 
-`scripts/inject-cloudflare-analytics.mjs` injects the beacon into every generated HTML file only when that variable is present.
+`scripts/inject-cloudflare-analytics.mjs` injects the beacon into generated page HTML only when that variable is present. Verification HTML without a `</body>` is deliberately left untouched.
 
 ## Profile assistant backend
 
@@ -73,17 +94,25 @@ Cloudflare previews continue using their local `/api/chat` endpoint.
 - Cloudflare Pages preview subdomains
 - localhost for development
 
+The assistant uses a higher-quality free-tier-first model cascade and explicitly preserves conversational context for short follow-up turns.
+
 ## Anonymous bot-question analytics with D1
 
-Create a Cloudflare D1 database, for example:
+Active D1 database:
 
-`gabriel-profile-analytics`
+`profile-analytics`
 
-Bind it to the Pages project with the variable name:
+Binding:
 
 `ANALYTICS_DB`
 
-Apply the schema in:
+The Workers AI binding is:
+
+`AI`
+
+Both bindings are versioned in `wrangler.jsonc`, including the D1 database ID, so Preview and Production do not depend on manually duplicated dashboard configuration.
+
+Schema:
 
 `cloudflare/d1-schema.sql`
 
