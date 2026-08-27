@@ -20,13 +20,12 @@ async function walk(directory) {
     }
     if (!entry.isFile() || !entry.name.endsWith('.html')) continue;
     const html = await fs.readFile(filePath, 'utf8');
+    if (!html.includes('</body>')) continue;
     if (html.includes('static.cloudflareinsights.com/beacon.min.js')) continue;
-    const updated = html.includes('</body>')
-      ? html.replace('</body>', `${beacon}</body>`)
-      : `${html}${beacon}`;
+    const updated = html.replace('</body>', `${beacon}</body>`);
     await fs.writeFile(filePath, updated, 'utf8');
   }
 }
 
 await walk(root);
-console.log('Cloudflare Web Analytics beacon injected into generated HTML.');
+console.log('Cloudflare Web Analytics beacon injected into generated site pages.');
