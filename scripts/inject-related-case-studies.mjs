@@ -8,6 +8,14 @@ const routes = [
   '/work/harmonic-edm-mixing/',
   '/work/raspberry-pi-sed/',
   '/work/3h-ato/',
+  '/work/iot-soap-dispenser/',
+  '/work/uyvoy/',
+];
+
+const imageRoutes = [
+  { image: '/homepage_files/project_3hato.png', route: '/work/3h-ato/' },
+  { image: '/homepage_files/project_iot_soap_dispenser.png', route: '/work/iot-soap-dispenser/' },
+  { image: '/homepage_files/uyvoy.png', route: '/work/uyvoy/' },
 ];
 
 const pages = [path.resolve('dist/index.html'), path.resolve('dist/es/index.html')];
@@ -21,14 +29,20 @@ for (const file of pages) {
     html = html.replace('</head>', `${relatedLinks}</head>`);
   }
 
-  const threeHAtoAnchor = /<a(?=[^>]*class="project-thumb[^\"]*")(?=[^>]*href="[^"]+")([^>]*)><img(?=[^>]*src="\/homepage_files\/project_3hato\.png")([^>]*)><\/a>/;
-  const match = html.match(threeHAtoAnchor);
-  if (match) {
-    const replacement = match[0].replace(/href="[^"]+"/, 'href="/work/3h-ato/"').replace(/ target="_blank"/, '').replace(/ rel="noreferrer"/, '');
-    html = html.replace(threeHAtoAnchor, replacement);
+  for (const { image, route } of imageRoutes) {
+    const escapedImage = image.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const anchorPattern = new RegExp(`<a(?=[^>]*class="project-thumb[^\"]*")(?=[^>]*href="[^"]+")([^>]*)><img(?=[^>]*src="${escapedImage}")([^>]*)><\\/a>`);
+    const match = html.match(anchorPattern);
+    if (!match) continue;
+
+    const replacement = match[0]
+      .replace(/href="[^"]+"/, `href="${route}"`)
+      .replace(/ target="_blank"/, '')
+      .replace(/ rel="noreferrer"/, '');
+    html = html.replace(anchorPattern, replacement);
   }
 
   await fs.writeFile(file, html, 'utf8');
 }
 
-console.log('Related case-study links injected and 3H-ATO thumbnail routed to its expanded page.');
+console.log('Related case-study links injected and selected project thumbnails routed to expanded pages.');
