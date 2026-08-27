@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && cp -R homepage_files dist/homepage_files && cp -R media dist/media",
+    "build": "astro build && cp -R homepage_files dist/homepage_files && cp -R media dist/media && node scripts/inject-cloudflare-analytics.mjs",
     "preview": "astro preview"
   },
   "dependencies": {
