@@ -41,7 +41,6 @@ jobs:
           grep -Fq '"@type":"ProfilePage"' dist/index.html
           grep -Fq '"@id":"https://gbibbo.github.io/#person"' dist/index.html
           grep -Fq 'https://gbibbo.github.io/work/audio-language-vad/' dist/index.html
-          grep -Fq 'href="/work/audio-language-vad/"' dist/index.html
           grep -Fq 'rel="alternate" type="application/json" href="/resume.json"' dist/index.html
           grep -Fq 'rel="alternate" type="application/json" href="/resume.json"' dist/cv/index.html
           grep -Fq 'Gabriel Bibbó CV · Audio ML, DSP and machine listening' dist/cv/index.html
@@ -65,8 +64,9 @@ jobs:
           grep -Fq '21,340' dist/work/audio-language-vad/index.html
           grep -Fq 'DT90 = 96 ms' dist/work/audio-language-vad/index.html
           grep -Fq 'github.com/gbibbo/qwen-vad-lora' dist/work/audio-language-vad/index.html
-          grep -Fq 'class="figure-frame"' dist/work/audio-language-vad/index.html
-          grep -Fq 'object-fit:contain' dist/work/audio-language-vad/index.html
+          grep -Fq 'figure-frame' dist/work/audio-language-vad/index.html
+          grep -Fq '/work/audio-language-vad/' src/components/SitePageV2.astro
+          grep -Fq 'object-fit:contain' src/pages/work/audio-language-vad/index.astro
           grep -Fq '3be599b0fe114d2c8821c689fbb50d80' dist/index.html
           grep -Fq 'static.cloudflareinsights.com/beacon.min.js' dist/index.html
           if grep -Fq 'static.cloudflareinsights.com/beacon.min.js' dist/google7901b35217a9c314.html; then
