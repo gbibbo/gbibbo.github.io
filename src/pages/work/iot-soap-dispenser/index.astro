@@ -64,50 +64,12 @@ const schema = {
   <section class="section">
     <div class="shell">
       <h2>System schematic</h2>
-      <p>The sensing, identification and monitoring path links the physical dispenser directly to the remote management application.</p>
+      <p>The controller coordinates the 12 V dispensing hardware, relay module, RFID identification, status indicators and infrared sensing that drive the physical handwashing workflow.</p>
       <figure class="figure">
-        <div class="figure-frame" role="img" aria-label="System schematic for the IoT soap dispenser showing infrared sensing, RFID identification, controller, soap pump, WiFi, cloud records and web dashboard">
-          <svg viewBox="0 0 1000 520" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor" />
-              </marker>
-            </defs>
-            <style>
-              .box{fill:#fff;stroke:#7d8580;stroke-width:2}.core{fill:#eef0eb;stroke:#444b47;stroke-width:2.5}.t{font:600 25px Arial,sans-serif;fill:#171a1c}.s{font:20px Arial,sans-serif;fill:#535b56}.line{stroke:#444b47;stroke-width:3;fill:none;marker-end:url(#arrow)}
-            </style>
-            <rect class="box" x="55" y="65" width="210" height="110" rx="10" />
-            <text class="t" x="160" y="112" text-anchor="middle">IR sensor</text>
-            <text class="s" x="160" y="145" text-anchor="middle">hands present</text>
-
-            <rect class="box" x="55" y="335" width="210" height="110" rx="10" />
-            <text class="t" x="160" y="382" text-anchor="middle">RFID card</text>
-            <text class="s" x="160" y="415" text-anchor="middle">employee identity</text>
-
-            <rect class="core" x="365" y="190" width="245" height="140" rx="12" />
-            <text class="t" x="487" y="245" text-anchor="middle">Embedded controller</text>
-            <text class="s" x="487" y="282" text-anchor="middle">event logic + WiFi</text>
-
-            <rect class="box" x="715" y="55" width="220" height="110" rx="10" />
-            <text class="t" x="825" y="102" text-anchor="middle">Soap pump</text>
-            <text class="s" x="825" y="135" text-anchor="middle">3 L reservoir</text>
-
-            <rect class="box" x="715" y="205" width="220" height="110" rx="10" />
-            <text class="t" x="825" y="252" text-anchor="middle">Cloud records</text>
-            <text class="s" x="825" y="285" text-anchor="middle">wash events</text>
-
-            <rect class="box" x="715" y="355" width="220" height="110" rx="10" />
-            <text class="t" x="825" y="402" text-anchor="middle">Web dashboard</text>
-            <text class="s" x="825" y="435" text-anchor="middle">monitor + manage</text>
-
-            <path class="line" d="M265 120 C320 120 325 215 365 235" />
-            <path class="line" d="M265 390 C320 390 325 305 365 285" />
-            <path class="line" d="M610 230 C660 200 670 120 715 110" />
-            <path class="line" d="M610 260 L715 260" />
-            <path class="line" d="M825 315 L825 355" />
-          </svg>
-        </div>
-        <figcaption>Functional architecture of the dispenser, from sensing and identification to dispensing and remote monitoring.</figcaption>
+        <a class="figure-frame" href="/homepage_files/case_study_iot_schematic.webp" target="_blank" rel="noreferrer" aria-label="Open the full-size electrical schematic for the IoT soap dispenser">
+          <img src="/homepage_files/case_study_iot_schematic.webp" alt="IoT soap dispenser electrical schematic with motor, solenoid valve, relay module, ESP8266 controller, RFID reader, status LEDs and infrared sensor" loading="lazy" />
+        </a>
+        <figcaption>Electrical schematic connecting the motor and solenoid valve through the relay board to the controller, RFID reader, status LEDs and infrared sensor.</figcaption>
       </figure>
     </div>
   </section>
