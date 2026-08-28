@@ -84,15 +84,22 @@ jobs:
           grep -Fq 'PiSoundSensing' dist/work/raspberry-pi-sed/index.html
           grep -Fq 'Business validation' dist/work/3h-ato/index.html
           grep -Fq '500 pre-sold units' dist/work/3h-ato/index.html
-          grep -Fq 'System schematic' dist/work/iot-soap-dispenser/index.html
-          test -s dist/homepage_files/case_study_iot_schematic.webp
-          grep -Fq 'case_study_iot_schematic.webp' dist/work/iot-soap-dispenser/index.html
+          grep -Fq 'Electrical schematic' dist/work/iot-soap-dispenser/index.html
+          test -s dist/homepage_files/case_study_iot_schematic.png
+          grep -Fq 'case_study_iot_schematic.png' dist/work/iot-soap-dispenser/index.html
           grep -Fq 'solenoid valve' dist/work/iot-soap-dispenser/index.html
           grep -Fq 'case_study_iot_washes.webp' dist/work/iot-soap-dispenser/index.html
           grep -Fq 'HackCovid19UY' dist/work/uyvoy/index.html
           grep -Fq 'Product owner' dist/work/uyvoy/index.html
           grep -Fq 'case_study_uyvoy_hackcovid.webp' dist/work/uyvoy/index.html
-          grep -Fq 'case_study_uyvoy_logo_proposals.webp' dist/work/uyvoy/index.html
+          test -s dist/homepage_files/case_study_uyvoy_logo_construction.webp
+          test -s dist/homepage_files/case_study_uyvoy_category_icons.webp
+          grep -Fq 'case_study_uyvoy_logo_construction.webp' dist/work/uyvoy/index.html
+          grep -Fq 'case_study_uyvoy_category_icons.webp' dist/work/uyvoy/index.html
+          if grep -Fq 'case_study_uyvoy_logo_proposals.webp' dist/work/uyvoy/index.html; then
+            echo 'UyVoy page must not use the old repetitive logo-proposals image.'
+            exit 1
+          fi
           grep -Fq 'object-fit:contain' src/layouts/WorkCaseStudyLayout.astro
           grep -Fq 'data-publication-preview' dist/index.html
           grep -Fq 'publication-title-link' dist/index.html
