@@ -85,7 +85,9 @@ jobs:
           grep -Fq 'Business validation' dist/work/3h-ato/index.html
           grep -Fq '500 pre-sold units' dist/work/3h-ato/index.html
           grep -Fq 'System schematic' dist/work/iot-soap-dispenser/index.html
-          grep -Fq 'Embedded controller' dist/work/iot-soap-dispenser/index.html
+          test -s dist/homepage_files/case_study_iot_schematic.webp
+          grep -Fq 'case_study_iot_schematic.webp' dist/work/iot-soap-dispenser/index.html
+          grep -Fq 'solenoid valve' dist/work/iot-soap-dispenser/index.html
           grep -Fq 'case_study_iot_washes.webp' dist/work/iot-soap-dispenser/index.html
           grep -Fq 'HackCovid19UY' dist/work/uyvoy/index.html
           grep -Fq 'Product owner' dist/work/uyvoy/index.html
