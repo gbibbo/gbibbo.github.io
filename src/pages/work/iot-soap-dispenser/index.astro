@@ -65,11 +65,11 @@ const schema = {
     <div class="shell">
       <h2>Electrical schematic</h2>
       <p>The controller coordinates the 12 V motor and solenoid valve through a relay module while integrating RFID identification, status LEDs and infrared sensing.</p>
-      <figure class="figure">
-        <a class="figure-frame" href="/homepage_files/case_study_iot_schematic.png" target="_blank" rel="noreferrer" aria-label="Open the full-size electrical schematic for the IoT soap dispenser">
-          <img src="/homepage_files/case_study_iot_schematic.png" alt="IoT soap dispenser electrical schematic with motor, solenoid valve, relay module, controller, RFID reader, status LEDs and infrared sensor" loading="lazy" />
+      <figure class="figure schematic-figure">
+        <a class="figure-frame schematic-frame" href="/homepage_files/case_study_iot_schematic.png" target="_blank" rel="noreferrer" aria-label="Open the full-size electrical schematic for the IoT soap dispenser">
+          <img class="schematic-image" src="/homepage_files/case_study_iot_schematic.png" alt="IoT soap dispenser electrical schematic with motor, solenoid valve, relay module, controller, RFID reader, status LEDs and infrared sensor" loading="lazy" />
         </a>
-        <figcaption>Electrical schematic of the physical dispenser electronics. Select the image to inspect the original at full resolution.</figcaption>
+        <figcaption>Electrical schematic of the physical dispenser electronics, rotated for easier reading on screen. Select the image to inspect the original at full resolution.</figcaption>
       </figure>
     </div>
   </section>
@@ -107,3 +107,28 @@ const schema = {
     </div>
   </section>
 </WorkCaseStudyLayout>
+
+<style>
+  .schematic-frame {
+    aspect-ratio: 5 / 4;
+    padding: 14px;
+  }
+
+  .schematic-frame .schematic-image {
+    width: auto;
+    height: 104%;
+    max-width: none;
+    transform: rotate(-90deg);
+    transform-origin: center;
+  }
+
+  @media (max-width: 760px) {
+    .schematic-frame {
+      aspect-ratio: 1 / 1;
+    }
+
+    .schematic-frame .schematic-image {
+      height: 100%;
+    }
+  }
+</style>
