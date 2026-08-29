@@ -94,6 +94,8 @@ jobs:
           grep -Fq 'HackCovid19UY' dist/work/uyvoy/index.html
           grep -Fq 'Product owner' dist/work/uyvoy/index.html
           grep -Fq 'case_study_uyvoy_hackcovid.webp' dist/work/uyvoy/index.html
+          test -s dist/homepage_files/case_study_uyvoy_hackcovid.webp
+          python -c "from pathlib import Path; d=Path('dist/homepage_files/case_study_uyvoy_hackcovid.webp').read_bytes(); assert d[:4] == b'RIFF' and d[8:12] == b'WEBP'"
           test -s dist/homepage_files/uyvoy_logo_construction.webp
           test -s dist/homepage_files/uyvoy_category_icons.webp
           grep -Fq 'uyvoy_logo_construction.webp' dist/work/uyvoy/index.html
