@@ -107,10 +107,11 @@ function findCodeRepository(project) {
 
 function enrichMainEntity(existing, config, project, canonical) {
   const links = externalLinks(project);
+  const { '@type': _oldType, '@id': _oldId, ...existingFields } = existing;
   const entity = {
-    ...existing,
     '@type': config.type,
     '@id': `${canonical}#work`,
+    ...existingFields,
     name: existing?.name ?? project.title,
     description: existing?.description ?? project.description,
     creator: { '@type': 'Person', '@id': personId, name: profile.name },
