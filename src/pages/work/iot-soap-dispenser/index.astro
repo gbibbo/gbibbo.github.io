@@ -1,0 +1,134 @@
+---
+import WorkCaseStudyLayout from '../../../layouts/WorkCaseStudyLayout.astro';
+import { profile, projectsData } from '../../../data/profileData';
+
+const project = projectsData.find((item) => item.title === 'Automatic IoT Soap Dispenser');
+if (!project) throw new Error('Automatic IoT Soap Dispenser project not found');
+
+const siteUrl = profile.links.web.replace(/\/$/, '');
+const canonical = `${siteUrl}/work/iot-soap-dispenser/`;
+const socialImage = `${siteUrl}${project.image}`;
+const pageTitle = 'Automatic IoT Soap Dispenser · Embedded IoT and remote monitoring · Gabriel Bibbó';
+const description = 'An industrial IoT handwashing system that combines automatic soap dispensing, employee identification, cloud connectivity and remote compliance monitoring.';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${canonical}#webpage`,
+  url: canonical,
+  name: pageTitle,
+  description,
+  inLanguage: 'en',
+  dateModified: profile.updated,
+  author: { '@type': 'Person', '@id': `${siteUrl}/#person`, name: profile.name, url: `${siteUrl}/` },
+  mainEntity: {
+    '@type': 'CreativeWork',
+    name: project.title,
+    description,
+    creator: { '@id': `${siteUrl}/#person` },
+    keywords: [...project.tags, 'Remote monitoring', 'Employee identification', 'Handwashing compliance'],
+    url: canonical,
+  },
+};
+---
+
+<WorkCaseStudyLayout
+  canonical={canonical}
+  socialImage={socialImage}
+  pageTitle={pageTitle}
+  description={description}
+  schema={schema}
+  eyebrow="IoT · Embedded systems · Industrial hygiene · 2020-2021"
+  heading="An IoT handwashing system with remote compliance monitoring"
+  intro="The system combines an automatic soap dispenser, employee identification and a web application that turns each handwashing event into remotely inspectable operational data. It is designed for workplaces where hygiene procedures need both contactless interaction and traceability."
+  facts={[
+    { value: 'WiFi', label: 'cloud-connected device' },
+    { value: 'IR / RFID', label: 'sensing and identification' },
+    { value: '3 L', label: 'soap tank capacity' },
+    { value: 'Web dashboard', label: 'remote monitoring and administration' },
+  ]}
+>
+  <section class="section">
+    <div class="shell">
+      <h2>Embedded device</h2>
+      <p>The dispenser uses a stainless-steel enclosure, infrared sensing, RFID identification, WiFi connectivity and a three-litre soap reservoir. A wash can therefore be detected, associated with a person and sent to the monitoring system without requiring manual data entry.</p>
+      <div class="grid">
+        <article><h3>Contactless dispensing</h3><p>Infrared sensing triggers the dispensing workflow without requiring the user to touch a shared control.</p></article>
+        <article><h3>Employee identification</h3><p>RFID cards associate a physical interaction with a registered employee so the system records who washed rather than only incrementing a global counter.</p></article>
+        <article><h3>Connected records</h3><p>WiFi connectivity sends handwashing events to the application, where they become searchable and auditable records.</p></article>
+        <article><h3>Industrial operation</h3><p>The device and software operate as one system for hygiene management, combining hardware, identification, connectivity and administration.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Electrical schematic</h2>
+      <p>The controller coordinates the 12 V motor and solenoid valve through a relay module while integrating RFID identification, status LEDs and infrared sensing.</p>
+      <figure class="figure schematic-figure">
+        <a class="figure-frame schematic-frame" href="/homepage_files/case_study_iot_schematic.png" target="_blank" rel="noreferrer" aria-label="Open the full-size electrical schematic for the IoT soap dispenser">
+          <img class="schematic-image" src="/homepage_files/case_study_iot_schematic.png" alt="IoT soap dispenser electrical schematic with motor, solenoid valve, relay module, controller, RFID reader, status LEDs and infrared sensor" loading="lazy" />
+        </a>
+        <figcaption>Electrical schematic of the physical dispenser electronics, rotated for easier reading on screen. Select the image to inspect the original at full resolution.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Remote management</h2>
+      <p>The web application manages the people, cards and organisational structure behind the device while also exposing the handwashing record itself.</p>
+      <div class="evidence"><div class="label">Employees</div><div>Create, modify and remove employee records, with safeguards when an employee already has associated wash data.</div></div>
+      <div class="evidence"><div class="label">Cards and sections</div><div>Maintain identification cards and company sections so deployments can follow the real organisational structure of a workplace.</div></div>
+      <div class="evidence"><div class="label">Wash history</div><div>Inspect recorded washes by employee, date, time and identification card.</div></div>
+      <div class="evidence"><div class="label">Missing washes</div><div>Select a day and identify employees for whom the system has no handwashing event recorded.</div></div>
+      <div class="evidence"><div class="label">Administration</div><div>Manage application users, logs and data export from the same web interface.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Device and interface</h2>
+      <div class="visual-grid">
+        <figure class="figure">
+          <a class="figure-frame" href={project.image} target="_blank" rel="noreferrer" aria-label="Open the full-size IoT soap dispenser image">
+            <img src={project.image} alt="Automatic IoT soap dispenser" loading="lazy" />
+          </a>
+          <figcaption>The physical dispenser combines the enclosure, sensor area and soap reservoir in a single workplace device.</figcaption>
+        </figure>
+        <figure class="figure">
+          <a class="figure-frame" href="/homepage_files/case_study_iot_washes.webp" target="_blank" rel="noreferrer" aria-label="Open the handwashing dashboard image">
+            <img src="/homepage_files/case_study_iot_washes.webp" alt="IoT soap dispenser dashboard showing recorded handwashing events" loading="lazy" />
+          </a>
+          <figcaption>The monitoring interface links timestamped handwashing events to employees and identification cards.</figcaption>
+        </figure>
+      </div>
+      <div class="tags">{project.tags.map((tag) => <span class="tag">{tag}</span>)}<span class="tag">Remote monitoring</span><span class="tag">Web administration</span></div>
+    </div>
+  </section>
+</WorkCaseStudyLayout>
+
+<style>
+  .schematic-frame {
+    aspect-ratio: 5 / 4;
+    padding: 14px;
+  }
+
+  .schematic-frame .schematic-image {
+    width: auto;
+    height: 104%;
+    max-width: none;
+    transform: rotate(-90deg);
+    transform-origin: center;
+  }
+
+  @media (max-width: 760px) {
+    .schematic-frame {
+      aspect-ratio: 1 / 1;
+    }
+
+    .schematic-frame .schematic-image {
+      height: 100%;
+    }
+  }
+</style>

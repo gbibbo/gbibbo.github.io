@@ -1,6 +1,7 @@
 ---
 import '../styles/editorial-v2.css';
 import ProfileAssistantV2 from './ProfileAssistantV2';
+import PublicationThumbnail from './PublicationThumbnail.astro';
 import {
   coursesData,
   educationData,
@@ -105,7 +106,21 @@ const linkLabel = (label) => {
 const projectTitle = (project) => isEs ? project.titleEs : project.title;
 const projectCategory = (project) => isEs ? project.categoryEs : project.category;
 const projectDescription = (project) => isEs ? project.descriptionEs : project.description;
+const projectCaseStudyRoutes = {
+  'Audio-Language Models for Voice Activity Detection': '/work/audio-language-vad/',
+};
+const preserveProjectImageDestination = new Set([
+  'Sounds of Home Dataset',
+  'Speech Removal Framework',
+  'Harmonic EDM Mixing Compatibility',
+  'Raspberry Pi Sound Event Recognition Demo',
+]);
 const projectPrimaryHref = (project) => project.links?.[0]?.href ?? project.image;
+const projectImageHref = (project) => {
+  if (preserveProjectImageDestination.has(project.title)) return projectPrimaryHref(project);
+  return projectCaseStudyRoutes[project.title] ?? projectPrimaryHref(project);
+};
+const projectImageIsExternal = (project) => preserveProjectImageDestination.has(project.title) || !projectCaseStudyRoutes[project.title];
 const publicationPrimaryHref = (publication) => publication.links?.[0]?.href ?? '#';
 const availability = isEs ? profile.availabilityEs : profile.availability;
 const languageText = profile.languages.map((item) => `${isEs ? item.nameEs : item.nameEn} ${isEs ? item.levelEs : item.levelEn}`).join(' · ');
@@ -177,8 +192,6 @@ const publicationImages = {
             <h1>{profile.name}</h1>
             <p class="hero-role">{copy.role}</p>
             <p class="technical-line">{copy.technicalLine}</p>
-            <p class="current-line"><a href="https://edgeaudiolabs.com/" target="_blank" rel="noreferrer"><strong>Edge Audio Labs</strong></a> · <a href="https://www.surrey.ac.uk/" target="_blank" rel="noreferrer">University of Surrey collaboration</a></p>
-            <p class="credentials-line"><a href="https://www.upf.edu/web/mtg" target="_blank" rel="noreferrer">{educationData[0].degree}</a> · <a href="https://www.fing.edu.uy/" target="_blank" rel="noreferrer">{educationData[1].degree}</a></p>
             <div class="signal-row" aria-label="Profile facts">
               <span>{copy.engineeringSince}</span><span>{copy.researchSince}</span><span>{copy.publicationsCount}</span><span>{copy.eu}</span>
             </div>
@@ -214,7 +227,7 @@ const publicationImages = {
               <div class="selected-list">
                 {selectedProjects.map((project) => (
                   <article class="selected-item">
-                    <a class={`selected-media selected-media-${project.imageFit ?? 'contain'}`} href={projectPrimaryHref(project)} target="_blank" rel="noreferrer" aria-label={projectTitle(project)}><img src={project.image} alt={projectTitle(project)} loading="lazy" style={`object-position: ${project.imagePosition ?? 'center center'};`} /></a>
+                    <a class={`selected-media selected-media-${project.imageFit ?? 'contain'}`} href={projectImageHref(project)} target={projectImageIsExternal(project) ? '_blank' : undefined} rel={projectImageIsExternal(project) ? 'noreferrer' : undefined} aria-label={projectTitle(project)}><img src={project.image} alt={projectTitle(project)} loading="lazy" style={`object-position: ${project.imagePosition ?? 'center center'};`} /></a>
                     <div class="selected-copy">
                       <div class="meta-line"><span>{projectCategory(project)}</span><span>{project.years}</span></div>
                       <h3>{projectTitle(project)}</h3>
@@ -284,9 +297,9 @@ const publicationImages = {
                   <ol>
                     {publicationsData.filter((publication) => publication.year === year).map((publication) => (
                       <li class="publication-item">
-                        {publicationImages[publication.title] && <a class="publication-thumb" href={publicationPrimaryHref(publication)} target="_blank" rel="noreferrer"><img src={publicationImages[publication.title]} alt={publication.title} loading="lazy" /></a>}
+                        {publicationImages[publication.title] && <PublicationThumbnail src={publicationImages[publication.title]} title={publication.title} />}
                         <div>
-                          <h4>{publication.title}</h4>
+                          <h4><a class="publication-title-link" href={publicationPrimaryHref(publication)} target="_blank" rel="noreferrer">{publication.title}</a></h4>
                           <p>{publication.authors.join('; ')}</p>
                           <p><em>{publication.venue}</em></p>
                           {publication.links.length > 0 && <div class="link-row">{publication.links.map((link) => <a href={link.href} target="_blank" rel="noreferrer">{linkLabel(link.label)}</a>)}</div>}
@@ -304,7 +317,7 @@ const publicationImages = {
             <div class="plain-project-list">
               {otherProjects.map((project) => (
                 <article class="plain-project-item">
-                  <a class={`project-thumb project-thumb-${project.imageFit ?? 'contain'}`} href={projectPrimaryHref(project)} target="_blank" rel="noreferrer"><img src={project.image} alt={projectTitle(project)} loading="lazy" style={`object-position: ${project.imagePosition ?? 'center center'};`} /></a>
+                  <a class={`project-thumb project-thumb-${project.imageFit ?? 'contain'}`} href={projectImageHref(project)} target={projectImageIsExternal(project) ? '_blank' : undefined} rel={projectImageIsExternal(project) ? 'noreferrer' : undefined}><img src={project.image} alt={projectTitle(project)} loading="lazy" style={`object-position: ${project.imagePosition ?? 'center center'};`} /></a>
                   <div>
                     <div class="meta-line"><span>{projectCategory(project)}</span><span>{project.years}</span></div>
                     <h3>{projectTitle(project)}</h3>

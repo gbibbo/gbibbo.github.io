@@ -1,0 +1,138 @@
+---
+const { src, title } = Astro.props;
+const dialogId = `publication-preview-${String(title).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`;
+---
+
+<button
+  class="publication-thumb"
+  type="button"
+  data-publication-preview
+  data-dialog-id={dialogId}
+  aria-label={`Preview image for ${title}`}
+>
+  <img src={src} alt={title} loading="lazy" />
+</button>
+
+<dialog class="publication-preview-dialog" id={dialogId} aria-label={`Expanded image for ${title}`}>
+  <div class="publication-preview-shell">
+    <form method="dialog" class="publication-preview-close">
+      <button type="submit" aria-label="Close image preview">Close</button>
+    </form>
+    <div class="publication-preview-image-frame">
+      <img src={src} alt={title} loading="lazy" />
+    </div>
+    <p>{title}</p>
+  </div>
+</dialog>
+
+<script>
+  document.querySelectorAll('[data-publication-preview]').forEach((button) => {
+    if (button.dataset.previewBound === 'true') return;
+    button.dataset.previewBound = 'true';
+    button.addEventListener('click', () => {
+      const id = button.getAttribute('data-dialog-id');
+      const dialog = id ? document.getElementById(id) : null;
+      if (dialog instanceof HTMLDialogElement && typeof dialog.showModal === 'function') {
+        dialog.showModal();
+      } else {
+        const image = button.querySelector('img');
+        if (image?.src) window.open(image.src, '_blank', 'noopener,noreferrer');
+      }
+    });
+  });
+
+  document.querySelectorAll('dialog.publication-preview-dialog').forEach((dialog) => {
+    if (!(dialog instanceof HTMLDialogElement) || dialog.dataset.previewBound === 'true') return;
+    dialog.dataset.previewBound = 'true';
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  });
+</script>
+
+<style>
+  .publication-thumb {
+    display: flex;
+    width: 150px;
+    height: 104px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    overflow: hidden;
+    cursor: zoom-in;
+    transition: opacity 150ms ease;
+  }
+  .publication-thumb:hover { opacity: .88; }
+  .publication-thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: left center;
+  }
+  .publication-preview-dialog {
+    width: min(94vw, 1100px);
+    max-width: none;
+    max-height: 94vh;
+    margin: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    overflow: visible;
+  }
+  .publication-preview-dialog::backdrop { background: rgba(15, 17, 18, .82); }
+  .publication-preview-shell {
+    position: relative;
+    display: grid;
+    gap: 12px;
+    width: 100%;
+    padding: 18px;
+    background: #f5f6f2;
+    border: 1px solid rgba(255,255,255,.2);
+  }
+  .publication-preview-image-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: min(78vh, 760px);
+    min-height: 320px;
+    background: #fff;
+    overflow: hidden;
+  }
+  .publication-preview-image-frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .publication-preview-shell p {
+    margin: 0;
+    color: #4d5250;
+    font-size: .78rem;
+    line-height: 1.45;
+  }
+  .publication-preview-close {
+    position: absolute;
+    z-index: 2;
+    top: 26px;
+    right: 26px;
+    margin: 0;
+  }
+  .publication-preview-close button {
+    padding: 7px 10px;
+    border: 1px solid #bfc4bf;
+    background: rgba(245,246,242,.94);
+    color: #171a1c;
+    cursor: pointer;
+  }
+  @media (max-width: 600px) {
+    .publication-thumb { width: min(56vw, 190px); height: 112px; }
+    .publication-preview-dialog { width: calc(100vw - 18px); }
+    .publication-preview-shell { padding: 10px; }
+    .publication-preview-image-frame { height: 76vh; min-height: 260px; }
+    .publication-preview-close { top: 17px; right: 17px; }
+  }
+</style>

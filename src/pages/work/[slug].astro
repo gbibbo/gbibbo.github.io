@@ -1,0 +1,160 @@
+---
+import WorkCaseStudyLayout from '../../layouts/WorkCaseStudyLayout.astro';
+import { profile, projectsData } from '../../data/profileData';
+
+export function getStaticPaths() {
+  const configs = {
+    'sounds-of-home': {
+      title: 'Sounds of Home Dataset',
+      pageTitle: 'Sounds of Home Dataset · Privacy-preserving domestic audio · Gabriel Bibbó',
+      eyebrow: 'Dataset · Sound event detection · Privacy-preserving audio · 2024',
+      heading: 'The Sounds of Home: residential audio released without speech',
+      intro: 'A domestic sound dataset designed for sound event detection research while reducing the privacy risk created by intelligible speech in recordings from people’s homes.',
+      facts: [
+        { value: '1,344', label: 'approximately one-hour recordings' },
+        { value: '7', label: 'recorded homes in the released dataset' },
+        { value: '2', label: 'AudioMoth devices per home' },
+        { value: 'Speech removed', label: 'before public release' },
+      ],
+      sourceLabel: 'Official dataset site',
+      sections: [
+        { heading: 'Dataset design', body: 'The released dataset captures everyday domestic soundscapes using AudioMoth recorders installed in living rooms and kitchens. Recordings were made in Belgium and organised by home, providing long-form acoustic material rather than short isolated sound events.' },
+        { heading: 'Privacy-aware release', body: 'The release workflow removes speech before publication so that non-speech acoustic information remains available for machine-listening research without distributing intelligible conversations.' },
+        { heading: 'Research utility', body: 'The dataset supports work on sound event detection under realistic residential conditions, including daily activities, household devices and other naturally occurring acoustic events. PANNs predictions are supplied alongside the audio as machine-generated annotations.' },
+      ],
+    },
+    'speech-removal': {
+      title: 'Speech Removal Framework',
+      pageTitle: 'Speech Removal Framework · Privacy-preserving audio · Gabriel Bibbó',
+      eyebrow: 'Audio privacy · Speech removal · WASPAA 2025',
+      heading: 'Removing speech before domestic audio is shared',
+      intro: 'A real-time framework for identifying and removing speech from recorded audio while retaining non-speech acoustic information that remains useful for sound event detection.',
+      facts: [
+        { value: 'Real-time', label: 'speech identification and removal' },
+        { value: 'CNN + AST', label: 'audio classification models' },
+        { value: '2 VADs', label: 'Silero and WebRTC baselines' },
+        { value: 'WASPAA 2025', label: 'public demonstration' },
+      ],
+      sourceLabel: 'Live demo',
+      sections: [
+        { heading: 'Problem', body: 'Audio recorded in homes can contain valuable information for machine listening but also highly sensitive personal information in speech. The project treats speech removal as a release-stage privacy mechanism rather than assuming domestic recordings can simply be published as captured.' },
+        { heading: 'Systems compared', body: 'The framework brings together PANNs and E-PANNs convolutional audio models, the Audio Spectrogram Transformer, Silero VAD and WebRTC VAD in a common workflow for speech versus non-speech decisions.' },
+        { heading: 'Usable demonstration', body: 'A software GUI exposes the comparison in real time so that model behaviour can be inspected interactively rather than only through offline metrics. The work connects directly to the privacy requirements behind releases such as The Sounds of Home.' },
+      ],
+    },
+    'harmonic-edm-mixing': {
+      title: 'Harmonic EDM Mixing Compatibility',
+      pageTitle: 'Harmonic EDM Mixing Compatibility · MIR · Gabriel Bibbó',
+      eyebrow: 'Music information retrieval · Harmonic mixing · MSc thesis / ICWE 2022',
+      heading: 'A compatibility measure for harmonic EDM mixing',
+      intro: 'A music-analysis system that estimates harmonic compatibility between dance tracks and recommends pitch transpositions that can improve a DJ transition.',
+      facts: [
+        { value: 'TIV', label: 'Tonal Interval Vector representation' },
+        { value: 'NNLSChroma', label: 'harmonic feature extraction' },
+        { value: '0-100%', label: 'compatibility output' },
+        { value: '2021 → 2022', label: 'MSc thesis to ICWE publication' },
+      ],
+      sourceLabel: 'Source code',
+      sections: [
+        { heading: 'DJ workflow', body: 'Given a target track and a music collection, the system ranks candidate tracks by harmonic compatibility instead of relying only on discrete musical-key labels.' },
+        { heading: 'Analysis pipeline', body: 'Percussive components are first separated from the signal. Frame-level NNLSChroma features are aggregated and converted to Tonal Interval Vectors, allowing a continuous comparison of harmonic content between tracks.' },
+        { heading: 'Actionable output', body: 'For every candidate track, the system returns a compatibility percentage and can calculate the pitch-transposition interval that maximises compatibility with the target track. The goal is to support, rather than replace, musical selection by the DJ.' },
+      ],
+    },
+    'raspberry-pi-sed': {
+      title: 'Raspberry Pi Sound Event Recognition Demo',
+      pageTitle: 'PiSoundSensing · Real-time sound recognition on Raspberry Pi · Gabriel Bibbó',
+      eyebrow: 'Edge AI · Sound event recognition · WASPAA 2023',
+      heading: 'Real-time sound event recognition on a Raspberry Pi',
+      intro: 'PiSoundSensing demonstrates CNN-based audio tagging on a low-cost standalone embedded device, with both physical and browser-based interaction.',
+      facts: [
+        { value: 'Raspberry Pi', label: 'standalone edge hardware' },
+        { value: 'PANNs', label: 'pre-trained audio neural network' },
+        { value: 'Real-time', label: 'sound event recognition' },
+        { value: 'Web UI', label: 'remote control and visualisation' },
+      ],
+      sourceLabel: 'Source code',
+      sections: [
+        { heading: 'Deployment problem', body: 'Strong CNN audio classifiers are typically evaluated on workstation-class hardware. This project examines what happens when a pre-trained audio model is moved onto a resource-constrained embedded platform intended to operate as a standalone sensing device.' },
+        { heading: 'Standalone interaction', body: 'Users can interact locally through a physical button or remotely through a web interface. The browser interface controls the device and visualises detected sound events over time.' },
+        { heading: 'Hardware-aware evaluation', body: 'The demonstration documents the hardware and software stack and compares observations from deployment on the Raspberry Pi with software-only execution, making the gap between model evaluation and real embedded operation visible.' },
+      ],
+    },
+  };
+
+  return Object.entries(configs).map(([slug, config]) => ({ params: { slug }, props: { config } }));
+}
+
+const { config } = Astro.props;
+const project = projectsData.find((item) => item.title === config.title);
+if (!project) throw new Error(`${config.title} project not found`);
+
+const siteUrl = profile.links.web.replace(/\/$/, '');
+const slug = Astro.params.slug;
+const canonical = `${siteUrl}/work/${slug}/`;
+const primaryUrl = project.links?.[0]?.href ?? `${siteUrl}${project.image}`;
+const socialImage = `${siteUrl}${project.image}`;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${canonical}#webpage`,
+  url: canonical,
+  name: config.pageTitle,
+  description: config.intro,
+  inLanguage: 'en',
+  dateModified: profile.updated,
+  author: { '@type': 'Person', '@id': `${siteUrl}/#person`, name: profile.name, url: `${siteUrl}/` },
+  mainEntity: {
+    '@type': 'CreativeWork',
+    name: project.title,
+    description: project.description,
+    creator: { '@id': `${siteUrl}/#person` },
+    keywords: project.tags,
+    url: canonical,
+    sameAs: project.links.map((link) => link.href),
+  },
+};
+---
+
+<WorkCaseStudyLayout
+  canonical={canonical}
+  externalUrl={primaryUrl}
+  externalLabel={config.sourceLabel}
+  socialImage={socialImage}
+  pageTitle={config.pageTitle}
+  description={config.intro}
+  schema={schema}
+  eyebrow={config.eyebrow}
+  heading={config.heading}
+  intro={config.intro}
+  facts={config.facts}
+>
+  <section class="section">
+    <div class="shell">
+      <h2>Project overview</h2>
+      <div class="grid">
+        {config.sections.map((section) => <article><h3>{section.heading}</h3><p>{section.body}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Project image</h2>
+      <figure class="figure">
+        <a class="figure-frame" href={project.image} target="_blank" rel="noreferrer" aria-label={`Open the full-size image for ${project.title}`}>
+          <img src={project.image} alt={project.title} loading="lazy" />
+        </a>
+        <figcaption>The portfolio figure is shown complete rather than cropped. Select it to open the original image.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Evidence and links</h2>
+      {project.links.map((link) => <div class="evidence"><div class="label">{link.label}</div><div><a href={link.href} target="_blank" rel="noreferrer">{link.href}</a></div></div>)}
+      <div class="tags">{project.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
+    </div>
+  </section>
+</WorkCaseStudyLayout>

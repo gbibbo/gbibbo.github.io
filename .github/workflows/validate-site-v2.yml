@@ -26,15 +26,97 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Verify P0 discovery and analytics outputs
+      - name: Verify discovery, identity, work pages, and analytics outputs
         run: |
           grep -Fxq 'google-site-verification: google7901b35217a9c314.html' dist/google7901b35217a9c314.html
           grep -Fxq 'google-site-verification: google14b127158d0ab073.html' dist/google14b127158d0ab073.html
           grep -Fq '<loc>https://gbibbo.github.io/</loc>' dist/sitemap.xml
           grep -Fq '<loc>https://gbibbo.github.io/es/</loc>' dist/sitemap.xml
-          grep -Fq 'https://gbibbo.github.io/' dist/index.html
+          for route in audio-language-vad asr-enhancement traktor-ml sounds-of-home speech-removal harmonic-edm-mixing raspberry-pi-sed 3h-ato iot-soap-dispenser uyvoy; do
+            grep -Fq "<loc>https://gbibbo.github.io/work/$route/</loc>" dist/sitemap.xml
+            test -s "dist/work/$route/index.html"
+            grep -Fq "rel=\"related\" href=\"/work/$route/\"" dist/index.html
+          done
+          grep -Fq '<lastmod>2026-08-26</lastmod>' dist/sitemap.xml
+          grep -Fq 'hreflang="en" href="https://gbibbo.github.io/"' dist/sitemap.xml
+          grep -Fq 'hreflang="es" href="https://gbibbo.github.io/es/"' dist/sitemap.xml
+          grep -Fq 'hreflang="x-default" href="https://gbibbo.github.io/"' dist/sitemap.xml
+          grep -Fq '"@type":"ProfilePage"' dist/index.html
+          grep -Fq '"@id":"https://gbibbo.github.io/#person"' dist/index.html
+          grep -Fq 'https://gbibbo.github.io/work/asr-enhancement/' dist/index.html
+          grep -Fq 'https://gbibbo.github.io/work/traktor-ml/' dist/index.html
+          grep -Fq 'https://gbibbo.github.io/work/sounds-of-home/' dist/index.html
+          grep -Fq 'https://gbibbo.github.io/work/3h-ato/' dist/index.html
+          grep -Fq 'https://gbibbo.github.io/work/iot-soap-dispenser/' dist/index.html
+          grep -Fq 'https://gbibbo.github.io/work/uyvoy/' dist/index.html
+          grep -Fq 'rel="alternate" type="application/json" href="/resume.json"' dist/index.html
+          grep -Fq 'rel="alternate" type="application/json" href="/resume.json"' dist/cv/index.html
+          grep -Fq 'Gabriel Bibbó CV · Audio ML, DSP and machine listening' dist/cv/index.html
+          grep -Fq 'id="publications"' dist/cv/index.html
+          if grep -Fq 'class="current-line"' dist/index.html; then
+            echo 'Hero must not duplicate current affiliations.'
+            exit 1
+          fi
+          if grep -Fq 'class="credentials-line"' dist/index.html; then
+            echo 'Hero must not duplicate education credentials.'
+            exit 1
+          fi
+          test -s dist/resume.json
+          grep -Fq '"name": "Gabriel Bibbó"' dist/resume.json
+          grep -Fq '"network": "ORCID"' dist/resume.json
+          grep -Fq '"name": "Edge Audio Labs"' dist/resume.json
+          grep -Fq '"name": "Speech Removal Framework for Privacy-preserving Audio Recordings"' dist/resume.json
+          grep -Fq 'Robust voice activity detection with audio-language models' dist/work/audio-language-vad/index.html
+          grep -Fq '93.3%' dist/work/audio-language-vad/index.html
+          grep -Fq '21,340' dist/work/audio-language-vad/index.html
+          grep -Fq 'DT90 = 96 ms' dist/work/audio-language-vad/index.html
+          grep -Fq 'github.com/gbibbo/qwen-vad-lora' dist/work/audio-language-vad/index.html
+          grep -Fq 'A reproducible backend for testing whether enhancement helps ASR' dist/work/asr-enhancement/index.html
+          grep -Fq 'FastAPI' dist/work/asr-enhancement/index.html
+          grep -Fq 'github.com/gbibbo/asr_enhancement' dist/work/asr-enhancement/index.html
+          grep -Fq 'Audio ML that turns a DJ library into playable Traktor playlists' dist/work/traktor-ml/index.html
+          grep -Fq '239' dist/work/traktor-ml/index.html
+          grep -Fq '14' dist/work/traktor-ml/index.html
+          grep -Fq 'github.com/gbibbo/traktor' dist/work/traktor-ml/index.html
+          grep -Fq '1,344' dist/work/sounds-of-home/index.html
+          grep -Fq 'WASPAA 2025' dist/work/speech-removal/index.html
+          grep -Fq 'Tonal Interval Vector' dist/work/harmonic-edm-mixing/index.html
+          grep -Fq 'PiSoundSensing' dist/work/raspberry-pi-sed/index.html
+          grep -Fq 'Business validation' dist/work/3h-ato/index.html
+          grep -Fq '500 pre-sold units' dist/work/3h-ato/index.html
+          grep -Fq 'Electrical schematic' dist/work/iot-soap-dispenser/index.html
+          test -s dist/homepage_files/case_study_iot_schematic.png
+          grep -Fq 'case_study_iot_schematic.png' dist/work/iot-soap-dispenser/index.html
+          grep -Fq 'schematic-image' dist/work/iot-soap-dispenser/index.html
+          grep -Fq 'rotate(-90deg)' dist/work/iot-soap-dispenser/index.html
+          grep -Fq 'solenoid valve' dist/work/iot-soap-dispenser/index.html
+          grep -Fq 'case_study_iot_washes.webp' dist/work/iot-soap-dispenser/index.html
+          grep -Fq 'HackCovid19UY' dist/work/uyvoy/index.html
+          grep -Fq 'Product owner' dist/work/uyvoy/index.html
+          grep -Fq 'case_study_uyvoy_hackcovid.webp' dist/work/uyvoy/index.html
+          test -s dist/homepage_files/case_study_uyvoy_hackcovid.webp
+          python -c "from pathlib import Path; d=Path('dist/homepage_files/case_study_uyvoy_hackcovid.webp').read_bytes(); assert d[:4] == b'RIFF' and d[8:12] == b'WEBP'"
+          test -s dist/homepage_files/uyvoy_logo_construction.webp
+          test -s dist/homepage_files/uyvoy_category_icons.webp
+          grep -Fq 'uyvoy_logo_construction.webp' dist/work/uyvoy/index.html
+          grep -Fq 'uyvoy_category_icons.webp' dist/work/uyvoy/index.html
+          if grep -Fq 'case_study_uyvoy_logo_proposals.webp' dist/work/uyvoy/index.html; then
+            echo 'UyVoy page must not use the old repetitive logo-proposals image.'
+            exit 1
+          fi
+          grep -Fq 'object-fit:contain' src/layouts/WorkCaseStudyLayout.astro
+          grep -Fq 'data-publication-preview' dist/index.html
+          grep -Fq 'publication-title-link' dist/index.html
+          grep -Fq 'href="/work/asr-enhancement/"' dist/index.html
+          grep -Fq 'href="/work/traktor-ml/"' dist/index.html
+          grep -Fq 'href="/work/3h-ato/"' dist/index.html
+          grep -Fq 'href="/work/iot-soap-dispenser/"' dist/index.html
+          grep -Fq 'href="/work/uyvoy/"' dist/index.html
+          grep -Fq 'https://www.cvssp.org/data/ai4s/sounds_of_home/' dist/index.html
+          grep -Fq 'https://huggingface.co/spaces/gbibbo/vad_demo' dist/index.html
+          grep -Fq 'https://github.com/gbibbo/harmonic_mix' dist/index.html
+          grep -Fq 'https://github.com/gbibbo/pisoundsensing' dist/index.html
           grep -Fq '3be599b0fe114d2c8821c689fbb50d80' dist/index.html
-          grep -Fq 'gbibbo.github.io' dist/index.html
           grep -Fq 'static.cloudflareinsights.com/beacon.min.js' dist/index.html
           if grep -Fq 'static.cloudflareinsights.com/beacon.min.js' dist/google7901b35217a9c314.html; then
             echo 'Analytics beacon must not modify legacy Google verification HTML.'

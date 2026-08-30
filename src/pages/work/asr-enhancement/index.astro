@@ -1,0 +1,100 @@
+---
+import WorkCaseStudyLayout from '../../../layouts/WorkCaseStudyLayout.astro';
+import { profile, projectsData } from '../../../data/profileData';
+
+const project = projectsData.find((item) => item.title === 'ASR Enhancement Platform');
+if (!project) throw new Error('ASR Enhancement Platform project not found');
+
+const siteUrl = profile.links.web.replace(/\/$/, '');
+const canonical = `${siteUrl}/work/asr-enhancement/`;
+const repoUrl = project.links.find((link) => link.label === 'Code')?.href ?? 'https://github.com/gbibbo/asr_enhancement';
+const socialImage = `${siteUrl}${project.image}`;
+const pageTitle = 'ASR Enhancement Platform · Speech enhancement backend · Gabriel Bibbó';
+const description = 'An end-to-end platform for comparing raw transcription with enhance-and-transcribe workflows on pre-recorded audio, with persistent jobs, observability and reproducible deployment.';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${canonical}#webpage`,
+  url: canonical,
+  name: pageTitle,
+  description,
+  inLanguage: 'en',
+  dateModified: profile.updated,
+  author: { '@type': 'Person', '@id': `${siteUrl}/#person`, name: profile.name, url: `${siteUrl}/` },
+  mainEntity: {
+    '@type': 'SoftwareSourceCode',
+    name: project.title,
+    description,
+    creator: { '@id': `${siteUrl}/#person` },
+    keywords: project.tags,
+    codeRepository: repoUrl,
+    programmingLanguage: 'Python',
+    url: canonical,
+  },
+};
+---
+
+<WorkCaseStudyLayout
+  canonical={canonical}
+  externalUrl={repoUrl}
+  externalLabel="Source code"
+  socialImage={socialImage}
+  pageTitle={pageTitle}
+  description={description}
+  schema={schema}
+  eyebrow="Speech enhancement · Backend platform · MLOps · 2026"
+  heading="A reproducible backend for testing whether enhancement helps ASR"
+  intro="The platform compares two transcription paths on the same pre-recorded audio: direct ASR and speech-enhance-then-ASR. It keeps the complete job state, audio artifacts, transcripts and provider responses inspectable so enhancement can be evaluated as a system rather than as an isolated DSP step."
+  facts={[
+    { value: '2 paths', label: 'raw vs enhance-and-transcribe' },
+    { value: '4 presets', label: 'bypass through denoise + dereverb' },
+    { value: '8 services', label: 'backend Compose stack' },
+    { value: 'CI + telemetry', label: 'tests, metrics, logs and traces' },
+  ]}
+>
+  <section class="section">
+    <div class="shell">
+      <h2>What the platform does</h2>
+      <div class="grid">
+        <article><h3>Controlled comparison</h3><p>The same input can go directly to transcription or through an enhancement preset first, making the effect of denoising and dereverberation explicit and repeatable.</p></article>
+        <article><h3>Persistent jobs</h3><p>Job state lives in PostgreSQL while raw audio, enhanced audio, transcripts and provider payloads use deterministic object-storage paths in MinIO.</p></article>
+        <article><h3>Asynchronous processing</h3><p>FastAPI handles the HTTP surface and Celery workers execute the processing path through Redis, separating request handling from longer-running audio work.</p></article>
+        <article><h3>Provider abstraction</h3><p>A deterministic fake provider supports local development and CI without credentials, while live pre-recorded ASR providers can be enabled behind explicit opt-in gating.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>System architecture</h2>
+      <div class="evidence"><div class="label">API</div><div>FastAPI exposes health, readiness, transcription, enhancement-and-transcription, job-result and metrics endpoints.</div></div>
+      <div class="evidence"><div class="label">Worker</div><div>Celery runs asynchronous audio and transcription jobs.</div></div>
+      <div class="evidence"><div class="label">State</div><div>PostgreSQL stores job state, Redis acts as the worker broker and MinIO stores audio and transcript artifacts.</div></div>
+      <div class="evidence"><div class="label">Observability</div><div>JSON structured logs, Prometheus metrics, OpenTelemetry traces and a provisioned Grafana dashboard make the backend inspectable during execution.</div></div>
+      <div class="evidence"><div class="label">Deployment</div><div>Docker Compose provides a reproducible single-host deployment path for the backend stack.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Enhancement pipeline</h2>
+      <p>The current DSP path exposes four deterministic presets: bypass, light clean, denoise, and denoise plus dereverberation. This keeps the processing choices explicit and versionable while the surrounding platform handles persistence, orchestration and inspection.</p>
+      <figure class="figure">
+        <a class="figure-frame" href={project.image} target="_blank" rel="noreferrer" aria-label="Open the full-size ASR enhancement project image">
+          <img src={project.image} alt="ASR Enhancement Platform" loading="lazy" />
+        </a>
+        <figcaption>The project combines audio processing with the backend infrastructure needed to run and inspect repeatable transcription jobs.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Engineering scope</h2>
+      <p>The current MVP targets pre-recorded audio and prioritises reproducibility, observability and a complete backend vertical slice. It is not a production-hardened service and does not claim high-availability infrastructure, enterprise authentication or production-scale orchestration.</p>
+      <div class="evidence"><div class="label">Repository</div><div><a href={repoUrl} target="_blank" rel="noreferrer">github.com/gbibbo/asr_enhancement</a></div></div>
+      <div class="tags">{project.tags.map((tag) => <span class="tag">{tag}</span>)}<span class="tag">MinIO</span><span class="tag">Prometheus</span><span class="tag">OpenTelemetry</span><span class="tag">Grafana</span></div>
+    </div>
+  </section>
+</WorkCaseStudyLayout>

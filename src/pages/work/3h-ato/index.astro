@@ -1,0 +1,123 @@
+---
+import WorkCaseStudyLayout from '../../../layouts/WorkCaseStudyLayout.astro';
+import { profile, projectsData } from '../../../data/profileData';
+
+const project = projectsData.find((item) => item.title === '3H-ATO');
+if (!project) throw new Error('3H-ATO project not found');
+
+const siteUrl = profile.links.web.replace(/\/$/, '');
+const canonical = `${siteUrl}/work/3h-ato/`;
+const facebookUrl = 'https://www.facebook.com/3havoidtouchingobjets';
+const videoUrl = project.links.find((link) => link.label === 'Video')?.href ?? 'https://www.youtube.com/watch?v=aQVo0i5OLWU';
+const socialImage = `${siteUrl}/homepage_files/case_study_3h_functions.webp`;
+const pageTitle = '3H-ATO · Mechanical product design and validation · Gabriel Bibbó';
+const description = '3H-ATO is a compact mechanical third hand for interacting with shared surfaces without direct hand contact, combining product design, prototyping and business validation.';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${canonical}#webpage`,
+  url: canonical,
+  name: pageTitle,
+  description,
+  inLanguage: 'en',
+  dateModified: profile.updated,
+  author: { '@type': 'Person', '@id': `${siteUrl}/#person`, name: profile.name, url: `${siteUrl}/` },
+  mainEntity: {
+    '@type': 'CreativeWork',
+    name: '3H-ATO (Third Hand - Avoid Touching Objects)',
+    description,
+    creator: { '@id': `${siteUrl}/#person` },
+    keywords: ['Mechanical design', 'Product design', 'Prototyping', 'Business validation', 'No-touch tool'],
+    url: canonical,
+    sameAs: [facebookUrl, videoUrl],
+  },
+};
+
+const gallery = [
+  {
+    src: '/homepage_files/case_study_3h_functions.webp',
+    alt: '3H-ATO product diagram showing uses for buttons, touchscreens, shopping carts, public transport rails and doors',
+    caption: 'One tool supports buttons and touchscreens, shopping carts, public-transport rails and doors.',
+  },
+  {
+    src: '/homepage_files/case_study_3h_transit.webp',
+    alt: '3H-ATO campaign material about contact with public transport surfaces',
+    caption: 'Public transport is one of the main high-contact use cases addressed by the product.',
+  },
+  {
+    src: '/homepage_files/case_study_3h_preorder.webp',
+    alt: '3H-ATO pre-sale campaign graphic',
+    caption: 'The product moves from prototype and validation into a public pre-sale campaign.',
+  },
+];
+---
+
+<WorkCaseStudyLayout
+  canonical={canonical}
+  externalUrl={facebookUrl}
+  externalLabel="Project page on Facebook"
+  socialImage={socialImage}
+  pageTitle={pageTitle}
+  description={description}
+  schema={schema}
+  eyebrow="Product design · Mechanical prototyping · Validation · 2020-2022"
+  heading="3H-ATO: a mechanical third hand for shared surfaces"
+  intro="3H-ATO is a compact mechanical tool that takes contact with shared surfaces instead of the user's hand. It works as a portable third hand for everyday interactions such as opening doors, pressing buttons, using touchscreens, moving shopping carts and holding public-transport rails."
+  facts={[
+    { value: '45 g', label: 'target product weight' },
+    { value: '15 × 20 × 3 cm', label: 'product envelope' },
+    { value: '20 users', label: 'validation sample' },
+    { value: '5 months', label: 'ANII validation plan' },
+  ]}
+>
+  <section class="section">
+    <div class="shell">
+      <h2>Product concept</h2>
+      <p>The device acts as a reusable mechanical interface between the user and high-contact public surfaces. Its geometry supports grasping, pulling, pushing and pressing actions without requiring a different accessory for each task.</p>
+      <div class="grid">
+        <article><h3>Simple mechanism</h3><p>The product uses a compact mechanical construction with plastic, rubber and steel, without batteries or electronics.</p></article>
+        <article><h3>Portable and washable</h3><p>The design targets a lightweight object that can be carried outside the home and cleaned after use.</p></article>
+        <article><h3>Multiple interactions</h3><p>The same tool handles transport rails, shopping carts, doors, elevator and ATM buttons, doorbells, touchscreens and small objects.</p></article>
+        <article><h3>Product development</h3><p>Gabriel leads the original product idea, mechanical development and improvements, production planning, supplier coordination, project management and logistics.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Business validation</h2>
+      <p>3H-ATO includes a five-month validation plan submitted in 2020 to ANII's <strong>Validación de Idea de Negocio</strong> programme, with Cámara de Industrias del Uruguay as sponsoring institution. The plan combines prototype testing, user research, pre-sale validation and manufacturing analysis.</p>
+      <div class="evidence"><div class="label">Prototype test</div><div>Ten 3D-printed units rotate through at least 20 users in realistic everyday contexts.</div></div>
+      <div class="evidence"><div class="label">User research</div><div>Participants use the product for several days and report usefulness, acceptance, friction points and possible design improvements.</div></div>
+      <div class="evidence"><div class="label">Market test</div><div>Online pre-sale tests early demand and helps identify the first customer segments, with 500 pre-sold units defined as the validation target.</div></div>
+      <div class="evidence"><div class="label">Manufacturing</div><div>The project compares local and regional production costs and scales before selecting a manufacturing model.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Product and campaign</h2>
+      <div class="visual-grid">
+        {gallery.map((image) => (
+          <figure class="figure">
+            <a class="figure-frame" href={image.src} target="_blank" rel="noreferrer" aria-label={`Open full-size image: ${image.alt}`}>
+              <img src={image.src} alt={image.alt} loading="lazy" />
+            </a>
+            <figcaption>{image.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Project links</h2>
+      <div class="evidence"><div class="label">Facebook</div><div><a href={facebookUrl} target="_blank" rel="noreferrer">3H - Avoid Touching Objects</a></div></div>
+      <div class="evidence"><div class="label">Video</div><div><a href={videoUrl} target="_blank" rel="noreferrer">3H-ATO promotional video</a></div></div>
+      <div class="evidence"><div class="label">Validation</div><div>ANII Validación de Idea de Negocio, 2020, with Cámara de Industrias del Uruguay as sponsoring institution.</div></div>
+      <div class="tags">{project.tags.map((tag) => <span class="tag">{tag}</span>)}<span class="tag">Business validation</span><span class="tag">3D prototyping</span></div>
+    </div>
+  </section>
+</WorkCaseStudyLayout>

@@ -1,0 +1,119 @@
+---
+import WorkCaseStudyLayout from '../../../layouts/WorkCaseStudyLayout.astro';
+import { profile, projectsData } from '../../../data/profileData';
+
+const project = projectsData.find((item) => item.title === 'UyVoy Mobile App');
+if (!project) throw new Error('UyVoy Mobile App project not found');
+
+const siteUrl = profile.links.web.replace(/\/$/, '');
+const canonical = `${siteUrl}/work/uyvoy/`;
+const socialImage = `${siteUrl}/homepage_files/uyvoy_logo_construction.webp`;
+const pageTitle = 'UyVoy · Civic-tech appointment booking app · Gabriel Bibbó';
+const description = 'UyVoy is a mobile appointment-booking concept developed in the HackCovid19UY context to reduce queues and in-person crowding, with product, branding and visual-identity work.';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${canonical}#webpage`,
+  url: canonical,
+  name: pageTitle,
+  description,
+  inLanguage: 'en',
+  dateModified: profile.updated,
+  author: { '@type': 'Person', '@id': `${siteUrl}/#person`, name: profile.name, url: `${siteUrl}/` },
+  mainEntity: {
+    '@type': 'CreativeWork',
+    name: project.title,
+    description: project.description,
+    creator: { '@id': `${siteUrl}/#person` },
+    keywords: [...project.tags, 'Branding', 'Visual identity', 'Product design'],
+    url: canonical,
+  },
+};
+
+const brandingGallery = [
+  {
+    src: '/homepage_files/uyvoy_logo_construction.webp',
+    alt: 'UyVoy logo construction grid and proportions',
+    caption: 'Logo construction: the pixel-art shopping-bag mark is developed on a grid with controlled proportions and alignment.',
+  },
+  {
+    src: '/homepage_files/uyvoy_category_icons.webp',
+    alt: 'UyVoy pixel-art category icon system for local services',
+    caption: 'Category system: distinct pixel-art icons extend the identity to hardware stores, hairdressers, payment networks, restaurants and veterinary services.',
+  },
+];
+---
+
+<WorkCaseStudyLayout
+  canonical={canonical}
+  socialImage={socialImage}
+  pageTitle={pageTitle}
+  description={description}
+  schema={schema}
+  eyebrow="Civic tech · Mobile product · Product ownership · 2020"
+  heading="UyVoy: appointment booking to reduce queues during COVID-19"
+  intro="UyVoy is a mobile-app concept for reserving appointments before visiting local services, reducing queues and unnecessary crowding. Gabriel worked on the project as product owner and project lead, covering product definition as well as the development of its visual identity."
+  facts={[
+    { value: '2020', label: 'project year' },
+    { value: 'HackCovid19UY', label: 'project context' },
+    { value: 'Product owner', label: "Gabriel's role" },
+    { value: 'Mobile app', label: 'appointment-booking concept' },
+  ]}
+>
+  <section class="section">
+    <div class="shell">
+      <h2>Product concept</h2>
+      <p>The product addresses a practical pandemic-era problem: people still need to visit local businesses and services, but unmanaged queues create unnecessary in-person contact. UyVoy lets users reserve a place or appointment in advance so visits can be distributed over time.</p>
+      <div class="grid">
+        <article><h3>Queue reduction</h3><p>The core interaction replaces uncertain waiting and physical queues with a scheduled visit mediated by a mobile application.</p></article>
+        <article><h3>Local-service categories</h3><p>The concept spans hardware stores, hairdressers, payment networks, restaurants and veterinary services rather than targeting a single type of business.</p></article>
+        <article><h3>Product ownership</h3><p>Gabriel worked as product owner and project lead, focusing on product definition, coordination and the overall service concept.</p></article>
+        <article><h3>Civic-tech context</h3><p>The project combines everyday access to local services with a public-health constraint, making scheduling and coordination the central product problem.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>HackCovid19UY origin</h2>
+      <p>UyVoy originates in the HackCovid19UY challenge held in Montevideo in May 2020. The hackathon provides the setting in which the product idea is developed around the need to reduce queues and unnecessary physical contact.</p>
+      <figure class="figure">
+        <a class="figure-frame" href="/homepage_files/case_study_uyvoy_hackcovid.webp" target="_blank" rel="noreferrer" aria-label="Open the HackCovid19UY participation certificate">
+          <img src="/homepage_files/case_study_uyvoy_hackcovid.webp" alt="HackCovid19UY participation certificate issued to Gabriel Bibbó in May 2020" loading="lazy" />
+        </a>
+        <figcaption>HackCovid19UY participation certificate, Montevideo, May 2020.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Branding and visual identity</h2>
+      <p>The project develops a coherent identity around a pixel-art shopping bag, extending it from the logo itself to a broader visual language for the service categories represented inside the app.</p>
+      <div class="evidence"><div class="label">Logo construction</div><div>The mark is built on a grid, with explicit proportions, alignment and clear-space rules rather than treated as a one-off illustration.</div></div>
+      <div class="evidence"><div class="label">Category system</div><div>A family of icons gives hardware stores, hairdressers, payment networks, restaurants and veterinary services distinct symbols while preserving the same visual language.</div></div>
+      <div class="evidence"><div class="label">Typography</div><div>Determination Mono supports the logo while Titillium Web provides the complementary type system.</div></div>
+      <div class="evidence"><div class="label">Visual consistency</div><div>The pixel-art treatment, limited palette and shared geometry keep the branding recognisable across different parts of the product.</div></div>
+
+      <div class="visual-grid">
+        {brandingGallery.map((image) => (
+          <figure class="figure">
+            <a class="figure-frame" href={image.src} target="_blank" rel="noreferrer" aria-label={`Open full-size image: ${image.alt}`}>
+              <img src={image.src} alt={image.alt} loading="lazy" />
+            </a>
+            <figcaption>{image.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <h2>Project scope</h2>
+      <p>UyVoy combines product definition, project leadership and brand development around a concrete mobile-service concept. The project focuses on the concept and design stage rather than claiming a later production-scale deployment.</p>
+      <div class="tags">{project.tags.map((tag) => <span class="tag">{tag}</span>)}<span class="tag">Hackathon</span><span class="tag">Branding</span><span class="tag">Visual identity</span></div>
+    </div>
+  </section>
+</WorkCaseStudyLayout>
