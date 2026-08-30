@@ -116,6 +116,25 @@ jobs:
           grep -Fq 'https://huggingface.co/spaces/gbibbo/vad_demo' dist/index.html
           grep -Fq 'https://github.com/gbibbo/harmonic_mix' dist/index.html
           grep -Fq 'https://github.com/gbibbo/pisoundsensing' dist/index.html
+
+          # P2 semantic work entities: accurate types, stable IDs, and publication evidence.
+          grep -Fq '"@type":"SoftwareSourceCode","@id":"https://gbibbo.github.io/work/audio-language-vad/#work"' dist/work/audio-language-vad/index.html
+          grep -Fq '"codeRepository":"https://github.com/gbibbo/qwen-vad-lora"' dist/work/audio-language-vad/index.html
+          grep -Fq '"@type":"SoftwareSourceCode","@id":"https://gbibbo.github.io/work/asr-enhancement/#work"' dist/work/asr-enhancement/index.html
+          grep -Fq '"@type":"SoftwareSourceCode","@id":"https://gbibbo.github.io/work/traktor-ml/#work"' dist/work/traktor-ml/index.html
+          grep -Fq '"@type":"Dataset","@id":"https://gbibbo.github.io/work/sounds-of-home/#work"' dist/work/sounds-of-home/index.html
+          grep -Fq '"@type":"ScholarlyArticle","name":"The Sounds of Home: A Speech-Removed Residential Audio Dataset for Sound Event Detection"' dist/work/sounds-of-home/index.html
+          grep -Fq '"@type":"SoftwareApplication","@id":"https://gbibbo.github.io/work/speech-removal/#work"' dist/work/speech-removal/index.html
+          grep -Fq '"@type":"ScholarlyArticle","name":"Speech Removal Framework for Privacy-preserving Audio Recordings"' dist/work/speech-removal/index.html
+          grep -Fq '"@type":"SoftwareSourceCode","@id":"https://gbibbo.github.io/work/harmonic-edm-mixing/#work"' dist/work/harmonic-edm-mixing/index.html
+          grep -Fq '"@type":"ScholarlyArticle","name":"A New Compatibility Measure for Harmonic EDM Mixing"' dist/work/harmonic-edm-mixing/index.html
+          grep -Fq '"@type":"SoftwareSourceCode","@id":"https://gbibbo.github.io/work/raspberry-pi-sed/#work"' dist/work/raspberry-pi-sed/index.html
+          grep -Fq '"@type":"Product","@id":"https://gbibbo.github.io/work/3h-ato/#work"' dist/work/3h-ato/index.html
+          grep -Fq '"@type":"Product","@id":"https://gbibbo.github.io/work/iot-soap-dispenser/#work"' dist/work/iot-soap-dispenser/index.html
+          grep -Fq '"@type":"CreativeWork","@id":"https://gbibbo.github.io/work/uyvoy/#work"' dist/work/uyvoy/index.html
+          grep -Fq '"@id":"https://gbibbo.github.io/#person"' dist/work/sounds-of-home/index.html
+          grep -Fq '"mainEntityOfPage":{"@id":"https://gbibbo.github.io/work/sounds-of-home/#webpage"}' dist/work/sounds-of-home/index.html
+
           grep -Fq '3be599b0fe114d2c8821c689fbb50d80' dist/index.html
           grep -Fq 'static.cloudflareinsights.com/beacon.min.js' dist/index.html
           if grep -Fq 'static.cloudflareinsights.com/beacon.min.js' dist/google7901b35217a9c314.html; then
