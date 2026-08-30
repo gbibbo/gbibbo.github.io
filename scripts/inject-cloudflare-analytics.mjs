@@ -3,9 +3,10 @@ import path from 'node:path';
 
 const token = '3be599b0fe114d2c8821c689fbb50d80';
 const canonicalHost = 'gbibbo.github.io';
+const optOutKey = 'gbibbo_cloudflare_analytics_opt_out';
 const root = path.resolve('dist');
 const beaconData = JSON.stringify({ token });
-const beaconLoader = `<script>(function(){if(location.hostname!==${JSON.stringify(canonicalHost)})return;var s=document.createElement('script');s.type='module';s.src='https://static.cloudflareinsights.com/beacon.min.js';s.setAttribute('data-cf-beacon',${JSON.stringify(beaconData)});document.head.appendChild(s);}());</script>`;
+const beaconLoader = `<script>(function(){if(location.hostname!==${JSON.stringify(canonicalHost)})return;var key=${JSON.stringify(optOutKey)};var params=new URLSearchParams(location.search);var choice=params.get('analytics');function clean(){params.delete('analytics');var q=params.toString();history.replaceState(null,'',location.pathname+(q?'?'+q:'')+location.hash);}if(choice==='off'){try{localStorage.setItem(key,'1');}catch(e){}clean();return;}if(choice==='on'){try{localStorage.removeItem(key);}catch(e){}clean();}try{if(localStorage.getItem(key)==='1')return;}catch(e){}var s=document.createElement('script');s.type='module';s.src='https://static.cloudflareinsights.com/beacon.min.js';s.setAttribute('data-cf-beacon',${JSON.stringify(beaconData)});document.head.appendChild(s);}());</script>`;
 
 async function walk(directory) {
   const entries = await fs.readdir(directory, { withFileTypes: true });
@@ -25,4 +26,4 @@ async function walk(directory) {
 }
 
 await walk(root);
-console.log(`Cloudflare Web Analytics loader injected for ${canonicalHost} only.`);
+console.log(`Cloudflare Web Analytics loader injected for ${canonicalHost} only, with browser-local owner opt-out.`);
