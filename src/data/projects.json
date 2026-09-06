@@ -15,6 +15,21 @@
     "links": [{ "label": "Code", "href": "https://github.com/gbibbo/qwen-vad-lora" }]
   },
   {
+    "title": "Recovery Gain in Pruned Text-to-Audio Diffusion",
+    "titleEs": "Ganancia de recuperación en difusión text-to-audio podada",
+    "years": "2026",
+    "sortYear": 2026,
+    "category": "Text-to-audio · Model compression · Evaluation",
+    "categoryEs": "Text-to-audio · compresión de modelos · evaluación",
+    "tags": ["AudioLDM", "Diffusion", "Structured pruning", "CLAP", "PyTorch"],
+    "image": "/homepage_files/audioldm-modality-swap-pruning.png",
+    "imageFit": "contain",
+    "description": "This research measures how much of a pruned text-to-audio model's quality comes from the recovery fine-tuning applied after pruning. It re-evaluates released AudioLDM checkpoints at 65% and 83% pruning with paired generations across duration and prompt domain. Recovery closes 44% of the gap to the dense model at 3.84 s but 82% at 10.24 s.",
+    "descriptionEs": "Esta investigación mide cuánto de la calidad de un modelo text-to-audio podado proviene del fine-tuning de recuperación aplicado después de la poda. Reevalúa checkpoints publicados de AudioLDM con 65% y 83% de poda mediante generaciones apareadas a distintas duraciones y dominios de prompt. La recuperación cierra el 44% de la brecha con el modelo denso a 3,84 s, pero el 82% a 10,24 s.",
+    "featured": true,
+    "links": [{ "label": "Code", "href": "https://github.com/gbibbo/audioldm-modality-swap-pruning" }]
+  },
+  {
     "title": "ASR Enhancement Platform",
     "titleEs": "Plataforma de mejora para ASR",
     "years": "2026",
