@@ -24,8 +24,8 @@
     "tags": ["AudioLDM", "Diffusion", "Structured pruning", "CLAP", "PyTorch"],
     "image": "/homepage_files/audioldm-modality-swap-pruning.png",
     "imageFit": "contain",
-    "description": "This research measures how much of a pruned text-to-audio model's quality comes from the recovery fine-tuning applied after pruning. It re-evaluates released AudioLDM checkpoints at 65% and 83% pruning with paired generations across duration and prompt domain. Recovery closes 44% of the gap to the dense model at 3.84 s but 82% at 10.24 s.",
-    "descriptionEs": "Esta investigación mide cuánto de la calidad de un modelo text-to-audio podado proviene del fine-tuning de recuperación aplicado después de la poda. Reevalúa checkpoints publicados de AudioLDM con 65% y 83% de poda mediante generaciones apareadas a distintas duraciones y dominios de prompt. La recuperación cierra el 44% de la brecha con el modelo denso a 3,84 s, pero el 82% a 10,24 s.",
+    "description": "Recovery fine-tuning can make a heavily pruned text-to-audio model look largely restored when it is evaluated under conditions similar to those used for fine-tuning. But that apparent recovery weakens sharply for shorter clips or out-of-domain prompts. The result shows why compressed generative models should be evaluated across real operating conditions, not at a single benchmark setting.",
+    "descriptionEs": "El fine-tuning de recuperación puede hacer que un modelo text-to-audio fuertemente podado parezca casi recuperado cuando se evalúa en condiciones similares a las usadas durante ese fine-tuning. Pero esa recuperación aparente se debilita mucho con clips más cortos o prompts fuera de dominio. El resultado muestra por qué los modelos generativos comprimidos deben evaluarse en múltiples condiciones reales de uso, no en un único benchmark.",
     "featured": true,
     "links": [{ "label": "Code", "href": "https://github.com/gbibbo/audioldm-modality-swap-pruning" }]
   },
