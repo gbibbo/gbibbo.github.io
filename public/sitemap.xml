@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://gbibbo.github.io/</loc>
-    <lastmod>2026-08-27</lastmod>
-  </url>
-  <url>
-    <loc>https://gbibbo.github.io/es/</loc>
-    <lastmod>2026-08-27</lastmod>
-  </url>
-  <url>
-    <loc>https://gbibbo.github.io/cv/</loc>
-    <lastmod>2026-08-27</lastmod>
-  </url>
-  <url>
-    <loc>https://gbibbo.github.io/es/cv/</loc>
-    <lastmod>2026-08-27</lastmod>
-  </url>
+  <url><loc>https://gbibbo.github.io/</loc></url>
+  <url><loc>https://gbibbo.github.io/es/</loc></url>
+  <url><loc>https://gbibbo.github.io/cv/</loc></url>
+  <url><loc>https://gbibbo.github.io/es/cv/</loc></url>
+  <url><loc>https://gbibbo.github.io/work/3h-ato/</loc></url>
+  <url><loc>https://gbibbo.github.io/work/asr-enhancement/</loc></url>
+  <url><loc>https://gbibbo.github.io/work/audio-language-vad/</loc></url>
+  <url><loc>https://gbibbo.github.io/work/iot-soap-dispenser/</loc></url>
+  <url><loc>https://gbibbo.github.io/work/traktor-ml/</loc></url>
+  <url><loc>https://gbibbo.github.io/work/uyvoy/</loc></url>
+  <url><loc>https://gbibbo.github.io/work/sounds-of-home/</loc></url>
+  <url><loc>https://gbibbo.github.io/work/speech-removal/</loc></url>
+  <url><loc>https://gbibbo.github.io/work/harmonic-edm-mixing/</loc></url>
+  <url><loc>https://gbibbo.github.io/work/raspberry-pi-sed/</loc></url>
 </urlset>
