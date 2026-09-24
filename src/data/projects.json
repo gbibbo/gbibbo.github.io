@@ -9,8 +9,8 @@
     "tags": ["Qwen", "LoRA", "OPRO", "Silero", "PyTorch"],
     "image": "/homepage_files/Qwen_Overall_BA.png",
     "imageFit": "contain",
-    "description": "This research evaluates how audio-language models detect speech when the audio is short, noisy, reverberant, or filtered. It compares Qwen2-Audio-7B, Qwen2-Audio-7B with LoRA, Qwen3-Omni-30B, and Silero VAD. The best result came from Qwen2-Audio-7B with LoRA and OPRO-Template: 93.3% balanced accuracy on 21,340 degraded clips.",
-    "descriptionEs": "Evalúo hasta dónde los modelos audio-lenguaje siguen detectando habla cuando el audio es corto, ruidoso, reverberante o filtrado. El trabajo compara Qwen2-Audio-7B, Qwen2-Audio-7B con LoRA, Qwen3-Omni-30B y Silero VAD sobre el mismo banco de degradaciones. El mejor resultado alcanzó 93,3% de balanced accuracy sobre 21.340 clips degradados.",
+    "description": "This completed study evaluates how audio-language models detect speech when the audio is short, noisy, reverberant, or filtered. It compares Qwen2-Audio-7B, Qwen2-Audio-7B with LoRA, Qwen3-Omni-30B, and Silero VAD. The best result came from Qwen2-Audio-7B with LoRA and OPRO-Template: 93.3% balanced accuracy on 21,340 degraded clips. The manuscript has been submitted to Computer Speech & Language (Elsevier) and is awaiting review.",
+    "descriptionEs": "Este estudio, ya finalizado, evalúa hasta dónde los modelos audio-lenguaje siguen detectando habla cuando el audio es corto, ruidoso, reverberante o filtrado. El trabajo compara Qwen2-Audio-7B, Qwen2-Audio-7B con LoRA, Qwen3-Omni-30B y Silero VAD sobre el mismo banco de degradaciones. El mejor resultado alcanzó 93,3% de balanced accuracy sobre 21.340 clips degradados. El manuscrito fue enviado a Computer Speech & Language (Elsevier) y está a la espera de revisión.",
     "featured": true,
     "links": [{ "label": "Code", "href": "https://github.com/gbibbo/qwen-vad-lora" }]
   },
