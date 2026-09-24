@@ -1,5 +1,15 @@
 [
   {
+    "year": "2026",
+    "title": "Audio-Language Models under Psychometric Degradations: Optimization for Voice Activity Detection",
+    "authors": ["Gabriel Bibbó", "Mark D. Plumbley"],
+    "venue": "Submitted to Computer Speech & Language (Elsevier), awaiting review",
+    "featured": true,
+    "links": [
+      { "label": "Code", "href": "https://github.com/gbibbo/qwen-vad-lora" }
+    ]
+  },
+  {
     "year": "2025",
     "title": "Privacy for Audio AI: Risks, Challenges, and Emerging Solutions in the Era of Audio AI [Panel discussion]",
     "authors": ["Thomas Deacon", "Jennifer Williams", "Jason R. C. Nurse", "Christopher Hicks", "Gabriel Bibbó", "Arshdeep Singh", "Mark D. Plumbley"],
