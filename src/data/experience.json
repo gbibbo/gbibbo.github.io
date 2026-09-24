@@ -8,7 +8,7 @@
     "mode": "Hybrid",
     "summary": "ML/DSP product work spanning neural audio rendering, real-time detection, measurement, and perceptual evaluation.",
     "bullets": [
-      "Applied machine learning, digital signal processing, testing, and perceptual evaluation across two confidential audio product lines, without disclosing client or project identities.",
+      "Applied machine learning, digital signal processing, testing, and perceptual evaluation across a voice synthesis product for Dorico, Sibelius and MuseScore and a real-time music product.",
       "Designed and delivered a rendering-side feature that maps score dynamics to model-level timbral expression rather than post-render gain alone, after reverse-engineering the end-to-end audio pipeline and identifying a hidden control-path failure.",
       "Built measurement and listening-test tooling covering approximately 580 renders and a 48-clip blind evaluation, then delivered the feature server-side without retraining the model.",
       "Built a headless C++ evaluation pipeline for real-time note and onset detection, from WAV and MIDI inputs through the production DSP to JSON metrics, regression tests, and adversarial canary cases.",
@@ -24,7 +24,7 @@
     "mode": "Research collaboration",
     "summary": "Ongoing research collaboration on robust VAD and privacy-preserving machine listening.",
     "bullets": [
-      "Submitted ‘A Psychometric Evaluation of Audio-Language Models for Robust Voice Activity Detection’ to Elsevier Computer Speech & Language with Mark D. Plumbley; awaiting review.",
+      "Submitted the manuscript ‘A Psychometric Evaluation of Audio-Language Models for Robust Voice Activity Detection’ to Elsevier Computer Speech & Language with Mark D. Plumbley and Simone Spagnol (under review).",
       "Co-authoring work with Arshdeep Singh and Mark D. Plumbley on privacy-preserving audio and machine listening."
     ]
   },
@@ -45,7 +45,7 @@
     ]
   },
   {
-    "dates": "Mar.2022-Nov.2022",
+    "dates": "Apr.2022-Nov.2022",
     "role": "Technical Support Engineer - Google Workspace",
     "org": "Webhelp",
     "orgUrl": "https://workspace.google.com/",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "dates": "Aug.2016-Dec.2019",
+    "dates": "Aug.2016-Jul.2019",
     "role": "R&D Engineer",
     "org": "Ikatu",
     "orgUrl": "https://www.ikatu.com/",
