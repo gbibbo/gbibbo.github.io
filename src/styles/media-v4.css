@@ -86,9 +86,9 @@
   mix-blend-mode: multiply;
 }
 
-/* Edge Audio Labs is a 4:1 artwork. Crop a square around the actual logo inside the artwork. */
+/* Edge Audio Labs artwork is already tightly cropped. Preserve the full 571x474 image. */
 .entity-thumb:has(img[src*='edge-audio-labs']) {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 571 / 474;
   padding: 0;
   background: transparent;
   border-radius: 9px;
@@ -98,8 +98,8 @@
   height: 100%;
   max-width: none;
   max-height: none;
-  object-fit: cover;
-  object-position: 56% center;
+  object-fit: contain;
+  object-position: center;
   transform: none;
   mix-blend-mode: normal;
 }
