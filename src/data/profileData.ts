@@ -22,17 +22,26 @@ export const publicationsData = publicationsJson.map((item) => {
 });
 export const projectsData = projectsJson
   .map((item) => {
-    if (item.title !== 'Speech Removal Framework') return item;
+    if (item.title === 'Speech Removal Framework') {
+      return {
+        ...item,
+        image: '/homepage_files/VAD_HF.png',
+        links: item.links.map((link) =>
+          link.href === 'https://huggingface.co/spaces/gbibbo/vad_demo'
+            ? { ...link, label: '🤗 Demo' }
+            : link
+        ),
+      };
+    }
 
-    return {
-      ...item,
-      image: '/homepage_files/VAD_HF.png',
-      links: item.links.map((link) =>
-        link.href === 'https://huggingface.co/spaces/gbibbo/vad_demo'
-          ? { ...link, label: '🤗 Demo' }
-          : link
-      ),
-    };
+    if (item.title === 'Sounds of Home Dataset') {
+      return {
+        ...item,
+        image: '/homepage_files/sounds_of_home_day.gif',
+      };
+    }
+
+    return item;
   })
   .sort((a, b) => b.sortYear - a.sortYear || a.title.localeCompare(b.title));
 export const educationData = educationJson;
