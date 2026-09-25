@@ -9,7 +9,21 @@ import skillsJson from './skills.json';
 export const profile = profileJson;
 export const experienceData = experienceJson;
 export const publicationsData = publicationsJson;
-export const projectsData = [...projectsJson].sort((a, b) => b.sortYear - a.sortYear || a.title.localeCompare(b.title));
+export const projectsData = projectsJson
+  .map((item) => {
+    if (item.title !== 'Speech Removal Framework') return item;
+
+    return {
+      ...item,
+      image: '/homepage_files/VAD_HF.png',
+      links: item.links.map((link) =>
+        link.href === 'https://huggingface.co/spaces/gbibbo/vad_demo'
+          ? { ...link, label: '🤗 Demo' }
+          : link
+      ),
+    };
+  })
+  .sort((a, b) => b.sortYear - a.sortYear || a.title.localeCompare(b.title));
 export const educationData = educationJson;
 export const coursesData = coursesJson;
 export const stackGroups = skillsJson;
