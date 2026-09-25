@@ -7,8 +7,27 @@ import coursesJson from './courses.json';
 import skillsJson from './skills.json';
 
 export const profile = profileJson;
-export const experienceData = experienceJson;
+export const experienceData = experienceJson.map((item) => {
+  if (item.role !== 'Visiting Researcher (collaboration)') return item;
+
+  return {
+    ...item,
+    bullets: item.bullets.map((bullet, index) =>
+      index === 0
+        ? 'Submitted the manuscript ‘A Psychometric Evaluation of Audio-Language Models for Robust Voice Activity Detection’ to Elsevier Computer Speech & Language with Arshdeep Singh (corresponding author), Mark D. Plumbley, and Simone Spagnol (under review).'
+        : bullet
+    ),
+  };
+});
 export const publicationsData = publicationsJson.map((item) => {
+  if (item.title === 'A Psychometric Evaluation of Audio-Language Models for Robust Voice Activity Detection') {
+    return {
+      ...item,
+      authors: ['Gabriel Bibbó', 'Arshdeep Singh', 'Mark D. Plumbley', 'Simone Spagnol'],
+      venue: 'Submitted to Computer Speech & Language (Elsevier), under review. Corresponding author: Arshdeep Singh.',
+    };
+  }
+
   if (item.title !== 'Speech Removal Framework for Privacy-preserving Audio Recordings') return item;
 
   return {
@@ -22,6 +41,14 @@ export const publicationsData = publicationsJson.map((item) => {
 });
 export const projectsData = projectsJson
   .map((item) => {
+    if (item.title === 'Audio-Language Models for Voice Activity Detection') {
+      return {
+        ...item,
+        description: item.description.replace('is awaiting review', 'is under review'),
+        descriptionEs: item.descriptionEs.replace('está a la espera de revisión', 'está en revisión'),
+      };
+    }
+
     if (item.title === 'Speech Removal Framework') {
       return {
         ...item,
