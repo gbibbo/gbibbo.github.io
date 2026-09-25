@@ -342,7 +342,16 @@ const publicationImages = {
             <section class="content-block compact-block" id="skills">
               <h2>{copy.skills}</h2>
               <div class="skill-list">
-                {stackGroups.map((group) => <article><h3>{group.name}</h3><p>{group.items.join(' · ')}</p></article>)}
+                {stackGroups.map((group) => (
+                  <article>
+                    <h3>{group.name}</h3>
+                    {group.name === 'Stack'
+                      ? group.items.map((item) => (
+                          <p><strong>{item.split(': ')[0]}</strong>{item.includes(': ') ? `: ${item.split(': ').slice(1).join(': ')}` : ''}</p>
+                        ))
+                      : <p>{group.items.join(' · ')}</p>}
+                  </article>
+                ))}
               </div>
             </section>
           </div>
