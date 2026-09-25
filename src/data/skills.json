@@ -1,18 +1,68 @@
 [
   {
     "name": "Stack",
-    "items": ["Python", "C/C++", "PyTorch", "Hugging Face", "PEFT", "TorchAudio", "librosa", "Essentia", "mido", "scikit-learn", "pandas", "NumPy", "SciPy", "Flask", "FastAPI", "Streamlit", "Docker", "Git", "Linux CLI", "Bash", "Slurm", "Redis", "Prometheus", "Grafana", "PostgreSQL", "SQLite", "MATLAB", "Unreal Engine 5.4", "FMOD", "VS Code"]
+    "items": [
+      "Languages: Python · C/C++ · Bash · MATLAB",
+      "ML and audio: PyTorch · TorchAudio · Hugging Face · PEFT · ONNX · scikit-learn · librosa · Essentia · NumPy · SciPy · pandas · mido",
+      "Backend and infra: FastAPI · Flask · Celery · Redis · PostgreSQL · SQLite · MinIO · Docker · Docker Compose · Prometheus · Grafana · Slurm · Linux · Git · CI",
+      "Apps and engines: Streamlit · Unreal Engine 5.4 · FMOD"
+    ]
   },
   {
     "name": "ML",
-    "items": ["CNNs", "Transformers", "Audio-Language Models", "LoRA Fine-tuning", "4-bit Quantization", "Supervised and Self-supervised Learning", "Evaluation Pipelines", "Statistical Testing", "Edge Deployment"]
+    "items": [
+      "Audio-Language Models",
+      "Diffusion Models",
+      "CNNs",
+      "Transformers",
+      "LoRA Fine-tuning",
+      "4-bit Quantization",
+      "Structured Pruning",
+      "Prompt Optimization",
+      "Supervised and Self-supervised Learning",
+      "Edge Deployment"
+    ]
   },
   {
     "name": "Audio",
-    "items": ["Sound Event Detection", "Voice Activity Detection", "Pitch and Onset Detection", "Music Information Retrieval", "Digital Signal Processing", "Real-Time Audio", "Perceptual Evaluation", "DAWs", "Ableton", "DJing", "Electronic Music Production"]
+    "items": [
+      "Singing Voice Synthesis",
+      "Forced Alignment",
+      "Speech Enhancement",
+      "ASR Evaluation",
+      "Voice Activity Detection",
+      "Sound Event Detection",
+      "Pitch and Onset Detection",
+      "Music Information Retrieval",
+      "Digital Signal Processing",
+      "Real-Time Audio",
+      "DAWs",
+      "Ableton",
+      "DJing",
+      "Electronic Music Production"
+    ]
+  },
+  {
+    "name": "Evaluation",
+    "items": [
+      "Benchmark Design",
+      "Controlled Degradations",
+      "Blind Listening Tests",
+      "Regression Suites",
+      "Bootstrap CIs and Paired Tests",
+      "Calibration Analysis",
+      "Latency and Resource Profiling"
+    ]
   },
   {
     "name": "Practice",
-    "items": ["Reproducible ML pipelines", "Automated Audio Testing", "Dataset Curation", "Open-Source Development", "MLOps practices", "AI-assisted Development", "Technical Writing", "Interdisciplinary Collaboration"]
+    "items": [
+      "Reproducible ML Pipelines",
+      "Dataset Curation",
+      "Open-Source Development",
+      "AI-assisted Development (Claude Code, custom agents)",
+      "Technical Writing",
+      "Interdisciplinary Collaboration"
+    ]
   }
 ]
