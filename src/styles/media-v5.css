@@ -37,6 +37,11 @@
   transform: none !important;
 }
 
+/* Sounds of Home: keep the same composition, but give the GIF 10% more visual width. */
+.selected-media:has(img[src*='sounds_of_home_day.gif']) {
+  width: clamp(330px, 41.8%, 407px);
+}
+
 /* University identities are horizontal wordmarks, not 4:3 illustrations. */
 .experience-thumb:has(img[src*='surrey']),
 .education-thumb {
@@ -60,6 +65,12 @@
 }
 
 /* Give the left rail enough width for the university logos to be legible. */
+@media (min-width: 821px) and (max-width: 1040px) {
+  .selected-media:has(img[src*='sounds_of_home_day.gif']) {
+    width: min(44%, 352px);
+  }
+}
+
 @media (min-width: 821px) {
   .experience-item,
   .education-item,
@@ -70,6 +81,10 @@
 }
 
 @media (max-width: 820px) and (min-width: 681px) {
+  .selected-media:has(img[src*='sounds_of_home_day.gif']) {
+    width: min(48.4%, 330px);
+  }
+
   .experience-item,
   .education-item,
   .education-item.no-thumb {
@@ -79,6 +94,10 @@
 }
 
 @media (max-width: 680px) and (min-width: 501px) {
+  .selected-media:has(img[src*='sounds_of_home_day.gif']) {
+    width: 100%;
+  }
+
   .experience-item,
   .education-item,
   .education-item.no-thumb {
@@ -88,6 +107,10 @@
 }
 
 @media (max-width: 500px) {
+  .selected-media:has(img[src*='sounds_of_home_day.gif']) {
+    width: 100%;
+  }
+
   .experience-thumb:has(img[src*='surrey']),
   .education-thumb {
     width: min(72vw, 230px) !important;
