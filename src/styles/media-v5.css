@@ -21,15 +21,9 @@
   opacity: 1 !important;
 }
 
-/*
-  Edge source artwork is 480x120. A square `cover` crop exposes 120px of
-  source width. In the rendered 156px square, the white lockup begins around
-  x=63 and is clipped at x=155. Allowing for the missing right half of the
-  stacked wordmark means shifting the source window roughly 32-36px right.
-  That maps from the previous 39% position to about 48-49%.
-*/
+/* Edge artwork is already cropped to 571x474, so display the complete image without an additional cover crop. */
 .entity-thumb:has(img[src*='edge-audio-labs']) {
-  aspect-ratio: 1 / 1 !important;
+  aspect-ratio: 571 / 474 !important;
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
@@ -38,8 +32,8 @@
 .entity-thumb:has(img[src*='edge-audio-labs']) img {
   width: 100% !important;
   height: 100% !important;
-  object-fit: cover !important;
-  object-position: 49% center !important;
+  object-fit: contain !important;
+  object-position: center !important;
   transform: none !important;
 }
 
@@ -101,6 +95,6 @@
   }
   .entity-thumb:has(img[src*='edge-audio-labs']) {
     width: min(52vw, 170px) !important;
-    aspect-ratio: 1 / 1 !important;
+    aspect-ratio: 571 / 474 !important;
   }
 }
