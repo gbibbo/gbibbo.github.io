@@ -35,7 +35,7 @@ export const publications = publicationsData.map((item) => ({
 }));
 
 const logoFor = (org: string) => {
-  if (org === 'Edge Audio Labs') return '/homepage_files/edge-audio-labs.svg';
+  if (org === 'Edge Audio Labs') return '/homepage_files/edge-audio-labs.png';
   if (org === 'University of Surrey') return '/homepage_files/surrey.jpg';
   if (org === 'KPMG') return '/homepage_files/logo-kpmg.svg';
   if (org === 'Ikatu') return '/homepage_files/logo-ikatu.svg';
