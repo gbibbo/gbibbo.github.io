@@ -127,7 +127,7 @@ const availability = isEs ? profile.availabilityEs : profile.availability;
 const languageText = profile.languages.map((item) => `${isEs ? item.nameEs : item.nameEn} ${isEs ? item.levelEs : item.levelEn}`).join(' · ');
 
 const experienceVisual = (item) => {
-  if (item.org === 'Edge Audio Labs') return { image: '/homepage_files/edge-audio-labs.svg', alt: 'Edge Audio Labs', href: item.orgUrl };
+  if (item.org === 'Edge Audio Labs') return { image: '/homepage_files/edge-audio-labs.png', alt: 'Edge Audio Labs', href: item.orgUrl };
   if (item.org.includes('University of Surrey')) return { image: '/homepage_files/surrey.jpg', alt: 'University of Surrey', href: 'https://www.surrey.ac.uk/' };
   if (item.org === 'Webhelp') return { image: '/homepage_files/logo-google-official.svg', alt: 'Google', href: 'https://workspace.google.com/' };
   if (item.org === 'KPMG') return { image: '/homepage_files/logo-kpmg-official.svg', alt: 'KPMG', href: item.orgUrl };
