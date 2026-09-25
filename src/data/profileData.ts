@@ -8,7 +8,18 @@ import skillsJson from './skills.json';
 
 export const profile = profileJson;
 export const experienceData = experienceJson;
-export const publicationsData = publicationsJson;
+export const publicationsData = publicationsJson.map((item) => {
+  if (item.title !== 'Speech Removal Framework for Privacy-preserving Audio Recordings') return item;
+
+  return {
+    ...item,
+    links: item.links.map((link) =>
+      link.href === 'https://huggingface.co/spaces/gbibbo/vad_demo'
+        ? { ...link, label: '🤗 Demo' }
+        : link
+    ),
+  };
+});
 export const projectsData = projectsJson
   .map((item) => {
     if (item.title !== 'Speech Removal Framework') return item;
