@@ -19,61 +19,20 @@
     "orcid": "https://orcid.org/0009-0003-2493-7412"
   },
   "stats": [
-    {
-      "key": "engineeringSince",
-      "value": "2016",
-      "labelEn": "engineering since",
-      "labelEs": "ingeniería desde"
-    },
-    {
-      "key": "audioResearchSince",
-      "value": "2022",
-      "labelEn": "audio research since",
-      "labelEs": "investigación en audio desde"
-    },
-    {
-      "key": "publications",
-      "value": "",
-      "labelEn": "publications & works",
-      "labelEs": "publicaciones y trabajos"
-    },
-    {
-      "key": "euWork",
-      "value": "EU",
-      "labelEn": "work authorization",
-      "labelEs": "autorización laboral"
-    }
+    { "key": "engineeringSince", "value": "2016", "labelEn": "engineering since", "labelEs": "ingeniería desde" },
+    { "key": "audioResearchSince", "value": "2022", "labelEn": "audio research since", "labelEs": "investigación en audio desde" },
+    { "key": "publications", "value": "", "labelEn": "publications & works", "labelEs": "publicaciones y trabajos" },
+    { "key": "euWork", "value": "EU", "labelEn": "work authorization", "labelEs": "autorización laboral" }
   ],
   "languages": [
-    {
-      "nameEn": "Spanish",
-      "nameEs": "Español",
-      "levelEn": "Native",
-      "levelEs": "Nativo"
-    },
-    {
-      "nameEn": "English",
-      "nameEs": "Inglés",
-      "levelEn": "C1 (CEFR)",
-      "levelEs": "C1 (CEFR)"
-    },
-    {
-      "nameEn": "Portuguese",
-      "nameEs": "Portugués",
-      "levelEn": "A2 (CEFR)",
-      "levelEs": "A2 (CEFR)"
-    }
+    { "nameEn": "Spanish", "nameEs": "Español", "levelEn": "Native", "levelEs": "Nativo" },
+    { "nameEn": "English", "nameEs": "Inglés", "levelEn": "C1 (CEFR)", "levelEs": "C1 (CEFR)" },
+    { "nameEn": "Portuguese", "nameEs": "Portugués", "levelEn": "A2 (CEFR)", "levelEs": "A2 (CEFR)" }
   ],
   "memberships": [
-    {
-      "name": "IEEE Signal Processing Society",
-      "period": "2025"
-    }
+    { "name": "IEEE Signal Processing Society", "period": "2025" }
   ],
   "fundedResearch": [
-    {
-      "name": "EPSRC AI for Sound",
-      "context": "University of Surrey"
-    }
+    { "name": "EPSRC AI for Sound", "context": "University of Surrey" }
   ]
 }
