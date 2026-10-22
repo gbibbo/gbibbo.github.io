@@ -12,7 +12,7 @@
       "Designed and delivered a rendering-side feature that maps score dynamics to model-level timbral expression rather than post-render gain alone, after reverse-engineering the end-to-end audio pipeline and identifying a hidden control-path failure.",
       "Built measurement and listening-test tooling covering approximately 580 renders and a 48-clip blind evaluation, then delivered the feature server-side without retraining the model.",
       "Worked with MIDI, guitar tablature, and MusicXML-related score workflows in a Meta Quest music application; built a headless C++ pipeline for note/onset evaluation and regression testing.",
-      "Found and corrected a systematic onset timing offset of approximately 104 ms, improved detector guard logic, and communicated results through technical documentation, pull requests, Jira, and client-facing presentations."
+      "Designed score-informed note verification using harmonic analysis and neural-model evaluation, with synthetic audio/MIDI test corpora, regression safeguards, and Python-to-C++ parity checks for the Meta Quest pipeline."
     ]
   },
   {
