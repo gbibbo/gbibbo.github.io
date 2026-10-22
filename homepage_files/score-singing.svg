@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="400" viewBox="0 0 720 400" role="img" aria-labelledby="title desc">
+<title id="title">Score-driven singing synthesis</title><desc id="desc">Music notation flows into expression controls and a vocal waveform.</desc>
+<rect width="720" height="400" rx="18" fill="#edf0f3"/>
+<g stroke="#b4bcc5" stroke-width="2"><path d="M65 146H276M65 164H276M65 182H276M65 200H276M65 218H276"/></g>
+<g fill="#27384b" stroke="#27384b"><ellipse cx="125" cy="164" rx="11" ry="8" transform="rotate(-22 125 164)"/><path d="M136 161V113" stroke-width="3"/><ellipse cx="187" cy="190" rx="11" ry="8" transform="rotate(-22 187 190)"/><path d="M198 187V143" stroke-width="3"/><ellipse cx="240" cy="173" rx="11" ry="8" transform="rotate(-22 240 173)"/><path d="M251 170V126" stroke-width="3"/></g>
+<path d="M300 180h58" stroke="#64748b" stroke-width="4" stroke-linecap="round"/><path d="m345 168 14 12-14 12" stroke="#64748b" stroke-width="4" fill="none" stroke-linecap="round"/>
+<rect x="382" y="105" width="116" height="150" rx="17" fill="#dbe2eb"/><g stroke="#465d7b" stroke-width="5" stroke-linecap="round"><path d="M412 226V173M440 226V135M468 226V191"/></g><g fill="#465d7b"><circle cx="412" cy="173" r="7"/><circle cx="440" cy="135" r="7"/><circle cx="468" cy="191" r="7"/></g>
+<path d="M518 180h41" stroke="#64748b" stroke-width="4" stroke-linecap="round"/><path d="m547 168 14 12-14 12" stroke="#64748b" stroke-width="4" fill="none" stroke-linecap="round"/>
+<path d="M574 181c8-40 17-40 25 0s17 40 25 0 17-40 25 0 17 40 25 0" fill="none" stroke="#657fa9" stroke-width="6" stroke-linecap="round"/>
+<g fill="#3b4b60" font-size="17" font-family="Arial,sans-serif" text-anchor="middle"><text x="170" y="281">Score</text><text x="440" y="281">Expression</text><text x="622" y="281">Voice</text></g>
+</svg>

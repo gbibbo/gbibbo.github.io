@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="400" viewBox="0 0 720 400" role="img" aria-labelledby="title desc">
+<title id="title">XR guitar performance verification</title><desc id="desc">Guitar strings and frets are linked to reference MIDI events and a verified performance.</desc>
+<rect width="720" height="400" rx="18" fill="#edf0f3"/>
+<rect x="68" y="96" width="270" height="160" rx="13" fill="#c5d4cc"/>
+<g stroke="#668879" stroke-width="3"><path d="M132 96V256M196 96V256M260 96V256"/></g>
+<g stroke="#fcfcfc" stroke-width="2.6"><path d="M68 122H338M68 144H338M68 166H338M68 188H338M68 210H338M68 232H338"/></g>
+<g fill="#2b6756"><circle cx="196" cy="166" r="12"/><circle cx="260" cy="210" r="12"/><circle cx="132" cy="144" r="12"/></g>
+<path d="M357 180h49" stroke="#64748b" stroke-width="4" stroke-linecap="round"/><path d="m393 168 14 12-14 12" stroke="#64748b" stroke-width="4" fill="none" stroke-linecap="round"/>
+<rect x="430" y="110" width="183" height="130" rx="12" fill="#dbe2eb"/>
+<g stroke="#95a5b8" stroke-width="2"><path d="M453 135H595M453 160H595M453 185H595M453 210H595"/></g>
+<g fill="#435d80"><rect x="472" y="155" width="38" height="10" rx="5"/><rect x="526" y="130" width="38" height="10" rx="5"/><rect x="551" y="180" width="38" height="10" rx="5"/></g>
+<circle cx="612" cy="114" r="27" fill="#397c69"/><path d="m598 114 9 9 20-20" stroke="white" fill="none" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<g fill="#3b4b60" font-size="17" font-family="Arial,sans-serif" text-anchor="middle"><text x="201" y="290">Guitar / tablature</text><text x="522" y="290">Note verification</text></g>
+</svg>

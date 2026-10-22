@@ -20,13 +20,13 @@ const socialImage = `${siteUrl}/homepage_files/profile.jpg`;
 const cvHref = isEs ? '/es/cv/' : '/cv/';
 
 const selectedTitles = [
+  'Score-driven Singing Synthesis',
+  'XR Guitar Performance Verification',
   'Recovery Gain in Pruned Text-to-Audio Diffusion',
-  'Audio-Language Models for Voice Activity Detection',
-  'Sounds of Home Dataset',
-  'Speech Removal Framework',
   'Harmonic EDM Mixing Compatibility',
-  'ASR Enhancement Platform',
+  'Audio-Language Models for Voice Activity Detection',
   'Traktor ML',
+  'Sounds of Home Dataset',
 ];
 const selectedProjects = selectedTitles.map((title) => projectsData.find((item) => item.title === title)).filter(Boolean);
 const otherProjects = projectsData.filter((item) => !selectedTitles.includes(item.title));
@@ -39,7 +39,7 @@ const updatedDate = `${Number(updatedDay)} ${isEs ? monthEs : monthEn} ${updated
 const copy = isEs
   ? {
       role: profile.roleEs,
-      technicalLine: 'Audio ML · DSP · machine listening · privacidad acústica · audio en tiempo real · MIR',
+      technicalLine: 'Audio ML · notación musical · generación de audio · MIR · DSP · audio en tiempo real',
       engineeringSince: 'Ingeniería desde 2016',
       researchSince: 'Investigación en audio desde 2022',
       publicationsCount: `${publicationsData.length} publicaciones y trabajos`,
@@ -49,10 +49,10 @@ const copy = isEs
       questionItems: [
         ['¿Qué significa realmente que un modelo de audio sea robusto?', 'Audio corto, ruidoso, reverberante y filtrado; hardware real.'],
         ['¿Cuánta información acústica podemos conservar sin conservar habla?', 'Datasets y flujos de publicación con privacidad incorporada.'],
-        ['¿Cómo hacemos que machine listening sea útil para músicos?', 'Mezcla armónica, organización de librerías y análisis en tiempo real.'],
+        ['¿Cómo conectamos partituras y modelos de audio con la práctica musical?', 'Síntesis de canto, MIDI, tablatura y verificación de notas en tiempo real.'],
       ],
       selected: 'Trabajo seleccionado',
-      selectedLine: 'Robustez, privacidad, machine listening y tecnología musical.',
+      selectedLine: 'Notación y síntesis musical, modelos generativos, MIR y evaluación experimental.',
       experience: 'Experiencia',
       education: 'Educación',
       publications: 'Publicaciones',
@@ -67,7 +67,7 @@ const copy = isEs
     }
   : {
       role: profile.role,
-      technicalLine: 'Audio ML · DSP · machine listening · acoustic privacy · real-time audio · MIR',
+      technicalLine: 'Audio ML · music notation · generative audio · MIR · DSP · real-time audio',
       engineeringSince: 'Engineering since 2016',
       researchSince: 'Audio research since 2022',
       publicationsCount: `${publicationsData.length} publications & works`,
@@ -77,10 +77,10 @@ const copy = isEs
       questionItems: [
         ['What does it really mean for an audio model to be robust?', 'Short, noisy, reverberant, filtered audio; real hardware.'],
         ['How much useful acoustic information can we retain without retaining speech?', 'Privacy-preserving datasets and release pipelines.'],
-        ['How do we make machine listening useful to musicians?', 'Harmonic mixing, library organisation, real-time analysis.'],
+        ['How do we connect music notation and audio models to musical practice?', 'Singing synthesis, MIDI, guitar tablature, and real-time note verification.'],
       ],
       selected: 'Selected work',
-      selectedLine: 'Robustness, privacy, machine listening, and music technology.',
+      selectedLine: 'Music notation and synthesis, generative models, MIR, and experimental evaluation.',
       experience: 'Experience',
       education: 'Education',
       publications: 'Publications',
@@ -100,7 +100,7 @@ const linkLabel = (label) => {
     Code: 'Código', Paper: 'Artículo', DOI: 'DOI', Demo: 'Demo', Video: 'Video',
     'Official site': 'Sitio', 'Dataset site': 'Dataset', Identifier: 'Registro', Link: 'Enlace',
     Repository: 'Repositorio', Publication: 'Publicación', Preprint: 'Preprint', ISBN: 'ISBN',
-    'Open research': 'Open research', 'AES program': 'Programa AES', Program: 'Programa',
+    'Open research': 'Open research', 'AES program': 'Programa AES', Program: 'Programa', Company: 'Empresa',
   }[label] ?? label);
 };
 

@@ -2,15 +2,15 @@
   "name": "Gabriel Bibbó",
   "role": "Audio ML researcher and engineer",
   "roleEs": "Investigador e ingeniero de Audio ML",
-  "headline": "Audio ML researcher and engineer working on machine listening, DSP, real-time audio, privacy-preserving audio, and music technology.",
-  "headlineEs": "Investigador e ingeniero de Audio ML especializado en machine listening, DSP, audio en tiempo real, privacidad acústica y tecnología musical.",
-  "summary": "I build and evaluate machine-learning and audio-processing systems that have to work outside the notebook, from audio-language models and acoustic privacy to real-time audio software and tools for musicians.",
-  "summaryEs": "Construyo y evalúo sistemas de machine learning y procesamiento de audio que tienen que funcionar fuera del notebook: desde modelos audio-lenguaje y privacidad acústica hasta software de audio en tiempo real y herramientas para músicos.",
+  "headline": "Audio ML researcher and engineer working on generative audio, music notation, MIR, DSP, real-time audio, and acoustic privacy.",
+  "headlineEs": "Investigador e ingeniero de Audio ML que trabaja en generación de audio, notación musical, MIR, DSP, audio en tiempo real y privacidad acústica.",
+  "summary": "I build and evaluate audio and music ML systems, from score-driven singing synthesis and MIDI-based guitar performance analysis to generative-model fine-tuning, MIR, real-time audio, and privacy-preserving machine listening.",
+  "summaryEs": "Desarrollo y evalúo sistemas de ML para audio y música, desde síntesis de canto guiada por partituras y análisis de interpretación de guitarra con MIDI hasta fine-tuning de modelos generativos, MIR, audio en tiempo real y machine listening con privacidad.",
   "location": "Montevideo, Uruguay",
   "email": "gabobibbo@gmail.com",
   "availability": "Available for academic collaboration, consulting, contract research, and selected remote opportunities in audio ML, machine listening, DSP, and music technology.",
   "availabilityEs": "Disponible para colaboración académica, consultoría, contract research y oportunidades remotas seleccionadas en audio ML, machine listening, DSP y tecnología musical.",
-  "updated": "2026-09-24",
+  "updated": "2026-10-22",
   "links": {
     "web": "https://gbibbo.github.io/",
     "linkedin": "https://www.linkedin.com/in/gabriel-bibbo/",
@@ -19,20 +19,61 @@
     "orcid": "https://orcid.org/0009-0003-2493-7412"
   },
   "stats": [
-    { "key": "engineeringSince", "value": "2016", "labelEn": "engineering since", "labelEs": "ingeniería desde" },
-    { "key": "audioResearchSince", "value": "2022", "labelEn": "audio research since", "labelEs": "investigación en audio desde" },
-    { "key": "publications", "value": "", "labelEn": "publications & works", "labelEs": "publicaciones y trabajos" },
-    { "key": "euWork", "value": "EU", "labelEn": "work authorization", "labelEs": "autorización laboral" }
+    {
+      "key": "engineeringSince",
+      "value": "2016",
+      "labelEn": "engineering since",
+      "labelEs": "ingeniería desde"
+    },
+    {
+      "key": "audioResearchSince",
+      "value": "2022",
+      "labelEn": "audio research since",
+      "labelEs": "investigación en audio desde"
+    },
+    {
+      "key": "publications",
+      "value": "",
+      "labelEn": "publications & works",
+      "labelEs": "publicaciones y trabajos"
+    },
+    {
+      "key": "euWork",
+      "value": "EU",
+      "labelEn": "work authorization",
+      "labelEs": "autorización laboral"
+    }
   ],
   "languages": [
-    { "nameEn": "Spanish", "nameEs": "Español", "levelEn": "Native", "levelEs": "Nativo" },
-    { "nameEn": "English", "nameEs": "Inglés", "levelEn": "C1 (CEFR)", "levelEs": "C1 (CEFR)" },
-    { "nameEn": "Portuguese", "nameEs": "Portugués", "levelEn": "A2 (CEFR)", "levelEs": "A2 (CEFR)" }
+    {
+      "nameEn": "Spanish",
+      "nameEs": "Español",
+      "levelEn": "Native",
+      "levelEs": "Nativo"
+    },
+    {
+      "nameEn": "English",
+      "nameEs": "Inglés",
+      "levelEn": "C1 (CEFR)",
+      "levelEs": "C1 (CEFR)"
+    },
+    {
+      "nameEn": "Portuguese",
+      "nameEs": "Portugués",
+      "levelEn": "A2 (CEFR)",
+      "levelEs": "A2 (CEFR)"
+    }
   ],
   "memberships": [
-    { "name": "IEEE Signal Processing Society", "period": "2025" }
+    {
+      "name": "IEEE Signal Processing Society",
+      "period": "2025"
+    }
   ],
   "fundedResearch": [
-    { "name": "EPSRC AI for Sound", "context": "University of Surrey" }
+    {
+      "name": "EPSRC AI for Sound",
+      "context": "University of Surrey"
+    }
   ]
 }

@@ -6,12 +6,12 @@
     "orgUrl": "https://edgeaudiolabs.com/",
     "location": "Montevideo, Uruguay",
     "mode": "Hybrid",
-    "summary": "ML/DSP product work spanning neural audio rendering, real-time detection, measurement, and perceptual evaluation.",
+    "summary": "ML and DSP for score-driven singing synthesis, music representations, real-time guitar verification, and perceptual evaluation.",
     "bullets": [
-      "Applied machine learning, digital signal processing, testing, and perceptual evaluation across a voice synthesis product for Dorico, Sibelius and MuseScore and a real-time music product.",
+      "Applied ML and DSP to score-driven singing synthesis connected to Sibelius, Dorico, and MuseScore, and to a real-time guitar application using MIDI and tablature.",
       "Designed and delivered a rendering-side feature that maps score dynamics to model-level timbral expression rather than post-render gain alone, after reverse-engineering the end-to-end audio pipeline and identifying a hidden control-path failure.",
       "Built measurement and listening-test tooling covering approximately 580 renders and a 48-clip blind evaluation, then delivered the feature server-side without retraining the model.",
-      "Built a headless C++ evaluation pipeline for real-time note and onset detection, from WAV and MIDI inputs through the production DSP to JSON metrics, regression tests, and adversarial canary cases.",
+      "Worked with MIDI, guitar tablature, and MusicXML-related score workflows in a Meta Quest music application; built a headless C++ pipeline for note/onset evaluation and regression testing.",
       "Found and corrected a systematic onset timing offset of approximately 104 ms, improved detector guard logic, and communicated results through technical documentation, pull requests, Jira, and client-facing presentations."
     ]
   },
